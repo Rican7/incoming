@@ -10,6 +10,8 @@
 
 namespace Incoming;
 
+use Incoming\Structure\Map;
+
 /**
  * HydratorInterface
  */
@@ -19,9 +21,9 @@ interface HydratorInterface
     /**
      * Hydrate a model from the incoming data
      *
-     * @param mixed $incoming
+     * @param Map $incoming
      * @param mixed $model
      * @return mixed
      */
-    public function hydrate($incoming, $model);
+    public function hydrate(Map $incoming, $model);
 }
