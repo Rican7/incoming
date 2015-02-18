@@ -19,7 +19,7 @@ use Iterator;
  * allows the most basic of iterator operations without having access to the
  * underlying iterator
  */
-class ReadOnlyIterator implements Iterator
+final class ReadOnlyIterator implements Iterator
 {
 
     /**
