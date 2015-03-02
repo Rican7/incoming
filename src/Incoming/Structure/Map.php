@@ -65,7 +65,7 @@ class Map implements ArrayAccess, Countable, IteratorAggregate
                 throw new InvalidArgumentException('Map keys must be scalar');
             }
 
-            $this->decorated->offsetSet($key, $val);
+            $map->decorated->offsetSet($key, $val);
         }
 
         return $map;
