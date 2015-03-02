@@ -10,19 +10,16 @@
 
 namespace Incoming\Structure;
 
-use ArrayAccess;
-use Countable;
 use Incoming\Structure\Exception\ReadOnlyException;
 use Incoming\Structure\Iterator\ReadOnlyIterator;
 use Iterator;
-use IteratorAggregate;
 use SplFixedArray;
 use Traversable;
 
 /**
  * FixedList
  */
-class FixedList implements ArrayAccess, Countable, IteratorAggregate
+class FixedList implements StructureInterface
 {
 
     /**

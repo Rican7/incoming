@@ -10,20 +10,17 @@
 
 namespace Incoming\Structure;
 
-use ArrayAccess;
 use ArrayObject;
-use Countable;
 use Incoming\Structure\Exception\ReadOnlyException;
 use Incoming\Structure\Iterator\ReadOnlyIterator;
 use InvalidArgumentException;
 use Iterator;
-use IteratorAggregate;
 use Traversable;
 
 /**
  * Map
  */
-class Map implements ArrayAccess, Countable, IteratorAggregate
+class Map implements StructureInterface
 {
 
     /**

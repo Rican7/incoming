@@ -11,8 +11,6 @@
 namespace Incoming\Structure;
 
 use ArrayIterator;
-use Incoming\Structure\FixedList;
-use Incoming\Structure\Map;
 use Traversable;
 
 /**
@@ -25,7 +23,7 @@ class StructureFactory
      * Build a structure from a loose-type
      *
      * @param Traversable|array $data
-     * @return FixedList|Map
+     * @return StructureInterface
      */
     public static function build($data)
     {
@@ -40,7 +38,7 @@ class StructureFactory
      * Build a structure from data in an array
      *
      * @param array $data
-     * @return FixedList|Map
+     * @return StructureInterface
      */
     public static function buildFromArray(array $data)
     {
@@ -53,7 +51,7 @@ class StructureFactory
      * Build a structure from data in a Traversable instance
      *
      * @param Traversable $data
-     * @return FixedList|Map
+     * @return StructureInterface
      */
     public static function buildFromTraversable(Traversable $data)
     {
