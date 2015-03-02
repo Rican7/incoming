@@ -1,0 +1,21 @@
+{
+    "name": "incoming/incoming",
+    "description": "TODO",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Trevor Suarez",
+            "email": "rican7@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": {"Incoming\\": "src/Incoming/"}
+    },
+    "autoload-dev": {
+        "psr-4": {"Incoming\\Test\\": "tests/Incoming/Test/"}
+    }
+}
