@@ -8,7 +8,7 @@
  * @license   MIT
  */
 
-namespace Incoming;
+namespace Incoming\Hydrator;
 
 use Incoming\Structure\Map;
 
