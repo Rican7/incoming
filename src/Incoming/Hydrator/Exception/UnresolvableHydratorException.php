@@ -29,6 +29,13 @@ class UnresolvableHydratorException extends UnexpectedValueException
     const DEFAULT_MESSAGE = 'Unable to resolve a hydrator';
 
     /**
+     * The exception code for when a model is used as the resolver argument
+     *
+     * @type int
+     */
+    const CODE_FOR_MODEL = 1;
+
+    /**
      * The message extension (appended to the default message) for when a model
      * is used as the hydrator resolver argument
      *
@@ -66,7 +73,7 @@ class UnresolvableHydratorException extends UnexpectedValueException
      * @param Exception|null $previous
      * @return UnresolvableHydratorException
      */
-    public static function forModel($model, $code = 0, Exception $previous = null)
+    public static function forModel($model, $code = self::CODE_FOR_MODEL, Exception $previous = null)
     {
         $message = self::DEFAULT_MESSAGE . self::MESSAGE_EXTENSION_FOR_MODEL;
 

@@ -29,6 +29,13 @@ class ReadOnlyException extends BadMethodCallException
     const DEFAULT_MESSAGE = 'Illegal modification attempt';
 
     /**
+     * The exception code for an exception with an attribute context
+     *
+     * @type int
+     */
+    const CODE_FOR_ATTRIBUTE = 1;
+
+    /**
      * The message extension format for providing an attribute context's info
      *
      * @type string
@@ -67,8 +74,12 @@ class ReadOnlyException extends BadMethodCallException
      * @param Exception|null $previous
      * @return ReadOnlyException
      */
-    public static function forAttribute($name, $value = null, $code = 0, Exception $previous = null)
-    {
+    public static function forAttribute(
+        $name,
+        $value = null,
+        $code = self::CODE_FOR_ATTRIBUTE,
+        Exception $previous = null
+    ) {
         $message = self::DEFAULT_MESSAGE;
 
         if (null !== $value) {
