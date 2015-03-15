@@ -10,7 +10,6 @@
 
 namespace Incoming\Test;
 
-use DateTime;
 use Incoming\Processor;
 use Incoming\Transformer\PassthruTransformer;
 use PHPUnit_Framework_TestCase;
