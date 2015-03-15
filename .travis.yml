@@ -24,7 +24,6 @@ script:
   - ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -p src/ tests/
   - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
 
-after_script:
+after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
-  - printenv
+  - if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
