@@ -11,6 +11,7 @@
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
+use DateTime;
 use Incoming\Structure\FixedList;
 use Incoming\Structure\Map;
 use Incoming\Structure\StructureFactory;
@@ -110,5 +111,15 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
         $structure = (new StructureFactory)->build($data);
 
         $this->assertTrue($structure instanceof StructureInterface);
+    }
+
+    /**
+     * @expectedException Incoming\Structure\Exception\InvalidStructuralTypeException
+     */
+    public function testBuildWithInvalidStructuralType()
+    {
+        $data = new DateTime();
+
+        $structure = (new StructureFactory)->build($data);
     }
 }
