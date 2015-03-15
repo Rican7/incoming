@@ -10,10 +10,11 @@
 
 namespace Incoming;
 
-use Incoming\HydratorInterface;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\HydratorFactoryInterface;
+use Incoming\Hydrator\HydratorInterface;
 use Incoming\Transformer\PassthruTransformer;
+use Incoming\Transformer\StructureBuilderTransformer;
 use Incoming\Transformer\TransformerInterface;
 
 /**

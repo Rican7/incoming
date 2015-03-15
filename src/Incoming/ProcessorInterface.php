@@ -10,7 +10,7 @@
 
 namespace Incoming;
 
-use Incoming\HydratorInterface;
+use Incoming\Hydrator\HydratorInterface;
 
 /**
  * ProcessorInterface
