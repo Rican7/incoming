@@ -1,0 +1,65 @@
+# language: php
+
+filter:
+    excluded_paths: [tests/*]
+
+checks:
+    php:
+        avoid_closing_tag: true
+        avoid_perl_style_comments: true
+        avoid_usage_of_logical_operators: true
+        blank_line_after_namespace_declaration: true
+        catch_class_exists: true
+        classes_in_camel_caps: true
+        closure_use_not_conflicting: true
+        code_rating: true
+        deprecated_code_usage: true
+        encourage_postdec_operator: true
+        encourage_single_quotes: true
+        fix_line_ending: true
+        fix_use_statements:
+            order_alphabetically: true
+            preserve_blanklines: false
+            preserve_multiple: false
+            remove_unused: true
+        foreach_traversable: true
+        function_in_camel_caps: true
+        instanceof_class_exists: true
+        newline_at_end_of_file: true
+        no_commented_out_code: true
+        no_error_suppression: true
+        no_global_keyword: true
+        no_non_implemented_abstract_methods: true
+        no_property_on_interface: true
+        no_short_open_tag: false
+        no_trailing_whitespace: true
+        no_underscore_prefix_in_methods: true
+        no_underscore_prefix_in_properties: true
+        one_class_per_file: true
+        overriding_private_members: true
+        parameter_doc_comments: true
+        parameter_non_unique: true
+        parse_doc_comments: true
+        php5_style_constructor: true
+        precedence_in_conditions: true
+        precedence_mistakes: true
+        prefer_while_loop_over_for_loop: true
+        psr2_class_declaration: true
+        psr2_switch_declaration: true
+        require_php_tag_first: true
+        require_scope_for_methods: true
+        require_scope_for_properties: true
+        side_effects_or_types: true
+        too_many_arguments: true
+        unreachable_code: true
+        unused_methods: true
+        unused_parameters: false
+        unused_properties: true
+        unused_variables: true
+        uppercase_constants: true
+        use_self_instead_of_fqcn: true
+        use_statement_alias_conflict: true
+        useless_calls: true
+        variable_existence: true
+        verify_access_scope_valid: true
+        verify_property_names: true
