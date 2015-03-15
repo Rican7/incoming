@@ -58,6 +58,10 @@ class MapTest extends PHPUnit_Framework_TestCase
      */
     public function testFromTraversableFailsForNonScalarKeys()
     {
+        if (0 > version_compare(PHP_VERSION, '5.5.0')) {
+            $this->markTestSkipped('PHP 5.5 required to test non-scalar traversable keys');
+        }
+
         $test_iterator = new MultipleIterator();
         $test_iterator->attachIterator(
             new ArrayIterator($this->getTestArrayData())
