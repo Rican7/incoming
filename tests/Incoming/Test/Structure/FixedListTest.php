@@ -59,6 +59,21 @@ class FixedListTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($fixed_list instanceof FixedList);
     }
 
+    public function testExists()
+    {
+        $test_data = $this->getTestArrayData();
+        $test_valid_index = key($test_data);
+        $test_invalid_index = $this->getTestDataNonExistentIndex();
+
+        $fixed_list = FixedList::fromArray($test_data);
+
+        // Valid index
+        $this->assertTrue($fixed_list->exists($test_valid_index));
+
+        // Invalid index
+        $this->assertFalse($fixed_list->exists($test_invalid_index));
+    }
+
     public function testGet()
     {
         $test_data = $this->getTestArrayData();

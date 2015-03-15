@@ -75,6 +75,17 @@ class FixedList implements StructureInterface
     }
 
     /**
+     * Check if a given index exists in the list
+     *
+     * @param int $index
+     * @return boolean
+     */
+    public function exists($index)
+    {
+        return $this->offsetExists($index);
+    }
+
+    /**
      * Get a value in the list by index
      *
      * @param int $index
