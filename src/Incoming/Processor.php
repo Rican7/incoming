@@ -11,6 +11,7 @@
 namespace Incoming;
 
 use Incoming\HydratorInterface;
+use Incoming\Hydrator\HydratorFactoryInterface;
 use Incoming\Transformer\PassthruTransformer;
 use Incoming\Transformer\TransformerInterface;
 
@@ -30,6 +31,13 @@ class Processor implements ProcessorInterface
      * @type TransformerInterface
      */
     private $input_transformer;
+
+    /**
+     * A factory for building hydrators for a given model
+     *
+     * @type HydratorFactoryInterface
+     */
+    private $hydrator_factory;
 
 
     /**
@@ -70,6 +78,29 @@ class Processor implements ProcessorInterface
     }
 
     /**
+     * Get the hydrator factory
+     *
+     * @return HydratorFactoryInterface
+     */
+    public function getHydratorFactory()
+    {
+        return $this->hydrator_factory;
+    }
+
+    /**
+     * Set the hydrator factory
+     *
+     * @param HydratorFactoryInterface $hydrator_factory
+     * @return Processor
+     */
+    public function setHydratorFactory(HydratorFactoryInterface $hydrator_factory = null)
+    {
+        $this->hydrator_factory = $hydrator_factory;
+
+        return $this;
+    }
+
+    /**
      * Process our incoming input into a hydrated model
      *
      * @param mixed $input_data
@@ -81,7 +112,11 @@ class Processor implements ProcessorInterface
     {
         $input_data = $this->transformInput($input_data);
 
-        // TODO: Get a hydrator if not passed. Hydrate the model. The return the hydrated model.
+        if (null === $hydrator) {
+            $hydrator = $this->getHydratorForModel($model);
+        }
+
+        return $hydrator->hydrate($input_data, $model);
     }
 
     /**
@@ -93,5 +128,20 @@ class Processor implements ProcessorInterface
     protected function transformInput($input_data)
     {
         return $this->input_transformer->transform($input_data);
+    }
+
+    /**
+     * Get a Hydrator for a given model
+     *
+     * @param mixed $model
+     * @return HydratorInterface
+     */
+    protected function getHydratorForModel($model)
+    {
+        if (null === $this->hydrator_factory) {
+            // TODO: Throw an exception?
+        }
+
+        return $this->hydrator_factory->buildForModel($model);
     }
 }
