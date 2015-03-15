@@ -11,7 +11,7 @@
 namespace Incoming\Structure;
 
 use ArrayIterator;
-use InvalidArgumentException;
+use Incoming\Structure\Exception\InvalidStructuralTypeException;
 use Traversable;
 
 /**
@@ -35,6 +35,7 @@ class StructureFactory implements StructureFactoryInterface
      * Build a structure from a mixed-type
      *
      * @param Traversable|array $data
+     * @throws InvalidStructuralTypeException If the data type isn't supported
      * @return StructureInterface
      */
     protected static function buildFromMixed($data)
@@ -45,8 +46,7 @@ class StructureFactory implements StructureFactoryInterface
             return static::buildFromTraversable($data);
         }
 
-        // TODO: Create custom exception
-        throw new InvalidArgumentException($data);
+        throw InvalidStructuralTypeException::forValue($data);
     }
 
     /**
