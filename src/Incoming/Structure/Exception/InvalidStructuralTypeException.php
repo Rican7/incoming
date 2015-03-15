@@ -33,7 +33,7 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      *
      * @type string
      */
-    const MESSAGE_EXTENSION_TYPE_FORMAT = ' of type `%s`';
+    const MESSAGE_EXTENSION_TYPE_FORMAT = ' `%s`';
 
 
     /**
