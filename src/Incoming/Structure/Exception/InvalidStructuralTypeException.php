@@ -51,14 +51,16 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
 
     /**
-     * Create an exception instance with a value's context
+     * Create an exception instance with type information
+     *
+     * The type is automatically inspected based on the passed value
      *
      * @param mixed $value
      * @param int $code
      * @param Exception|null $previous
      * @return InvalidStructuralTypeException
      */
-    public static function forValue($value, $code = 0, Exception $previous = null)
+    public static function withTypeInfo($value, $code = 0, Exception $previous = null)
     {
         $message = self::DEFAULT_MESSAGE;
 

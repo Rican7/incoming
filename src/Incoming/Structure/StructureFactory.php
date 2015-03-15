@@ -46,7 +46,7 @@ class StructureFactory implements StructureFactoryInterface
             return static::buildFromTraversable($data);
         }
 
-        throw InvalidStructuralTypeException::forValue($data);
+        throw InvalidStructuralTypeException::withTypeInfo($data);
     }
 
     /**
