@@ -28,17 +28,21 @@ class StructureFactory implements StructureFactoryInterface
      */
     public function build($data)
     {
-        return static::buildFromMixed($data);
+        return static::buildFromTraversableLike($data);
     }
 
     /**
-     * Build a structure from a mixed-type
+     * Build a structure from "Traversable-like" data
+     *
+     * This allows to build from data that is either an array or Traversable,
+     * as PHP's array type works JUST like a Traversable instance but doesn't
+     * actually implement any interfaces
      *
      * @param Traversable|array $data
      * @throws InvalidStructuralTypeException If the data type isn't supported
      * @return StructureInterface
      */
-    protected static function buildFromMixed($data)
+    protected static function buildFromTraversableLike($data)
     {
         if (is_array($data)) {
             return static::buildFromArray($data);
@@ -76,9 +80,7 @@ class StructureFactory implements StructureFactoryInterface
         foreach ($data as $key => &$val) {
             $is_map = !is_int($key);
 
-            if (is_array($val) || $val instanceof Traversable) {
-                $val = static::buildFromMixed($val);
-            }
+            $val = static::attemptBuildTraversableLike($val);
         }
 
         if ($is_map) {
@@ -86,5 +88,23 @@ class StructureFactory implements StructureFactoryInterface
         }
 
         return FixedList::fromTraversable($data);
+    }
+
+    /**
+     * Attempt to build a structure from "Traversable-like" data
+     *
+     * If the data type isn't supported, we simply return the original data
+     * untouched. This allows to more easily traverse deeply nested structures
+     *
+     * @param mixed $data
+     * @return StructureInterface|mixed
+     */
+    private static function attemptBuildTraversableLike($data)
+    {
+        if (is_array($data) || $data instanceof Traversable) {
+            $data = static::buildFromTraversableLike($data);
+        }
+
+        return $data;
     }
 }
