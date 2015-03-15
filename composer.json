@@ -1,13 +1,21 @@
 {
     "name": "incoming/incoming",
-    "description": "TODO",
+    "description": "Transform loose and complex input into consistent, strongly-typed data structures",
+    "type": "library",
+    "keywords": ["hydrate", "marshall", "unmarshall", "inflate", "deserialize"],
+    "homepage": "https://github.com/Rican7/incoming",
     "license": "MIT",
     "authors": [
         {
             "name": "Trevor Suarez",
-            "email": "rican7@gmail.com"
+            "email": "rican7@gmail.com",
+            "role": "Creator/Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/Rican7/incoming/issues",
+        "source": "https://github.com/Rican7/incoming"
+    },
     "require": {
         "php": ">=5.4.0"
     },
