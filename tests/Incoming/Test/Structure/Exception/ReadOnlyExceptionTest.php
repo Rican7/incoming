@@ -28,6 +28,7 @@ class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($exception instanceof Exception);
         $this->assertTrue($exception instanceof ReadOnlyException);
+        $this->assertSame(ReadOnlyException::CODE_FOR_ATTRIBUTE, $exception->getCode());
     }
 
     public function testForAttributeWithValue()
@@ -39,6 +40,7 @@ class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 
         $this->assertTrue($exception instanceof Exception);
         $this->assertTrue($exception instanceof ReadOnlyException);
+        $this->assertSame(ReadOnlyException::CODE_FOR_ATTRIBUTE, $exception->getCode());
     }
 
     public function testForAttributeWithValueAndExceptionArgs()

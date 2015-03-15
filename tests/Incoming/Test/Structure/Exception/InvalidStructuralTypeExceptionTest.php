@@ -21,23 +21,23 @@ use PHPUnit_Framework_TestCase;
 class InvalidStructuralTypeExceptionTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testForValue()
+    public function testWithTypeInfo()
     {
         $value = new DateTime();
 
-        $exception = InvalidStructuralTypeException::forValue($value);
+        $exception = InvalidStructuralTypeException::withTypeInfo($value);
 
         $this->assertTrue($exception instanceof Exception);
         $this->assertTrue($exception instanceof InvalidStructuralTypeException);
     }
 
-    public function testForValueWithExceptionArgs()
+    public function testWithTypeInfoWithExceptionArgs()
     {
         $value = new DateTime();
         $code = 1337;
         $previous = new Exception();
 
-        $exception = InvalidStructuralTypeException::forValue($value, $code, $previous);
+        $exception = InvalidStructuralTypeException::withTypeInfo($value, $code, $previous);
 
         $this->assertTrue($exception instanceof Exception);
         $this->assertTrue($exception instanceof InvalidStructuralTypeException);
