@@ -11,6 +11,7 @@
 namespace Incoming;
 
 use Incoming\HydratorInterface;
+use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\HydratorFactoryInterface;
 use Incoming\Transformer\PassthruTransformer;
 use Incoming\Transformer\TransformerInterface;
@@ -134,12 +135,13 @@ class Processor implements ProcessorInterface
      * Get a Hydrator for a given model
      *
      * @param mixed $model
+     * @throws UnresolvableHydratorException
      * @return HydratorInterface
      */
     protected function getHydratorForModel($model)
     {
         if (null === $this->hydrator_factory) {
-            // TODO: Throw an exception?
+            throw UnresolvableHydratorException::forModel($model);
         }
 
         return $this->hydrator_factory->buildForModel($model);
