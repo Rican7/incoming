@@ -10,6 +10,7 @@
 
 namespace Incoming\Structure;
 
+use ArrayIterator;
 use ArrayObject;
 use Incoming\Structure\Exception\ReadOnlyException;
 use Incoming\Structure\Iterator\ReadOnlyIterator;
