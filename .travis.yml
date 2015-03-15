@@ -23,9 +23,9 @@ install:
 
 script:
   - composer validate
-  - find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -n 1 -0 -P 8 php -l 1>/dev/null
-  - ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -p src/ tests/
-  - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
+  - make lint
+  - make check-style
+  - make test-with-coverage-clover
 
 after_success:
   - if [ "$ALLOW_FAILURE" = 0 ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
