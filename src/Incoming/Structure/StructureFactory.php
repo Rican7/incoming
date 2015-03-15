@@ -80,7 +80,7 @@ class StructureFactory implements StructureFactoryInterface
         foreach ($data as $key => &$val) {
             $is_map = !is_int($key);
 
-            $val = static::attemptBuildTraversableLike($val);
+            $val = self::attemptBuildTraversableLike($val);
         }
 
         if ($is_map) {
