@@ -11,6 +11,7 @@
 namespace Incoming\Transformer;
 
 use Incoming\Structure\StructureFactory;
+use Incoming\Structure\StructureFactoryInterface;
 use Incoming\Structure\StructureInterface;
 
 /**
@@ -26,6 +27,55 @@ class StructureBuilderTransformer implements TransformerInterface
 {
 
     /**
+     * Properties
+     */
+
+    /**
+     * The factory used to build the StructureInterface instances
+     *
+     * @type StructureFactoryInterface
+     */
+    private $structure_factory;
+
+
+    /**
+     * Methods
+     */
+
+    /**
+     * Constructor
+     *
+     * @param StructureFactoryInterface|null $structure_factory
+     */
+    public function __construct(StructureFactoryInterface $structure_factory = null)
+    {
+        $this->structure_factory = $structure_factory ?: new StructureFactory();
+    }
+
+    /**
+     * Get the structure factory
+     *
+     * @return StructureFactoryInterface
+     */
+    public function getStructureFactory()
+    {
+        return $this->structure_factory;
+    }
+
+    /**
+     * Set the structure factory
+     *
+     * @param StructureFactoryInterface $structure_factory
+     * @return StructureBuilderTransformer
+     */
+    public function setStructureFactory(StructureFactoryInterface $structure_factory)
+    {
+        $this->structure_factory = $structure_factory;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * @param mixed $input
@@ -33,7 +83,6 @@ class StructureBuilderTransformer implements TransformerInterface
      */
     public function transform($input)
     {
-        // TODO: Allow for a factory instance to be injected?
-        return StructureFactory::build($input);
+        return $this->structure_factory->build($input);
     }
 }
