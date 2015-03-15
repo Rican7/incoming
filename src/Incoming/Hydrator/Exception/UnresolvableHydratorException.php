@@ -36,6 +36,13 @@ class UnresolvableHydratorException extends UnexpectedValueException
      */
     const MESSAGE_EXTENSION_FOR_MODEL = ' for the given model';
 
+    /**
+     * The message extension for providing type information
+     *
+     * @type string
+     */
+    const MESSAGE_EXTENSION_TYPE_FORMAT = ' of type `%s`';
+
 
     /**
      * Properties
@@ -62,6 +69,13 @@ class UnresolvableHydratorException extends UnexpectedValueException
     public static function forModel($model, $code = 0, Exception $previous = null)
     {
         $message = self::DEFAULT_MESSAGE . self::MESSAGE_EXTENSION_FOR_MODEL;
+
+        $type = is_object($model) ? get_class($model) : gettype($model);
+
+        $message = sprintf(
+            $message . self::MESSAGE_EXTENSION_TYPE_FORMAT,
+            $type
+        );
 
         return new static($message, $code, $previous);
     }
