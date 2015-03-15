@@ -11,5 +11,5 @@ consistent, strongly-typed data structures.
 ## Installation
 
 1. [Get Composer](https://getcomposer.org/)
-2. Add **"incoming/incoming""** to your composer dependencies: `composer require incoming/incoming`
+2. Add **"incoming/incoming"** to your dependencies: `composer require incoming/incoming`
 3. Include the Composer autoloader `<?php require 'vendor/autoload.php';`
