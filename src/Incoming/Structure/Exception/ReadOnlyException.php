@@ -69,17 +69,17 @@ class ReadOnlyException extends BadMethodCallException
      */
     public static function forAttribute($name, $value = null, $code = 0, Exception $previous = null)
     {
-        $message = self::DEFAULT_MESSAGE . self::MESSAGE_EXTENSION_FOR_ATTRIBUTE_FORMAT;
+        $message = self::DEFAULT_MESSAGE;
 
         if (null !== $value) {
-            $message = sprintf(
-                $message . self::MESSAGE_EXTENSION_FOR_ATTRIBUTE_WITH_VALUE_FORMAT,
+            $message .= sprintf(
+                self::MESSAGE_EXTENSION_FOR_ATTRIBUTE_FORMAT . self::MESSAGE_EXTENSION_FOR_ATTRIBUTE_WITH_VALUE_FORMAT,
                 $name,
                 var_export($value, true)
             );
         } else {
-            $message = sprintf(
-                $message,
+            $message .= sprintf(
+                self::MESSAGE_EXTENSION_FOR_ATTRIBUTE_FORMAT,
                 $name
             );
         }

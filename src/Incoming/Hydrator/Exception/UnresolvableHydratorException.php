@@ -70,11 +70,9 @@ class UnresolvableHydratorException extends UnexpectedValueException
     {
         $message = self::DEFAULT_MESSAGE . self::MESSAGE_EXTENSION_FOR_MODEL;
 
-        $type = is_object($model) ? get_class($model) : gettype($model);
-
-        $message = sprintf(
-            $message . self::MESSAGE_EXTENSION_TYPE_FORMAT,
-            $type
+        $message .= sprintf(
+            self::MESSAGE_EXTENSION_TYPE_FORMAT,
+            is_object($model) ? get_class($model) : gettype($model)
         );
 
         return new static($message, $code, $previous);

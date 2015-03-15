@@ -60,13 +60,11 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
     public static function forValue($value, $code = 0, Exception $previous = null)
     {
-        $message = self::DEFAULT_MESSAGE . self::MESSAGE_EXTENSION_TYPE_FORMAT;
+        $message = self::DEFAULT_MESSAGE;
 
-        $type = is_object($value) ? get_class($value) : gettype($value);
-
-        $message = sprintf(
-            $message,
-            $type
+        $message .= sprintf(
+            self::MESSAGE_EXTENSION_TYPE_FORMAT,
+            is_object($value) ? get_class($value) : gettype($value)
         );
 
         return new static($message, $code, $previous);
