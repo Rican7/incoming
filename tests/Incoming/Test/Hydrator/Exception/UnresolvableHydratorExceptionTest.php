@@ -24,16 +24,19 @@ class UnresolvableHydratorExceptionTest extends PHPUnit_Framework_TestCase
     public function testForModel()
     {
         $model = new DateTime();
-        $code = 1337;
-        $previous = new Exception();
 
-        // Bare
         $exception = UnresolvableHydratorException::forModel($model);
 
         $this->assertTrue($exception instanceof Exception);
         $this->assertTrue($exception instanceof UnresolvableHydratorException);
+    }
 
-        // With exception args
+    public function testForModelWithExceptionArgs()
+    {
+        $model = new DateTime();
+        $code = 1337;
+        $previous = new Exception();
+
         $exception = UnresolvableHydratorException::forModel($model, $code, $previous);
 
         $this->assertTrue($exception instanceof Exception);
