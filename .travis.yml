@@ -21,4 +21,5 @@ install:
 script:
   - composer validate
   - ./vendor/bin/phpunit
+  - find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -n 1 -0 -P 8 php -l 1>/dev/null
   - ./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -p src/ tests/
