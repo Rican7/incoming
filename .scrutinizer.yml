@@ -63,3 +63,9 @@ checks:
         variable_existence: true
         verify_access_scope_valid: true
         verify_property_names: true
+
+tools:
+    external_code_coverage:
+        timeout: 600
+        runs: 3
+    php_code_coverage: false
