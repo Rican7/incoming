@@ -10,6 +10,7 @@
 
 namespace Incoming\Test\Transformer;
 
+use Incoming\Structure\StructureFactory;
 use Incoming\Structure\StructureInterface;
 use Incoming\Transformer\StructureBuilderTransformer;
 use PHPUnit_Framework_TestCase;
@@ -19,6 +20,20 @@ use PHPUnit_Framework_TestCase;
  */
 class StructureBuilderTransformerTest extends PHPUnit_Framework_TestCase
 {
+
+    public function testGetSetStructureFactory()
+    {
+        $test_structure_factory = new StructureFactory();
+
+        $transformer = new StructureBuilderTransformer();
+
+        $initial_value = $transformer->getStructureFactory();
+
+        $transformer->setStructureFactory($test_structure_factory);
+
+        $this->assertNotSame($initial_value, $transformer->getStructureFactory());
+        $this->assertSame($test_structure_factory, $transformer->getStructureFactory());
+    }
 
     public function testTransform()
     {

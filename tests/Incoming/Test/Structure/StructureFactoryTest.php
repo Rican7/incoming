@@ -67,7 +67,7 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
     {
         $data = $this->getTestListArrayData();
 
-        $structure = StructureFactory::build($data);
+        $structure = (new StructureFactory)->build($data);
 
         // Assert that our types translated correctly
         $this->assertTrue($structure instanceof FixedList);
@@ -79,36 +79,18 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
     {
         $data = $this->getTestMapArrayData();
 
-        $structure = StructureFactory::build(new ArrayIterator($data));
+        $structure = (new StructureFactory)->build(new ArrayIterator($data));
 
         // Assert that our types translated correctly
         $this->assertTrue($structure instanceof Map);
         $this->assertTrue($structure['stuff'] instanceof FixedList);
     }
 
-    public function testBuildFromArray()
-    {
-        $data = $this->getTestListArrayData();
-
-        $structure = StructureFactory::buildFromArray($data);
-
-        $this->assertTrue($structure instanceof StructureInterface);
-    }
-
-    public function testBuildFromTraversable()
-    {
-        $data = $this->getTestListArrayData();
-
-        $structure = StructureFactory::buildFromTraversable(new ArrayIterator($data));
-
-        $this->assertTrue($structure instanceof StructureInterface);
-    }
-
     public function testBuildWithNestedArray()
     {
         $data = [[[], [], []], [], []];
 
-        $structure = StructureFactory::build($data);
+        $structure = (new StructureFactory)->build($data);
 
         $this->assertTrue($structure instanceof StructureInterface);
     }
@@ -125,7 +107,7 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
             new ArrayIterator([]),
         ]);
 
-        $structure = StructureFactory::build($data);
+        $structure = (new StructureFactory)->build($data);
 
         $this->assertTrue($structure instanceof StructureInterface);
     }
