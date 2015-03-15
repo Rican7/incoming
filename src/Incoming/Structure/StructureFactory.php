@@ -76,10 +76,8 @@ class StructureFactory implements StructureFactoryInterface
         foreach ($data as $key => &$val) {
             $is_map = !is_int($key);
 
-            if (is_array($val)) {
-                $val = static::buildFromArray($val);
-            } elseif ($val instanceof Traversable) {
-                $val = static::buildFromTraversable($val);
+            if (is_array($val) || $val instanceof Traversable) {
+                $val = static::buildFromMixed($val);
             }
         }
 
