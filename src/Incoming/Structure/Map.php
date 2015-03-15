@@ -249,7 +249,7 @@ class Map implements StructureInterface
      */
     public function __set($key, $value)
     {
-        throw new ReadOnlyException();
+        throw ReadOnlyException::forAttribute($key, $value);
     }
 
     /**
@@ -262,6 +262,6 @@ class Map implements StructureInterface
      */
     public function __unset($key)
     {
-        throw new ReadOnlyException();
+        throw ReadOnlyException::forAttribute($key);
     }
 }
