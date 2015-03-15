@@ -64,7 +64,7 @@ class StructureFactory
             if (is_array($val)) {
                 $val = static::buildFromArray($val);
             } elseif ($val instanceof Traversable) {
-                $val = static::buildFromArray($val);
+                $val = static::buildFromTraversable($val);
             }
         }
 
