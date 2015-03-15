@@ -49,7 +49,7 @@ class Processor implements ProcessorInterface
     /**
      * Constructor
      *
-     * @param TransformerInterface $input_transformer
+     * @param TransformerInterface|null $input_transformer
      */
     public function __construct(TransformerInterface $input_transformer = null)
     {
@@ -92,7 +92,7 @@ class Processor implements ProcessorInterface
     /**
      * Set the hydrator factory
      *
-     * @param HydratorFactoryInterface $hydrator_factory
+     * @param HydratorFactoryInterface|null $hydrator_factory
      * @return Processor
      */
     public function setHydratorFactory(HydratorFactoryInterface $hydrator_factory = null)
@@ -107,7 +107,7 @@ class Processor implements ProcessorInterface
      *
      * @param mixed $input_data
      * @param mixed $model
-     * @param HydratorInterface $hydrator
+     * @param HydratorInterface|null $hydrator
      * @return mixed
      */
     public function process($input_data, $model, HydratorInterface $hydrator = null)

@@ -56,7 +56,7 @@ class UnresolvableHydratorException extends UnexpectedValueException
      *
      * @param mixed $model
      * @param int $code
-     * @param Exception $previous
+     * @param Exception|null $previous
      * @return UnresolvableHydratorException
      */
     public static function forModel($model, $code = 0, Exception $previous = null)
