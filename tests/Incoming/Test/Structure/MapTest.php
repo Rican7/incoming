@@ -67,7 +67,8 @@ class MapTest extends PHPUnit_Framework_TestCase
             new ArrayIterator($this->getTestArrayData())
         );
 
-        $map = Map::fromTraversable($test_iterator);
+        // Should throw an exception...
+        Map::fromTraversable($test_iterator);
     }
 
     public function testFromArray()

@@ -142,6 +142,7 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
 
         $processor = new Processor();
 
-        $hydrated = $processor->process($test_input_data, $test_model);
+        // Should throw an exception...
+        $processor->process($test_input_data, $test_model);
     }
 }
