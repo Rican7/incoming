@@ -11,27 +11,42 @@
 namespace Incoming\Structure;
 
 use ArrayIterator;
+use InvalidArgumentException;
 use Traversable;
 
 /**
  * StructureFactory
  */
-class StructureFactory
+class StructureFactory implements StructureFactoryInterface
 {
 
     /**
      * Build a structure from a loose-type
      *
+     * @param mixed $data
+     * @return StructureInterface
+     */
+    public function build($data)
+    {
+        return static::buildFromMixed($data);
+    }
+
+    /**
+     * Build a structure from a mixed-type
+     *
      * @param Traversable|array $data
      * @return StructureInterface
      */
-    public static function build($data)
+    protected static function buildFromMixed($data)
     {
         if (is_array($data)) {
             return static::buildFromArray($data);
+        } elseif ($data instanceof Traversable) {
+            return static::buildFromTraversable($data);
         }
 
-        return static::buildFromTraversable($data);
+        // TODO: Create custom exception
+        throw new InvalidArgumentException($data);
     }
 
     /**
@@ -40,7 +55,7 @@ class StructureFactory
      * @param array $data
      * @return StructureInterface
      */
-    public static function buildFromArray(array $data)
+    protected static function buildFromArray(array $data)
     {
         return static::buildFromTraversable(
             new ArrayIterator($data)
@@ -53,7 +68,7 @@ class StructureFactory
      * @param Traversable $data
      * @return StructureInterface
      */
-    public static function buildFromTraversable(Traversable $data)
+    protected static function buildFromTraversable(Traversable $data)
     {
         $is_map = false;
 
