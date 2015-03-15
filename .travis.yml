@@ -28,5 +28,5 @@ script:
   - ./vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
 
 after_success:
-  - wget https://scrutinizer-ci.com/ocular.phar
+  - if [ "$ALLOW_FAILURE" = 0 ]; then wget https://scrutinizer-ci.com/ocular.phar; fi
   - if [ "$ALLOW_FAILURE" = 0 ]; then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi
