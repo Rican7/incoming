@@ -10,6 +10,7 @@
 
 namespace Incoming;
 
+use Incoming\HydratorInterface;
 use Incoming\Transformer\PassthruTransformer;
 use Incoming\Transformer\TransformerInterface;
 
