@@ -37,7 +37,7 @@ class UnresolvableHydratorException extends UnexpectedValueException
     const MESSAGE_EXTENSION_FOR_MODEL = ' for the given model';
 
     /**
-     * The message extension for providing type information
+     * The message extension format for providing type information
      *
      * @type string
      */
