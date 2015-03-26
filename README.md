@@ -26,7 +26,7 @@ Still curious? Check out the [examples](#examples).
 
 ## Examples
 
-The easiest to relate to example in the PHP world? "Form" or HTTP request data:
+The easiest example to relate to in the PHP world? "Form" or HTTP request data:
 
 ```php
 class UserHydrator implements Incoming\Hydrator\HydratorInterface
@@ -52,6 +52,50 @@ $user = $incoming->process(
 );
 
 // Validate and save the user
+// ...
+```
+
+Sure, that's a pretty contrived example. But what kind of power can we gain when we compose some pieces together?
+
+```php
+class BlogPostHydrator implements Incoming\Hydrator\HydratorInterface
+{
+    private $user;
+
+    public function __construct(User $user)
+    {
+        $this->user = $user;
+    }
+
+    public function hydrate($input, $model)
+    {
+        $model->setBody($input['body']);
+        $model->setCategories($input['categories']);
+        $model->setTags($input['tags']);
+
+        if ($this->user->isAdmin()) {
+            $model->setPublished($input['published']);
+        }
+
+        return $model;
+    }
+}
+
+// Create our incoming processor
+$incoming = new Incoming\Processor();
+
+$hydrator = new BlogPostHydrator(
+    $this->getCurrentUser()      // A user context for the hydrator
+);
+
+// Process our raw form/request input to update our BlogPost model
+$post = $incoming->process(
+    $_POST,                      // Our HTTP form-data array
+    BlogPost::find($_GET['id']), // Fetch our blog post to update and pass it in
+    $hydrator                    // The hydrator above
+);
+
+// Validate and save the blog post
 // ...
 ```
 
