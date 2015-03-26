@@ -73,6 +73,7 @@ class BlogPostHydrator implements Incoming\Hydrator\HydratorInterface
         $model->setCategories($input['categories']);
         $model->setTags($input['tags']);
 
+        // Only allow admin users to publish posts
         if ($this->user->isAdmin()) {
             $model->setPublished($input['published']);
         }
@@ -100,6 +101,27 @@ $post = $incoming->process(
 ```
 
 
+## Wait, what? Why not just use "x" or "y"?
+
+Still not sold on the idea even with the provided [examples](#examples)? You may be thinking...
+
+- "Why not just use `MyModelName::fromArray($data)`?"
+- "But my ORM already has a `$model->fill($data)` method..."
+- "I don't get it..."
+
+Yea, sure, you could easily just build a model from a raw data array or just pass an array of attributes to a "fill"
+method and hope that everything goes well, but there's a few issues with doing that: What happens when you refactor a
+model or an underlying database table? Do you all of a sudden break backwards compatibility in an HTTP API's parameters
+just because your table might have changed? What about if you want to prevent certain parameters from being changed in a
+conditional manner? Do you just create a massive chunk of `if` statements in a factory method of the model itself?
+
+The idea with using **Incoming** is to separate concerns, create reusable and composable units, and really enrich an
+application's ability to create complex entities while providing a convenient API that rids of some of PHP's "gotchas".
+
+After all, "magical" solutions like mass attribute assignment have [had their pitfalls before][rails-gh-5228]. ;)
+
+
 
 [fractal-lib-website]: http://fractal.thephpleague.com/
 [composer-website]: https://getcomposer.org/
+[rails-gh-5228]: https://github.com/rails/rails/issues/5228
