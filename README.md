@@ -26,16 +26,16 @@ Still curious? Check out the [examples](#examples).
 
 ## Examples
 
-The easiest to example to relate to in a PHP world? "Form" or HTTP request data:
+The easiest to relate to example in the PHP world? "Form" or HTTP request data:
 
 ```php
 class UserHydrator implements Incoming\Hydrator\HydratorInterface
 {
     public function hydrate($input, $model)
     {
-        $model->setName($input->get('name'));
-        $model->setGender($input->get('gender'));
-        $model->setFavoriteColor($input->get('favorite_color'));
+        $model->setName($input['name']);
+        $model->setGender($input['gender']);
+        $model->setFavoriteColor($input['favorite_color']);
     }
 }
 
@@ -44,8 +44,8 @@ $incoming = new Incoming\Processor();
 
 // Process our raw form/request input into a User model
 $user = $incoming->process(
-    $_POST, // Our HTTP form-data array
-    new User(), // Our model to hydrate
+    $_POST,            // Our HTTP form-data array
+    new User(),        // Our model to hydrate
     new UserHydrator() // The hydrator above
 );
 
