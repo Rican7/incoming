@@ -121,7 +121,13 @@ application's ability to create complex entities while providing a convenient AP
 After all, "magical" solutions like mass attribute assignment have [had their pitfalls before][rails-gh-5228]. ;)
 
 
+# License
+
+**Incoming** is proud to be [MIT licensed][license-file].
+
+
 
 [fractal-lib-website]: http://fractal.thephpleague.com/
 [composer-website]: https://getcomposer.org/
 [rails-gh-5228]: https://github.com/rails/rails/issues/5228
+[license-file]: LICENSE
