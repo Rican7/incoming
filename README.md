@@ -29,9 +29,8 @@ Still curious? Check out the [examples](#examples).
 The easiest to example to relate to in a PHP world? "Form" or HTTP request data:
 
 ```php
-class UserHydrator implements HydratorInterface
+class UserHydrator implements Incoming\Hydrator\HydratorInterface
 {
-
     public function hydrate($input, $model)
     {
         $model->setName($input->get('name'));
@@ -41,7 +40,7 @@ class UserHydrator implements HydratorInterface
 }
 
 // Create our incoming processor
-$incoming = new Processor();
+$incoming = new Incoming\Processor();
 
 // Process our raw form/request input into a User model
 $user = $incoming->process(
