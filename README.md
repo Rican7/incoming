@@ -36,6 +36,8 @@ class UserHydrator implements Incoming\Hydrator\HydratorInterface
         $model->setName($input['name']);
         $model->setGender($input['gender']);
         $model->setFavoriteColor($input['favorite_color']);
+
+        return $model;
     }
 }
 
