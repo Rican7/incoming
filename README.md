@@ -14,6 +14,15 @@ and turn it into anything usable. Even worse is when something changes and you h
 backwards compatibility. Incoming is here to make all this easier while enabling you to create more concern-separated,
 reusable, and testable code.
 
+
+## Features
+
+ - Input filtering and transforming
+ - Built-in powerful, immutable data-structures for handling complex input
+ - Allows for automatic hydrator-for-model resolution via factory abstraction
+ - Makes strong use of interfaces for well structured, easily-testable code
+ - Completely configurable via composable units
+
 Still curious? Check out the [examples](#examples).
 
 
