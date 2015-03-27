@@ -14,7 +14,7 @@ and turn it into anything usable. Even worse is when something changes and you h
 backwards compatibility. Incoming is here to make all this easier while enabling you to create more concern-separated,
 reusable, and testable code.
 
-If you're still wondering why you'd even use this, check out the section titled: ["Wait, what? Why not just use 'x' or 'y'?"](#wait-what-why-not-just-use-x-or-y)
+"Wait, what? Why not just use 'x' or 'y'?" [Don't worry, I've got you covered.](#wait-what-why-not-just-use-x-or-y)
 
 
 ## Features
