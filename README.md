@@ -109,6 +109,42 @@ $post = $incoming->process(
 // ...
 ```
 
+Let's try and filter our input first.
+
+```php
+class SpecialCharacterFilterTransformer implements Incoming\Transformer\TransformerInterface
+{
+    public function transform($input)
+    {
+        foreach($input as &$string) {
+            $string = filter_var($string, FILTER_SANITIZE_STRING);
+        }
+
+        return $input;
+    }
+}
+
+class UserHydrator implements Incoming\Hydrator\HydratorInterface
+{
+    // Same as previous examples...
+}
+
+// Create our incoming processor
+$incoming = new Incoming\Processor(
+    new SpecialCharacterFilterTransformer()
+);
+
+// Process our raw form/request input into a User model
+$user = $incoming->process(
+    $_POST,            // Our HTTP form-data array
+    new User(),        // Our model to hydrate
+    new UserHydrator() // The hydrator above
+);
+
+// Validate and save the user
+// ...
+```
+
 
 ## Wait, what? Why not just use "x" or "y"?
 
