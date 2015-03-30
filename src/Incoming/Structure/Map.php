@@ -196,7 +196,7 @@ class Map implements StructureInterface
      */
     public function offsetSet($offset, $value)
     {
-        throw new ReadOnlyException();
+        throw ReadOnlyException::forAttribute($offset, $value);
     }
 
     /**
@@ -209,7 +209,7 @@ class Map implements StructureInterface
      */
     public function offsetUnset($offset)
     {
-        throw new ReadOnlyException();
+        throw ReadOnlyException::forAttribute($offset);
     }
 
     /**

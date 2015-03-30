@@ -176,7 +176,7 @@ class FixedList implements StructureInterface
      */
     public function offsetSet($offset, $value)
     {
-        throw new ReadOnlyException();
+        throw ReadOnlyException::forAttribute($offset, $value);
     }
 
     /**
@@ -189,6 +189,6 @@ class FixedList implements StructureInterface
      */
     public function offsetUnset($offset)
     {
-        throw new ReadOnlyException();
+        throw ReadOnlyException::forAttribute($offset);
     }
 }
