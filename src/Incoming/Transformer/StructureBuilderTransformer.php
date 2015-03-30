@@ -45,7 +45,7 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * Constructor
      *
-     * @param StructureFactoryInterface|null $structure_factory
+     * @param StructureFactoryInterface|null $structure_factory The structure factory
      */
     public function __construct(StructureFactoryInterface $structure_factory = null)
     {
@@ -55,7 +55,7 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * Get the structure factory
      *
-     * @return StructureFactoryInterface
+     * @return StructureFactoryInterface The structure factory
      */
     public function getStructureFactory()
     {
@@ -65,8 +65,8 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * Set the structure factory
      *
-     * @param StructureFactoryInterface $structure_factory
-     * @return StructureBuilderTransformer
+     * @param StructureFactoryInterface $structure_factory The structure factory
+     * @return StructureBuilderTransformer This instance
      */
     public function setStructureFactory(StructureFactoryInterface $structure_factory)
     {
@@ -78,8 +78,8 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * {@inheritdoc}
      *
-     * @param mixed $input
-     * @return StructureInterface
+     * @param mixed $input The data to transform
+     * @return StructureInterface The transformed data
      */
     public function transform($input)
     {

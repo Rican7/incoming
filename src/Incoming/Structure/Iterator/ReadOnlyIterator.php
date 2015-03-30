@@ -51,7 +51,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Return the current element
      *
-     * @return mixed
+     * @return mixed The current element
      */
     public function current()
     {
@@ -61,7 +61,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Return the key of the current element
      *
-     * @return scalar
+     * @return scalar The key of the current element
      */
     public function key()
     {
@@ -91,7 +91,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Checks if current position is valid
      *
-     * @return boolean
+     * @return boolean True if the current position is valid, false otherwise
      */
     public function valid()
     {

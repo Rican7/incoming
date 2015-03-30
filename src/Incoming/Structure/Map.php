@@ -20,6 +20,8 @@ use Traversable;
 
 /**
  * Map
+ *
+ * A key => value, read-only map data-structure
  */
 class Map implements StructureInterface
 {
@@ -51,8 +53,8 @@ class Map implements StructureInterface
     /**
      * Create from data in a Traversable instance
      *
-     * @param Traversable $data
-     * @return Map
+     * @param Traversable $data The data to create from
+     * @return Map The resulting data-structure
      */
     public static function fromTraversable(Traversable $data)
     {
@@ -72,8 +74,8 @@ class Map implements StructureInterface
     /**
      * Create from data in an array
      *
-     * @param array $data
-     * @return Map
+     * @param array $data The data to create from
+     * @return Map The resulting data-structure
      */
     public static function fromArray(array $data)
     {
@@ -85,8 +87,8 @@ class Map implements StructureInterface
     /**
      * Check if a given key exists in the map
      *
-     * @param string $key
-     * @return boolean
+     * @param string $key The key to check for existence
+     * @return boolean True if the key exists, false otherwise
      */
     public function exists($key)
     {
@@ -96,9 +98,9 @@ class Map implements StructureInterface
     /**
      * Get a value in the map by key
      *
-     * @param string $key
+     * @param string $key The key to get the value for
      * @param mixed $default_val The default value to return if the key does not exist
-     * @return mixed
+     * @return mixed The resulting value
      */
     public function get($key, $default_val = null)
     {
@@ -112,7 +114,7 @@ class Map implements StructureInterface
     /**
      * Check if the map is empty
      *
-     * @return boolean
+     * @return boolean True if the map is empty, false otherwise
      */
     public function isEmpty()
     {
@@ -122,7 +124,7 @@ class Map implements StructureInterface
     /**
      * Get an array list of all of the map's keys
      *
-     * @return array
+     * @return array The list of the map's keys
      */
     public function keys()
     {
@@ -134,7 +136,7 @@ class Map implements StructureInterface
     /**
      * Get a representation of the map as an array
      *
-     * @return array
+     * @return array The array representation of the map
      */
     public function toArray()
     {
@@ -144,7 +146,7 @@ class Map implements StructureInterface
     /**
      * Get the number of entries in the map
      *
-     * @return int
+     * @return int The number of entries in the map
      */
     public function count()
     {
@@ -154,7 +156,7 @@ class Map implements StructureInterface
     /**
      * Get an iterator instance over the underlying data
      *
-     * @return Iterator
+     * @return Iterator An iterator scoped to the map's data
      */
     public function getIterator()
     {
@@ -166,8 +168,8 @@ class Map implements StructureInterface
     /**
      * Check whether an offset exists
      *
-     * @param mixed $offset
-     * @return boolean
+     * @param mixed $offset The offset to check for
+     * @return boolean True if the offset exists, false otherwise
      */
     public function offsetExists($offset)
     {
@@ -177,8 +179,8 @@ class Map implements StructureInterface
     /**
      * Get the value at the given offset
      *
-     * @param mixed $offset
-     * @return mixed
+     * @param mixed $offset The offset to get the value for
+     * @return mixed The resulting value
      */
     public function offsetGet($offset)
     {
@@ -189,9 +191,9 @@ class Map implements StructureInterface
      * Set a value at the given offset
      *
      * @internal
-     * @param mixed $offset
-     * @param mixed $value
-     * @throws ReadOnlyException
+     * @param mixed $offset The offset to set the value for
+     * @param mixed $value The value to set
+     * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -203,8 +205,8 @@ class Map implements StructureInterface
      * Remove the item at the given offset
      *
      * @internal
-     * @param mixed $offset
-     * @throws ReadOnlyException
+     * @param mixed $offset The offset to unset
+     * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
     public function offsetUnset($offset)
@@ -217,8 +219,8 @@ class Map implements StructureInterface
      *
      * Allows access to the map's values via object property/field syntax
      *
-     * @param string $key
-     * @return boolean
+     * @param string $key The key to check for
+     * @return boolean True if the key exists, false otherwise
      */
     public function __isset($key)
     {
@@ -230,8 +232,8 @@ class Map implements StructureInterface
      *
      * Allows access to the map's values via object property/field syntax
      *
-     * @param string $key
-     * @return mixed
+     * @param string $key The key to get the value for
+     * @return mixed The resulting value
      */
     public function __get($key)
     {
@@ -242,9 +244,9 @@ class Map implements StructureInterface
      * Magic "__set" method
      *
      * @internal
-     * @param string $key
-     * @param mixed $value
-     * @throws ReadOnlyException
+     * @param string $key The key to set the value for
+     * @param mixed $value The value to set
+     * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
     public function __set($key, $value)
@@ -256,8 +258,8 @@ class Map implements StructureInterface
      * Magic "__unset" method
      *
      * @internal
-     * @param string $key
-     * @throws ReadOnlyException
+     * @param string $key The key to unset
+     * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
     public function __unset($key)

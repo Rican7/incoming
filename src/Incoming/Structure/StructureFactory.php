@@ -16,6 +16,9 @@ use Traversable;
 
 /**
  * StructureFactory
+ *
+ * A default implementation of the `StructureFactoryInterface` for building
+ * the included structural types from loose input data
  */
 class StructureFactory implements StructureFactoryInterface
 {
@@ -23,8 +26,8 @@ class StructureFactory implements StructureFactoryInterface
     /**
      * Build a structure from a loose-type
      *
-     * @param mixed $data
-     * @return StructureInterface
+     * @param mixed $data The input data
+     * @return StructureInterface The resulting data-structure
      */
     public function build($data)
     {
@@ -38,9 +41,9 @@ class StructureFactory implements StructureFactoryInterface
      * as PHP's array type works JUST like a Traversable instance but doesn't
      * actually implement any interfaces
      *
-     * @param Traversable|array $data
+     * @param Traversable|array $data The input data
      * @throws InvalidStructuralTypeException If the data type isn't supported
-     * @return StructureInterface
+     * @return StructureInterface The built structure
      */
     protected static function buildFromTraversableLike($data)
     {
@@ -56,8 +59,8 @@ class StructureFactory implements StructureFactoryInterface
     /**
      * Build a structure from data in an array
      *
-     * @param array $data
-     * @return StructureInterface
+     * @param array $data The input data
+     * @return StructureInterface The built structure
      */
     protected static function buildFromArray(array $data)
     {
@@ -69,8 +72,8 @@ class StructureFactory implements StructureFactoryInterface
     /**
      * Build a structure from data in a Traversable instance
      *
-     * @param Traversable $data
-     * @return StructureInterface
+     * @param Traversable $data The input data
+     * @return StructureInterface The built structure
      */
     protected static function buildFromTraversable(Traversable $data)
     {
@@ -96,8 +99,8 @@ class StructureFactory implements StructureFactoryInterface
      * If the data type isn't supported, we simply return the original data
      * untouched. This allows to more easily traverse deeply nested structures
      *
-     * @param mixed $data
-     * @return StructureInterface|mixed
+     * @param mixed $data The input data
+     * @return StructureInterface|mixed The built structure or original data
      */
     private static function attemptBuildTraversableLike($data)
     {

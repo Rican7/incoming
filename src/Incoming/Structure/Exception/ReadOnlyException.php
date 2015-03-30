@@ -15,6 +15,9 @@ use Exception;
 
 /**
  * ReadOnlyException
+ *
+ * An exception to be thrown when an attempt is made to modify a read-only
+ * value, property, or state
  */
 class ReadOnlyException extends BadMethodCallException
 {
@@ -44,7 +47,7 @@ class ReadOnlyException extends BadMethodCallException
 
     /**
      * The message extension format for providing an attribute's value info
-     * in addition to the the attribute's context
+     * in addition to the attribute's context
      *
      * @type string
      */
@@ -68,11 +71,11 @@ class ReadOnlyException extends BadMethodCallException
     /**
      * Create an exception instance with an attribute's context
      *
-     * @param string $name
-     * @param mixed|null $value
-     * @param int $code
-     * @param Exception|null $previous
-     * @return ReadOnlyException
+     * @param string $name The name of the attribute attempted to be modified
+     * @param mixed|null $value The value attempted to be set
+     * @param int $code The exception code
+     * @param Exception|null $previous A previous exception used for chaining
+     * @return ReadOnlyException The newly created exception
      */
     public static function forAttribute(
         $name,

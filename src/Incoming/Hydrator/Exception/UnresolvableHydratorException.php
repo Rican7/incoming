@@ -15,6 +15,9 @@ use UnexpectedValueException;
 
 /**
  * UnresolvableHydratorException
+ *
+ * An exception to be thrown when a hydrator can't be resolved, whether by
+ * automatic lookup or not, and usually for a given model
  */
 class UnresolvableHydratorException extends UnexpectedValueException
 {
@@ -66,12 +69,13 @@ class UnresolvableHydratorException extends UnexpectedValueException
      */
 
     /**
-     * Create an exception instance for a problem resolving a model
+     * Create an exception instance for a problem resolving a hydrator for a
+     * given model
      *
-     * @param mixed $model
-     * @param int $code
-     * @param Exception|null $previous
-     * @return UnresolvableHydratorException
+     * @param mixed $model The model to hydrate
+     * @param int $code The exception code
+     * @param Exception|null $previous A previous exception used for chaining
+     * @return UnresolvableHydratorException The newly created exception
      */
     public static function forModel($model, $code = self::CODE_FOR_MODEL, Exception $previous = null)
     {

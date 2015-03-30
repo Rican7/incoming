@@ -15,6 +15,9 @@ use InvalidArgumentException;
 
 /**
  * InvalidStructuralTypeException
+ *
+ * An exception to be thrown when an invalid type is given to a factory or
+ * receiver that expects a type that is convertible or usable as structured data
  */
 class InvalidStructuralTypeException extends InvalidArgumentException
 {
@@ -55,10 +58,10 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      *
      * The type is automatically inspected based on the passed value
      *
-     * @param mixed $value
-     * @param int $code
-     * @param Exception|null $previous
-     * @return InvalidStructuralTypeException
+     * @param mixed $value The value to inspect type information of
+     * @param int $code The exception code
+     * @param Exception|null $previous A previous exception used for chaining
+     * @return InvalidStructuralTypeException The newly created exception
      */
     public static function withTypeInfo($value, $code = 0, Exception $previous = null)
     {

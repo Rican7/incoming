@@ -18,6 +18,8 @@ use Traversable;
 
 /**
  * FixedList
+ *
+ * A fixed-size, read-only data-structure
  */
 class FixedList implements StructureInterface
 {
@@ -40,6 +42,8 @@ class FixedList implements StructureInterface
 
     /**
      * Constructor
+     *
+     * @param int $size The size (length) of the list
      */
     public function __construct($size = 0)
     {
@@ -49,8 +53,8 @@ class FixedList implements StructureInterface
     /**
      * Create from data in an array
      *
-     * @param array $data
-     * @return FixedList
+     * @param array $data The data to create from
+     * @return FixedList The resulting data-structure
      */
     public static function fromArray(array $data)
     {
@@ -64,8 +68,8 @@ class FixedList implements StructureInterface
     /**
      * Create from data in a Traversable instance
      *
-     * @param Traversable $data
-     * @return FixedList
+     * @param Traversable $data The data to create from
+     * @return FixedList The resulting data-structure
      */
     public static function fromTraversable(Traversable $data)
     {
@@ -77,8 +81,8 @@ class FixedList implements StructureInterface
     /**
      * Check if a given index exists in the list
      *
-     * @param int $index
-     * @return boolean
+     * @param int $index The index to check for existence
+     * @return boolean True if the index exists, false otherwise
      */
     public function exists($index)
     {
@@ -88,9 +92,9 @@ class FixedList implements StructureInterface
     /**
      * Get a value in the list by index
      *
-     * @param int $index
+     * @param int $index The index to get the value for
      * @param mixed $default_val The default value to return if the index does not exist
-     * @return mixed
+     * @return mixed The resulting value
      */
     public function get($index, $default_val = null)
     {
@@ -104,7 +108,7 @@ class FixedList implements StructureInterface
     /**
      * Check if the list is empty
      *
-     * @return boolean
+     * @return boolean True if the list is empty, false otherwise
      */
     public function isEmpty()
     {
@@ -114,7 +118,7 @@ class FixedList implements StructureInterface
     /**
      * Get a representation of the list as an array
      *
-     * @return array
+     * @return array The array representation of the list
      */
     public function toArray()
     {
@@ -124,7 +128,7 @@ class FixedList implements StructureInterface
     /**
      * Get the number of entries in the list
      *
-     * @return int
+     * @return int The number of entries in the list
      */
     public function count()
     {
@@ -134,7 +138,7 @@ class FixedList implements StructureInterface
     /**
      * Get an iterator instance over the underlying data
      *
-     * @return Iterator
+     * @return Iterator An iterator scoped to the list's data
      */
     public function getIterator()
     {
@@ -146,8 +150,8 @@ class FixedList implements StructureInterface
     /**
      * Check whether an offset exists
      *
-     * @param mixed $offset
-     * @return boolean
+     * @param mixed $offset The offset to check for
+     * @return boolean True if the offset exists, false otherwise
      */
     public function offsetExists($offset)
     {
@@ -157,8 +161,8 @@ class FixedList implements StructureInterface
     /**
      * Get the value at the given offset
      *
-     * @param mixed $offset
-     * @return mixed
+     * @param mixed $offset The offset to get the value for
+     * @return mixed The resulting value
      */
     public function offsetGet($offset)
     {
@@ -169,9 +173,9 @@ class FixedList implements StructureInterface
      * Set a value at the given offset
      *
      * @internal
-     * @param mixed $offset
-     * @param mixed $value
-     * @throws ReadOnlyException
+     * @param mixed $offset The offset to set the value for
+     * @param mixed $value The value to set
+     * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -183,8 +187,8 @@ class FixedList implements StructureInterface
      * Remove the item at the given offset
      *
      * @internal
-     * @param mixed $offset
-     * @throws ReadOnlyException
+     * @param mixed $offset The offset to unset
+     * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
     public function offsetUnset($offset)

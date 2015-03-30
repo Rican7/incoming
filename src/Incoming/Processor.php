@@ -18,6 +18,10 @@ use Incoming\Transformer\TransformerInterface;
 
 /**
  * Processor
+ *
+ * A default implementation of the `ProcessorInterface` for processing input
+ * data with an optional input transformation phase and automatic hydrator
+ * resolution
  */
 class Processor implements ProcessorInterface
 {
@@ -48,7 +52,7 @@ class Processor implements ProcessorInterface
     /**
      * Constructor
      *
-     * @param TransformerInterface|null $input_transformer
+     * @param TransformerInterface|null $input_transformer The input transformer
      */
     public function __construct(TransformerInterface $input_transformer = null)
     {
@@ -58,7 +62,7 @@ class Processor implements ProcessorInterface
     /**
      * Get the input transformer
      *
-     * @return TransformerInterface
+     * @return TransformerInterface The input transformer
      */
     public function getInputTransformer()
     {
@@ -68,8 +72,8 @@ class Processor implements ProcessorInterface
     /**
      * Set the input transformer
      *
-     * @param TransformerInterface $input_transformer
-     * @return Processor
+     * @param TransformerInterface $input_transformer The input transformer
+     * @return Processor This instance
      */
     public function setInputTransformer(TransformerInterface $input_transformer)
     {
@@ -81,7 +85,7 @@ class Processor implements ProcessorInterface
     /**
      * Get the hydrator factory
      *
-     * @return HydratorFactoryInterface
+     * @return HydratorFactoryInterface The hydrator factory
      */
     public function getHydratorFactory()
     {
@@ -91,8 +95,8 @@ class Processor implements ProcessorInterface
     /**
      * Set the hydrator factory
      *
-     * @param HydratorFactoryInterface|null $hydrator_factory
-     * @return Processor
+     * @param HydratorFactoryInterface|null $hydrator_factory The hydrator factory
+     * @return Processor This instance
      */
     public function setHydratorFactory(HydratorFactoryInterface $hydrator_factory = null)
     {
@@ -102,12 +106,15 @@ class Processor implements ProcessorInterface
     }
 
     /**
-     * Process our incoming input into a hydrated model
+     * {@inheritdoc}
      *
-     * @param mixed $input_data
-     * @param mixed $model
-     * @param HydratorInterface|null $hydrator
-     * @return mixed
+     * If a hydrator isn't provided, an attempt will be made to automatically
+     * resolve and build an appropriate hydrator from the provided factory
+     *
+     * @param mixed $input_data The input data
+     * @param mixed $model The model to hydrate
+     * * @param HydratorInterface|null $hydrator The hydrator to use
+     * @return mixed The hydrated model
      */
     public function process($input_data, $model, HydratorInterface $hydrator = null)
     {
@@ -123,8 +130,8 @@ class Processor implements ProcessorInterface
     /**
      * Transform the input data
      *
-     * @param mixed $input_data
-     * @return mixed
+     * @param mixed $input_data The input data
+     * @return mixed The resulting transformed data
      */
     protected function transformInput($input_data)
     {
@@ -134,9 +141,10 @@ class Processor implements ProcessorInterface
     /**
      * Get a Hydrator for a given model
      *
-     * @param mixed $model
-     * @throws UnresolvableHydratorException
-     * @return HydratorInterface
+     * @param mixed $model The model to get a hydrator for
+     * @throws UnresolvableHydratorException If a hydrator can't be resolved for
+     *  the given model
+     * @return HydratorInterface The resulting hydrator
      */
     protected function getHydratorForModel($model)
     {

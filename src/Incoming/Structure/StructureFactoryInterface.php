@@ -12,6 +12,8 @@ namespace Incoming\Structure;
 
 /**
  * StructureFactoryInterface
+ *
+ * Defines an interface for building structural data types from a loose input
  */
 interface StructureFactoryInterface
 {
@@ -19,8 +21,8 @@ interface StructureFactoryInterface
     /**
      * Build a structure from a loose-type
      *
-     * @param mixed $data
-     * @return StructureInterface
+     * @param mixed $data The input data
+     * @return StructureInterface The resulting data-structure
      */
     public function build($data);
 }
