@@ -82,4 +82,19 @@ abstract class AbstractDelegateHydrator implements HydratorInterface
 
         return $delegate;
     }
+
+    /**
+     * The delegate hydrate method
+     *
+     * This doc-block and commented out abstract method is provided here to show
+     * what the delegate method signature WOULD be if PHP allowed the proper
+     * typing support to enable a generic definition in this manner
+     *
+     * See the class description for more info
+     *
+     * @param IncomingDataType $incoming The input data
+     * @param ModelType $model The model to hydrate
+     * @return ModelType The hydrated model
+     */
+    // abstract protected function hydrateModel(IncomingDataType $incoming, ModelType $model);
 }
