@@ -10,16 +10,16 @@
 
 namespace Incoming\Hydrator\Exception;
 
-use BadMethodCallException;
+use BadFunctionCallException;
 use Exception;
 
 /**
  * InvalidDelegateException
  *
- * An exception to be thrown when a delegate method, function, or callback is
- * provided to a caller
+ * An exception to be thrown when an invalid delegate method, function, or
+ * callback is provided to a caller
  */
-class InvalidDelegateException extends BadMethodCallException
+class InvalidDelegateException extends BadFunctionCallException
 {
 
     /**
