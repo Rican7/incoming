@@ -13,6 +13,7 @@ namespace Incoming\Test\Hydrator;
 use DateTime;
 use Incoming\Hydrator\AbstractDelegateHydrator;
 use Incoming\Structure\Map;
+use Incoming\Test\Hydrator\MockDelegateHydrator;
 use PHPUnit_Framework_TestCase;
 
 /**
@@ -70,5 +71,28 @@ class AbstractDelegateHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($test_input_data['year'], (int) $hydrated->format('Y'));
         $this->assertSame($test_input_data['month'], (int) $hydrated->format('m'));
         $this->assertSame($test_input_data['day'], (int) $hydrated->format('j'));
+    }
+
+    /**
+     * @expectedException Incoming\Hydrator\Exception\InvalidDelegateException
+     */
+    public function testHydrateWithNonCallableThrowsException()
+    {
+        $mock_hydrator = new MockDelegateHydrator();
+
+        $mock_hydrator->hydrate([], new DateTime());
+    }
+
+    /**
+     * @expectedException PHPUnit_Framework_Error
+     */
+    public function testHydrateWithImproperTypesCausesTypeError()
+    {
+        $test_delegate_callable = function (Map $incoming, DateTime $model) {
+        };
+
+        $test_hydrator = $this->getMockDelegateHydrator($test_delegate_callable);
+
+        $test_hydrator->hydrate([], new DateTime());
     }
 }
