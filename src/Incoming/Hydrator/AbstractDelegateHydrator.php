@@ -15,7 +15,20 @@ use Incoming\Hydrator\Exception\InvalidDelegateException;
 /**
  * AbstractDelegateHydrator
  *
- * TODO: Document and explain the reasoning for this class to exist
+ * An abstract hydrator that allows for the hydration to be delegated to another
+ * callable. By default, a named method is attempted to be found, but any
+ * callable could be returned through overrides.
+ *
+ * This enables a lot of interesting uses, most notably this allows hydrators to
+ * be created that have strongly type-hinted hydration arguments while still
+ * perfectly satisfying the `HydratorInterface`. Essentially this allows the
+ * bypassing of the type variance rules enforced by PHP in a way that provides a
+ * generics-like definition. Ultimately, if/when PHP gets generics this will no
+ * longer be necessary, as one could simply implement a hydrator using typed
+ * arguments like: `HydratorInterface<IncomingDataType, ModelType>`
+ *
+ * @link http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
+ * @link http://en.wikipedia.org/wiki/Generic_programming
  */
 abstract class AbstractDelegateHydrator implements HydratorInterface
 {
@@ -54,6 +67,8 @@ abstract class AbstractDelegateHydrator implements HydratorInterface
 
     /**
      * Get the delegate hydration callable
+     *
+     * Override this method if a custom delegate is desired
      *
      * @return callable The delegate hydrator callable
      */
