@@ -62,7 +62,7 @@ abstract class AbstractDelegateHydrator implements HydratorInterface
         $delegate = [$this, static::DEFAULT_DELEGATE_METHOD_NAME];
 
         if (!is_callable($delegate, false, $callable_name)) {
-            // TODO: Throw exception
+            throw InvalidDelegateException::forNonCallable($callable_name);
         }
 
         return $delegate;
