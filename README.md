@@ -147,6 +147,36 @@ $user = $incoming->process(
 // ...
 ```
 
+Missing type hints? PHP's type-system's restrictions can be circumvented!:
+
+```php
+class UserHydrator extends Incoming\Hydrator\AbstractDelegateHydrator
+{
+    // Boom! Type-hintable arguments!
+    // (For more info, see the `AbstractDelegateHydrator` class doc-block)
+    public function hydrateModel(Incoming\Structure\Map $input, User $model)
+    {
+        $model->setName($input['name']);
+        // ...
+
+        return $model;
+    }
+}
+
+// Create our incoming processor
+$incoming = new Incoming\Processor();
+
+// Process our raw form/request input into a User model
+$user = $incoming->process(
+    $_POST,            // Our HTTP form-data array
+    new User(),        // Our model to hydrate
+    new UserHydrator() // The hydrator above
+);
+
+// Validate and save the user
+// ...
+```
+
 
 ## Wait, what? Why not just use "x" or "y"?
 
