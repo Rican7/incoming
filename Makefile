@@ -1,4 +1,4 @@
-all: install test lint checkstyle
+all: install test lint check-style
 
 install:
 	composer install --prefer-dist
