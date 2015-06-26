@@ -83,11 +83,14 @@ class AbstractDelegateHydratorTest extends PHPUnit_Framework_TestCase
         $mock_hydrator->hydrate([], new DateTime());
     }
 
-    /**
-     * @expectedException PHPUnit_Framework_Error
-     */
     public function testHydrateWithImproperTypesCausesTypeError()
     {
+        if (0 <= version_compare(PHP_VERSION, '7')) {
+            $this->setExpectedException('TypeError');
+        } else {
+            $this->setExpectedException('PHPUnit_Framework_Error');
+        }
+
         $test_delegate_callable = function (Map $incoming, DateTime $model) {
         };
 
