@@ -122,4 +122,16 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
 
         $structure = (new StructureFactory)->build($data);
     }
+    
+    /**
+     * @see https://github.com/Rican7/incoming/pull/3
+     */
+    public function testBuildWithTraversableAndMixedKeys()
+    {
+        $data = ['name' => 'markus', 0 => 'a crazy mixed-in key'];
+
+        $structure = (new StructureFactory)->build(new ArrayIterator($data));
+
+        $this->assertInstanceOf('Incoming\Structure\Map', $structure);
+    }
 }
