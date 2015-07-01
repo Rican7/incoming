@@ -81,7 +81,7 @@ class StructureFactory implements StructureFactoryInterface
 
         // Traverse through the data, but only check the first item's key
         foreach ($data as $key => &$val) {
-            $is_map = !is_int($key);
+            $is_map = $is_map || !is_int($key);
 
             $val = self::attemptBuildTraversableLike($val);
         }
