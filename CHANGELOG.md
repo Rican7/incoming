@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## 0.2.1
+
+### Bug fixes
+
+- Updated a test to work with PHP 7's new engine exceptions, in particular the `TypeError` exception class
+- Fixed a bug with how the `StructureFactory` detected map-like structures with mixed key types
+
+
 ## 0.2.0
 
 ### Features
