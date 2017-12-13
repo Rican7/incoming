@@ -8,15 +8,15 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator;
 
-use PHPUnit_Framework_TestCase;
+use Incoming\Hydrator\HydratorInterface;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * HydratorTest
- */
-class HydratorTest extends PHPUnit_Framework_TestCase
+class HydratorTest extends TestCase
 {
 
     /**
@@ -25,8 +25,7 @@ class HydratorTest extends PHPUnit_Framework_TestCase
 
     private function getMockHydratorForStdClass(array $data, stdClass $instance)
     {
-        $mock = $this->getMockBuilder('Incoming\Hydrator\HydratorInterface')
-            ->getMock();
+        $mock = $this->createMock(HydratorInterface::class);
 
         foreach ($data as $key => $value) {
             $instance->{$key} = $value;

@@ -8,20 +8,20 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
 use DateTime;
+use Incoming\Structure\Exception\InvalidStructuralTypeException;
 use Incoming\Structure\FixedList;
 use Incoming\Structure\Map;
 use Incoming\Structure\StructureFactory;
 use Incoming\Structure\StructureInterface;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-/**
- * StructureFactoryTest
- */
-class StructureFactoryTest extends PHPUnit_Framework_TestCase
+class StructureFactoryTest extends TestCase
 {
 
     /**
@@ -71,9 +71,9 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
         $structure = (new StructureFactory)->build($data);
 
         // Assert that our types translated correctly
-        $this->assertTrue($structure instanceof FixedList);
+        $this->assertInstanceOf(FixedList::class, $structure);
         $this->assertContainsOnlyInstancesOf('Incoming\Structure\Map', $structure);
-        $this->assertTrue($structure[0]['stuff'] instanceof FixedList);
+        $this->assertInstanceOf(FixedList::class, $structure[0]['stuff']);
     }
 
     public function testBuildWithTraversable()
@@ -83,8 +83,8 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
         $structure = (new StructureFactory)->build(new ArrayIterator($data));
 
         // Assert that our types translated correctly
-        $this->assertTrue($structure instanceof Map);
-        $this->assertTrue($structure['stuff'] instanceof FixedList);
+        $this->assertInstanceOf(Map::class, $structure);
+        $this->assertInstanceOf(FixedList::class, $structure['stuff']);
     }
 
     public function testBuildWithNestedArray()
@@ -93,7 +93,7 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
 
         $structure = (new StructureFactory)->build($data);
 
-        $this->assertTrue($structure instanceof StructureInterface);
+        $this->assertInstanceOf(StructureInterface::class, $structure);
     }
 
     public function testBuildWithNestedIterators()
@@ -110,15 +110,14 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
 
         $structure = (new StructureFactory)->build($data);
 
-        $this->assertTrue($structure instanceof StructureInterface);
+        $this->assertInstanceOf(StructureInterface::class, $structure);
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\InvalidStructuralTypeException
-     */
     public function testBuildWithInvalidStructuralType()
     {
         $data = new DateTime();
+
+        $this->expectException(InvalidStructuralTypeException::class);
 
         $structure = (new StructureFactory)->build($data);
     }
@@ -135,6 +134,6 @@ class StructureFactoryTest extends PHPUnit_Framework_TestCase
 
         $structure = (new StructureFactory)->build($data);
 
-        $this->assertTrue($structure instanceof Map);
+        $this->assertInstanceOf(Map::class, $structure);
     }
 }

@@ -8,11 +8,11 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Hydrator;
 
 /**
- * HydratorFactoryInterface
- *
  * Defines an interface for factory implementations that build a `Hydrator` from
  * a given data model
  *
@@ -28,5 +28,5 @@ interface HydratorFactoryInterface
      * @param mixed $model The model to hydrate
      * @return HydratorInterface A hydrator capable of hydrating the given model
      */
-    public function buildForModel($model);
+    public function buildForModel($model): HydratorInterface;
 }

@@ -8,14 +8,14 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure\Exception;
 
-use Exception;
 use InvalidArgumentException;
+use Throwable;
 
 /**
- * InvalidStructuralTypeException
- *
  * An exception to be thrown when an invalid type is given to a factory or
  * receiver that expects a type that is convertible or usable as structured data
  */
@@ -27,14 +27,14 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
 
     /**
-     * @type string
+     * @var string
      */
     const DEFAULT_MESSAGE = 'Invalid structural type';
 
     /**
      * The message extension format for providing type information
      *
-     * @type string
+     * @var string
      */
     const MESSAGE_EXTENSION_TYPE_FORMAT = ' `%s`';
 
@@ -44,7 +44,7 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
 
     /**
-     * @type string
+     * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
 
@@ -60,10 +60,10 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      *
      * @param mixed $value The value to inspect type information of
      * @param int $code The exception code
-     * @param Exception|null $previous A previous exception used for chaining
-     * @return InvalidStructuralTypeException The newly created exception
+     * @param Throwable|null $previous A previous exception used for chaining
+     * @return static The newly created exception
      */
-    public static function withTypeInfo($value, $code = 0, Exception $previous = null)
+    public static function withTypeInfo($value, int $code = 0, Throwable $previous = null): self
     {
         $message = self::DEFAULT_MESSAGE;
 

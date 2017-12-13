@@ -8,11 +8,11 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Transformer;
 
 /**
- * TransformerInterface
- *
  * Defines an interface used for transforming input data into another state or
  * type
  *

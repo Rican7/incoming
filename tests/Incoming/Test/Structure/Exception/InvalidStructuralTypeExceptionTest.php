@@ -8,17 +8,16 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use DateTime;
 use Exception;
 use Incoming\Structure\Exception\InvalidStructuralTypeException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-/**
- * InvalidStructuralTypeExceptionTest
- */
-class InvalidStructuralTypeExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidStructuralTypeExceptionTest extends TestCase
 {
 
     public function testWithTypeInfo()
@@ -27,8 +26,8 @@ class InvalidStructuralTypeExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = InvalidStructuralTypeException::withTypeInfo($value);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof InvalidStructuralTypeException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(InvalidStructuralTypeException::class, $exception);
     }
 
     public function testWithTypeInfoWithExceptionArgs()
@@ -39,8 +38,8 @@ class InvalidStructuralTypeExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = InvalidStructuralTypeException::withTypeInfo($value, $code, $previous);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof InvalidStructuralTypeException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(InvalidStructuralTypeException::class, $exception);
         $this->assertSame($code, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
     }

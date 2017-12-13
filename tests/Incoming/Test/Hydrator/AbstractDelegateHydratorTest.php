@@ -8,18 +8,19 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator;
 
 use DateTime;
 use Incoming\Hydrator\AbstractDelegateHydrator;
+use Incoming\Hydrator\Exception\InvalidDelegateException;
 use Incoming\Structure\Map;
 use Incoming\Test\Hydrator\MockDelegateHydrator;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use TypeError;
 
-/**
- * AbstractDelegateHydratorTest
- */
-class AbstractDelegateHydratorTest extends PHPUnit_Framework_TestCase
+class AbstractDelegateHydratorTest extends TestCase
 {
 
     /**
@@ -28,7 +29,7 @@ class AbstractDelegateHydratorTest extends PHPUnit_Framework_TestCase
 
     private function getMockDelegateHydrator(callable $delegate)
     {
-        $mock = $this->getMockBuilder('Incoming\Hydrator\AbstractDelegateHydrator')
+        $mock = $this->getMockBuilder(AbstractDelegateHydrator::class)
             ->setMethods([AbstractDelegateHydrator::DEFAULT_DELEGATE_METHOD_NAME])
             ->getMock();
 
@@ -73,23 +74,18 @@ class AbstractDelegateHydratorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($test_input_data['day'], (int) $hydrated->format('j'));
     }
 
-    /**
-     * @expectedException Incoming\Hydrator\Exception\InvalidDelegateException
-     */
     public function testHydrateWithNonCallableThrowsException()
     {
         $mock_hydrator = new MockDelegateHydrator();
+
+        $this->expectException(InvalidDelegateException::class);
 
         $mock_hydrator->hydrate([], new DateTime());
     }
 
     public function testHydrateWithImproperTypesCausesTypeError()
     {
-        if (0 <= version_compare(PHP_VERSION, '7')) {
-            $this->setExpectedException('TypeError');
-        } else {
-            $this->setExpectedException('PHPUnit_Framework_Error');
-        }
+        $this->expectException(TypeError::class);
 
         $test_delegate_callable = function (Map $incoming, DateTime $model) {
         };

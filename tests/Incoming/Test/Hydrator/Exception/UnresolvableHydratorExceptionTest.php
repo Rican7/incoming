@@ -8,17 +8,16 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use DateTime;
 use Exception;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-/**
- * UnresolvableHydratorExceptionTest
- */
-class UnresolvableHydratorExceptionTest extends PHPUnit_Framework_TestCase
+class UnresolvableHydratorExceptionTest extends TestCase
 {
 
     public function testForModel()
@@ -27,8 +26,8 @@ class UnresolvableHydratorExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = UnresolvableHydratorException::forModel($model);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof UnresolvableHydratorException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(UnresolvableHydratorException::class, $exception);
         $this->assertSame(UnresolvableHydratorException::CODE_FOR_MODEL, $exception->getCode());
     }
 
@@ -40,8 +39,8 @@ class UnresolvableHydratorExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = UnresolvableHydratorException::forModel($model, $code, $previous);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof UnresolvableHydratorException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(UnresolvableHydratorException::class, $exception);
         $this->assertSame($code, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
     }

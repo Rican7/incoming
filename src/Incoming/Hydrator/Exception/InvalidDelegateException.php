@@ -8,14 +8,14 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Hydrator\Exception;
 
 use BadFunctionCallException;
-use Exception;
+use Throwable;
 
 /**
- * InvalidDelegateException
- *
  * An exception to be thrown when an invalid delegate method, function, or
  * callback is provided to a caller
  */
@@ -27,28 +27,28 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
-     * @type string
+     * @var string
      */
     const DEFAULT_MESSAGE = 'Invalid delegate';
 
     /**
      * The exception code for when a delegate isn't callable
      *
-     * @type int
+     * @var int
      */
     const CODE_FOR_NON_CALLABLE = 1;
 
     /**
      * The message extension for when a delegate isn't callable
      *
-     * @type string
+     * @var string
      */
     const MESSAGE_EXTENSION_FOR_NON_CALLABLE = ' is unable to be called';
 
     /**
      * The message extension format for when a delegate's name is provided
      *
-     * @type string
+     * @var string
      */
     const MESSAGE_EXTENSION_NAME_FORMAT = ' named `%s`';
 
@@ -58,7 +58,7 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
-     * @type string
+     * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
 
@@ -70,13 +70,16 @@ class InvalidDelegateException extends BadFunctionCallException
     /**
      * Create an exception instance for a delegate that isn't callable
      *
-     * @param mixed|null $name The name of the delegate
+     * @param string|null $name The name of the delegate
      * @param int $code The exception code
-     * @param Exception|null $previous A previous exception used for chaining
-     * @return InvalidDelegateException The newly created exception
+     * @param Throwable|null $previous A previous exception used for chaining
+     * @return static The newly created exception
      */
-    public static function forNonCallable($name = null, $code = self::CODE_FOR_NON_CALLABLE, Exception $previous = null)
-    {
+    public static function forNonCallable(
+        string $name = null,
+        int $code = self::CODE_FOR_NON_CALLABLE,
+        Throwable $previous = null
+    ): self {
         $message = self::DEFAULT_MESSAGE;
 
         if (null !== $name) {

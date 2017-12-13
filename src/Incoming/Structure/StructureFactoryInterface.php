@@ -8,11 +8,11 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure;
 
 /**
- * StructureFactoryInterface
- *
  * Defines an interface for building structural data types from a loose input
  */
 interface StructureFactoryInterface
@@ -24,5 +24,5 @@ interface StructureFactoryInterface
      * @param mixed $data The input data
      * @return StructureInterface The resulting data-structure
      */
-    public function build($data);
+    public function build($data): StructureInterface;
 }

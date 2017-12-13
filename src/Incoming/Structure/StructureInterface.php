@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure;
 
 use ArrayAccess;
@@ -15,8 +17,6 @@ use Countable;
 use IteratorAggregate;
 
 /**
- * StructureInterface
- *
  * A compound interface defining the external interface of a structure type,
  * which is the union of multiple native data-structure interfaces
  */

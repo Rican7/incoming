@@ -8,13 +8,12 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator;
 
 use Incoming\Hydrator\AbstractDelegateHydrator;
 
-/**
- * MockDelegateHydrator
- */
 class MockDelegateHydrator extends AbstractDelegateHydrator
 {
 }

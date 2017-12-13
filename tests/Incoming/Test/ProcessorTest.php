@@ -8,17 +8,19 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test;
 
+use Incoming\Hydrator\Exception\UnresolvableHydratorException;
+use Incoming\Hydrator\HydratorFactoryInterface;
+use Incoming\Hydrator\HydratorInterface;
 use Incoming\Processor;
 use Incoming\Transformer\PassthruTransformer;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * ProcessorTest
- */
-class ProcessorTest extends PHPUnit_Framework_TestCase
+class ProcessorTest extends TestCase
 {
 
     /**
@@ -27,8 +29,7 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
 
     private function getMockHydratorFactory($hydrator_to_return = null)
     {
-        $mock = $this->getMockBuilder('Incoming\Hydrator\HydratorFactoryInterface')
-            ->getMock();
+        $mock = $this->createMock(HydratorFactoryInterface::class);
 
         if (null !== $hydrator_to_return) {
             $mock->expects($this->any())
@@ -41,8 +42,7 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
 
     private function getMockHydratorForStdClass(array $data, stdClass $instance)
     {
-        $mock = $this->getMockBuilder('Incoming\Hydrator\HydratorInterface')
-            ->getMock();
+        $mock = $this->createMock(HydratorInterface::class);
 
         foreach ($data as $key => $value) {
             $instance->{$key} = $value;
@@ -127,9 +127,6 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
         $this->assertSame($test_input_data['misc'], $hydrated->misc);
     }
 
-    /**
-     * @expectedException Incoming\Hydrator\Exception\UnresolvableHydratorException
-     */
     public function testProcessWithUnresolvableHydrator()
     {
         $test_input_data = [
@@ -141,7 +138,8 @@ class ProcessorTest extends PHPUnit_Framework_TestCase
 
         $processor = new Processor();
 
-        // Should throw an exception...
+        $this->expectException(UnresolvableHydratorException::class);
+
         $processor->process($test_input_data, $test_model);
     }
 }

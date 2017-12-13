@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure;
 
 use ArrayIterator;
@@ -15,8 +17,6 @@ use Incoming\Structure\Exception\InvalidStructuralTypeException;
 use Traversable;
 
 /**
- * StructureFactory
- *
  * A default implementation of the `StructureFactoryInterface` for building
  * the included structural types from loose input data
  */
@@ -29,7 +29,7 @@ class StructureFactory implements StructureFactoryInterface
      * @param mixed $data The input data
      * @return StructureInterface The resulting data-structure
      */
-    public function build($data)
+    public function build($data): StructureInterface
     {
         return static::buildFromTraversableLike($data);
     }
@@ -45,7 +45,7 @@ class StructureFactory implements StructureFactoryInterface
      * @throws InvalidStructuralTypeException If the data type isn't supported
      * @return StructureInterface The built structure
      */
-    protected static function buildFromTraversableLike($data)
+    protected static function buildFromTraversableLike($data): StructureInterface
     {
         if (is_array($data)) {
             return static::buildFromArray($data);
@@ -62,7 +62,7 @@ class StructureFactory implements StructureFactoryInterface
      * @param array $data The input data
      * @return StructureInterface The built structure
      */
-    protected static function buildFromArray(array $data)
+    protected static function buildFromArray(array $data): StructureInterface
     {
         return static::buildFromTraversable(
             new ArrayIterator($data)
@@ -75,7 +75,7 @@ class StructureFactory implements StructureFactoryInterface
      * @param Traversable $data The input data
      * @return StructureInterface The built structure
      */
-    protected static function buildFromTraversable(Traversable $data)
+    protected static function buildFromTraversable(Traversable $data): StructureInterface
     {
         $is_map = false;
 

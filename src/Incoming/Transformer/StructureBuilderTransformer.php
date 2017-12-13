@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Transformer;
 
 use Incoming\Structure\StructureFactory;
@@ -15,8 +17,6 @@ use Incoming\Structure\StructureFactoryInterface;
 use Incoming\Structure\StructureInterface;
 
 /**
- * StructureBuilderTransformer
- *
  * A transformer that takes an input data and returns a StructureInterface
  * representation of the same data
  *
@@ -33,7 +33,7 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * The factory used to build the StructureInterface instances
      *
-     * @type StructureFactoryInterface
+     * @var StructureFactoryInterface
      */
     private $structure_factory;
 
@@ -57,7 +57,7 @@ class StructureBuilderTransformer implements TransformerInterface
      *
      * @return StructureFactoryInterface The structure factory
      */
-    public function getStructureFactory()
+    public function getStructureFactory(): StructureFactoryInterface
     {
         return $this->structure_factory;
     }
@@ -66,9 +66,9 @@ class StructureBuilderTransformer implements TransformerInterface
      * Set the structure factory
      *
      * @param StructureFactoryInterface $structure_factory The structure factory
-     * @return StructureBuilderTransformer This instance
+     * @return $this This instance
      */
-    public function setStructureFactory(StructureFactoryInterface $structure_factory)
+    public function setStructureFactory(StructureFactoryInterface $structure_factory): self
     {
         $this->structure_factory = $structure_factory;
 
@@ -81,7 +81,7 @@ class StructureBuilderTransformer implements TransformerInterface
      * @param mixed $input The data to transform
      * @return StructureInterface The transformed data
      */
-    public function transform($input)
+    public function transform($input): StructureInterface
     {
         return $this->structure_factory->build($input);
     }

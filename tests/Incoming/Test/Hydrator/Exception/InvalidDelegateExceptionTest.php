@@ -8,24 +8,23 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use Exception;
 use Incoming\Hydrator\Exception\InvalidDelegateException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-/**
- * InvalidDelegateExceptionTest
- */
-class InvalidDelegateExceptionTest extends PHPUnit_Framework_TestCase
+class InvalidDelegateExceptionTest extends TestCase
 {
 
     public function testForNonCallable()
     {
         $exception = InvalidDelegateException::forNonCallable();
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof InvalidDelegateException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(InvalidDelegateException::class, $exception);
         $this->assertSame(InvalidDelegateException::CODE_FOR_NON_CALLABLE, $exception->getCode());
     }
 
@@ -35,8 +34,8 @@ class InvalidDelegateExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = InvalidDelegateException::forNonCallable($non_callable_name);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof InvalidDelegateException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(InvalidDelegateException::class, $exception);
         $this->assertSame(InvalidDelegateException::CODE_FOR_NON_CALLABLE, $exception->getCode());
     }
 
@@ -48,8 +47,8 @@ class InvalidDelegateExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = InvalidDelegateException::forNonCallable($non_callable_name, $code, $previous);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof InvalidDelegateException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(InvalidDelegateException::class, $exception);
         $this->assertSame($code, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
     }
