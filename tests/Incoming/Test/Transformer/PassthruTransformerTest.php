@@ -8,14 +8,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Transformer;
 
 use Incoming\Transformer\PassthruTransformer;
 use PHPUnit\Framework\TestCase;
 
-/**
- * PassthruTransformerTest
- */
 class PassthruTransformerTest extends TestCase
 {
 

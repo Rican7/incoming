@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test;
 
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
@@ -18,9 +20,6 @@ use Incoming\Transformer\PassthruTransformer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * ProcessorTest
- */
 class ProcessorTest extends TestCase
 {
 

@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use DateTime;
@@ -15,9 +17,6 @@ use Exception;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * UnresolvableHydratorExceptionTest
- */
 class UnresolvableHydratorExceptionTest extends TestCase
 {
 

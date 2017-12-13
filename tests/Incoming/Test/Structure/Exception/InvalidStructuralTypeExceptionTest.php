@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use DateTime;
@@ -15,9 +17,6 @@ use Exception;
 use Incoming\Structure\Exception\InvalidStructuralTypeException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * InvalidStructuralTypeExceptionTest
- */
 class InvalidStructuralTypeExceptionTest extends TestCase
 {
 

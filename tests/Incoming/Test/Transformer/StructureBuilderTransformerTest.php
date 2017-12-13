@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Transformer;
 
 use Incoming\Structure\StructureFactory;
@@ -15,9 +17,6 @@ use Incoming\Structure\StructureInterface;
 use Incoming\Transformer\StructureBuilderTransformer;
 use PHPUnit\Framework\TestCase;
 
-/**
- * StructureBuilderTransformerTest
- */
 class StructureBuilderTransformerTest extends TestCase
 {
 

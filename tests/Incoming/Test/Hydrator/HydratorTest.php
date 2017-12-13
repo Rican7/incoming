@@ -8,15 +8,14 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator;
 
 use Incoming\Hydrator\HydratorInterface;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * HydratorTest
- */
 class HydratorTest extends TestCase
 {
 

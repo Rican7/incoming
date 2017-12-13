@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
@@ -18,9 +20,6 @@ use Iterator;
 use MultipleIterator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * MapTest
- */
 class MapTest extends TestCase
 {
 

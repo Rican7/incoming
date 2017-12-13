@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
@@ -16,9 +18,6 @@ use Incoming\Structure\FixedList;
 use Iterator;
 use PHPUnit\Framework\TestCase;
 
-/**
- * FixedListTest
- */
 class FixedListTest extends TestCase
 {
 

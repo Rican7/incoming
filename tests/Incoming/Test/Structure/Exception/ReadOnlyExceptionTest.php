@@ -8,15 +8,14 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use Exception;
 use Incoming\Structure\Exception\ReadOnlyException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * ReadOnlyExceptionTest
- */
 class ReadOnlyExceptionTest extends TestCase
 {
 

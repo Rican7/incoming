@@ -8,15 +8,14 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator\Exception;
 
 use Exception;
 use Incoming\Hydrator\Exception\InvalidDelegateException;
 use PHPUnit\Framework\TestCase;
 
-/**
- * InvalidDelegateExceptionTest
- */
 class InvalidDelegateExceptionTest extends TestCase
 {
 

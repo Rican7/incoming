@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Hydrator;
 
 use DateTime;
@@ -18,9 +20,6 @@ use Incoming\Test\Hydrator\MockDelegateHydrator;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 
-/**
- * AbstractDelegateHydratorTest
- */
 class AbstractDelegateHydratorTest extends TestCase
 {
 

@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
@@ -19,9 +21,6 @@ use Incoming\Structure\StructureFactory;
 use Incoming\Structure\StructureInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * StructureFactoryTest
- */
 class StructureFactoryTest extends TestCase
 {
 
