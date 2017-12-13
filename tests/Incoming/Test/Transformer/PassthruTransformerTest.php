@@ -11,12 +11,12 @@
 namespace Incoming\Test\Transformer;
 
 use Incoming\Transformer\PassthruTransformer;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * PassthruTransformerTest
  */
-class PassthruTransformerTest extends PHPUnit_Framework_TestCase
+class PassthruTransformerTest extends TestCase
 {
 
     public function testTransform()

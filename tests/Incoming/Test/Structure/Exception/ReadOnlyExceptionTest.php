@@ -12,12 +12,12 @@ namespace Incoming\Test\Hydrator\Exception;
 
 use Exception;
 use Incoming\Structure\Exception\ReadOnlyException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * ReadOnlyExceptionTest
  */
-class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
+class ReadOnlyExceptionTest extends TestCase
 {
 
     public function testForAttribute()
@@ -26,8 +26,8 @@ class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = ReadOnlyException::forAttribute($name);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof ReadOnlyException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(ReadOnlyException::class, $exception);
         $this->assertSame(ReadOnlyException::CODE_FOR_ATTRIBUTE, $exception->getCode());
     }
 
@@ -38,8 +38,8 @@ class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = ReadOnlyException::forAttribute($name, $value);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof ReadOnlyException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(ReadOnlyException::class, $exception);
         $this->assertSame(ReadOnlyException::CODE_FOR_ATTRIBUTE, $exception->getCode());
     }
 
@@ -52,8 +52,8 @@ class ReadOnlyExceptionTest extends PHPUnit_Framework_TestCase
 
         $exception = ReadOnlyException::forAttribute($name, $value, $code, $previous);
 
-        $this->assertTrue($exception instanceof Exception);
-        $this->assertTrue($exception instanceof ReadOnlyException);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertInstanceOf(ReadOnlyException::class, $exception);
         $this->assertSame($code, $exception->getCode());
         $this->assertSame($previous, $exception->getPrevious());
     }

@@ -11,15 +11,17 @@
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
+use Incoming\Structure\Exception\ReadOnlyException;
 use Incoming\Structure\Map;
+use InvalidArgumentException;
 use Iterator;
 use MultipleIterator;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * MapTest
  */
-class MapTest extends PHPUnit_Framework_TestCase
+class MapTest extends TestCase
 {
 
     /**
@@ -50,24 +52,18 @@ class MapTest extends PHPUnit_Framework_TestCase
             new ArrayIterator($this->getTestArrayData())
         );
 
-        $this->assertTrue($map instanceof Map);
+        $this->assertInstanceOf(Map::class, $map);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testFromTraversableFailsForNonScalarKeys()
     {
-        if (0 > version_compare(PHP_VERSION, '5.5.0')) {
-            $this->markTestSkipped('PHP 5.5 required to test non-scalar traversable keys');
-        }
-
         $test_iterator = new MultipleIterator();
         $test_iterator->attachIterator(
             new ArrayIterator($this->getTestArrayData())
         );
 
-        // Should throw an exception...
+        $this->expectException(InvalidArgumentException::class);
+
         Map::fromTraversable($test_iterator);
     }
 
@@ -75,7 +71,7 @@ class MapTest extends PHPUnit_Framework_TestCase
     {
         $map = Map::fromArray($this->getTestArrayData());
 
-        $this->assertTrue($map instanceof Map);
+        $this->assertInstanceOf(Map::class, $map);
     }
 
     public function testExists()
@@ -160,7 +156,7 @@ class MapTest extends PHPUnit_Framework_TestCase
 
         $map = Map::fromArray($test_data);
 
-        $this->assertTrue($map->getIterator() instanceof Iterator);
+        $this->assertInstanceOf(Iterator::class, $map->getIterator());
 
         foreach ($map->getIterator() as $key => $value) {
             $this->assertSame($test_data[$key], $value);
@@ -192,22 +188,20 @@ class MapTest extends PHPUnit_Framework_TestCase
         $this->assertSame($test_data[$test_valid_key], $map->offsetGet($test_valid_key));
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\ReadOnlyException
-     */
     public function testOffsetSet()
     {
         $map = new Map();
 
+        $this->expectException(ReadOnlyException::class);
+
         $map->offsetSet('some-key', 'test');
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\ReadOnlyException
-     */
     public function testOffsetUnset()
     {
         $map = new Map();
+
+        $this->expectException(ReadOnlyException::class);
 
         $map->offsetUnset('some-key');
     }
@@ -237,22 +231,20 @@ class MapTest extends PHPUnit_Framework_TestCase
         $this->assertSame($test_data[$test_valid_key], $map->{$test_valid_key});
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\ReadOnlyException
-     */
     public function testMagicSet()
     {
         $map = new Map();
 
+        $this->expectException(ReadOnlyException::class);
+
         $map->key = 'test';
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\ReadOnlyException
-     */
     public function testMagicUnset()
     {
         $map = new Map();
+
+        $this->expectException(ReadOnlyException::class);
 
         unset($map->key);
     }

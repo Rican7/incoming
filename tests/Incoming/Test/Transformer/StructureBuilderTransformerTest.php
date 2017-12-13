@@ -13,12 +13,12 @@ namespace Incoming\Test\Transformer;
 use Incoming\Structure\StructureFactory;
 use Incoming\Structure\StructureInterface;
 use Incoming\Transformer\StructureBuilderTransformer;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * StructureBuilderTransformerTest
  */
-class StructureBuilderTransformerTest extends PHPUnit_Framework_TestCase
+class StructureBuilderTransformerTest extends TestCase
 {
 
     public function testGetSetStructureFactory()
@@ -43,6 +43,6 @@ class StructureBuilderTransformerTest extends PHPUnit_Framework_TestCase
 
         $this->assertNotSame($input, $output);
 
-        $this->assertTrue($output instanceof StructureInterface);
+        $this->assertInstanceOf(StructureInterface::class, $output);
     }
 }

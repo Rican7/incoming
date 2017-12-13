@@ -11,14 +11,15 @@
 namespace Incoming\Test\Structure;
 
 use ArrayIterator;
+use Incoming\Structure\Exception\ReadOnlyException;
 use Incoming\Structure\FixedList;
 use Iterator;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * FixedListTest
  */
-class FixedListTest extends PHPUnit_Framework_TestCase
+class FixedListTest extends TestCase
 {
 
     /**
@@ -47,7 +48,7 @@ class FixedListTest extends PHPUnit_Framework_TestCase
     {
         $fixed_list = FixedList::fromArray($this->getTestArrayData());
 
-        $this->assertTrue($fixed_list instanceof FixedList);
+        $this->assertInstanceOf(FixedList::class, $fixed_list);
     }
 
     public function testFromTraversable()
@@ -56,7 +57,7 @@ class FixedListTest extends PHPUnit_Framework_TestCase
             new ArrayIterator($this->getTestArrayData())
         );
 
-        $this->assertTrue($fixed_list instanceof FixedList);
+        $this->assertInstanceOf(FixedList::class, $fixed_list);
     }
 
     public function testExists()
@@ -130,7 +131,7 @@ class FixedListTest extends PHPUnit_Framework_TestCase
 
         $fixed_list = FixedList::fromArray($test_data);
 
-        $this->assertTrue($fixed_list->getIterator() instanceof Iterator);
+        $this->assertInstanceOf(Iterator::class, $fixed_list->getIterator());
 
         foreach ($fixed_list->getIterator() as $index => $value) {
             $this->assertSame($test_data[$index], $value);
@@ -162,22 +163,20 @@ class FixedListTest extends PHPUnit_Framework_TestCase
         $this->assertSame($test_data[$test_valid_index], $fixed_list->offsetGet($test_valid_index));
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\ReadOnlyException
-     */
     public function testOffsetSet()
     {
         $fixed_list = new FixedList(1);
 
+        $this->expectException(ReadOnlyException::class);
+
         $fixed_list->offsetSet(0, 'test');
     }
 
-    /**
-     * @expectedException Incoming\Structure\Exception\ReadOnlyException
-     */
     public function testOffsetUnset()
     {
         $fixed_list = new FixedList(1);
+
+        $this->expectException(ReadOnlyException::class);
 
         $fixed_list->offsetUnset(0);
     }
