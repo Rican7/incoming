@@ -53,10 +53,14 @@ class Processor implements ProcessorInterface
      * Constructor
      *
      * @param TransformerInterface|null $input_transformer The input transformer
+     * @param HydratorFactoryInterface|null $hydrator_factory A hydrator factory
      */
-    public function __construct(TransformerInterface $input_transformer = null)
-    {
+    public function __construct(
+        TransformerInterface $input_transformer = null,
+        HydratorFactoryInterface $hydrator_factory = null
+    ) {
         $this->input_transformer = $input_transformer ?: new StructureBuilderTransformer();
+        $this->hydrator_factory = $hydrator_factory;
     }
 
     /**

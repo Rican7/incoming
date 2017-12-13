@@ -13,7 +13,7 @@ declare(strict_types=1);
 namespace Incoming\Structure\Exception;
 
 use BadMethodCallException;
-use Exception;
+use Throwable;
 
 /**
  * An exception to be thrown when an attempt is made to modify a read-only
@@ -71,17 +71,17 @@ class ReadOnlyException extends BadMethodCallException
     /**
      * Create an exception instance with an attribute's context
      *
-     * @param string $name The name of the attribute attempted to be modified
+     * @param mixed $name The name of the attribute attempted to be modified
      * @param mixed|null $value The value attempted to be set
      * @param int $code The exception code
-     * @param Exception|null $previous A previous exception used for chaining
+     * @param Throwable|null $previous A previous exception used for chaining
      * @return static The newly created exception
      */
     public static function forAttribute(
         $name,
         $value = null,
-        $code = self::CODE_FOR_ATTRIBUTE,
-        Exception $previous = null
+        int $code = self::CODE_FOR_ATTRIBUTE,
+        Throwable $previous = null
     ): self {
         $message = self::DEFAULT_MESSAGE;
 

@@ -91,7 +91,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Checks if current position is valid
      *
-     * @return boolean True if the current position is valid, false otherwise
+     * return bool True if the current position is valid, false otherwise
      */
     public function valid(): bool
     {

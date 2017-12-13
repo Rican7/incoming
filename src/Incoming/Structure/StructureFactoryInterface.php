@@ -24,5 +24,5 @@ interface StructureFactoryInterface
      * @param mixed $data The input data
      * @return StructureInterface The resulting data-structure
      */
-    public function build($data);
+    public function build($data): StructureInterface;
 }

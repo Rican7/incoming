@@ -28,5 +28,5 @@ interface HydratorFactoryInterface
      * @param mixed $model The model to hydrate
      * @return HydratorInterface A hydrator capable of hydrating the given model
      */
-    public function buildForModel($model);
+    public function buildForModel($model): HydratorInterface;
 }

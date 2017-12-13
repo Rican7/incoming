@@ -45,7 +45,7 @@ class FixedList implements StructureInterface
      *
      * @param int $size The size (length) of the list
      */
-    public function __construct($size = 0)
+    public function __construct(int $size = 0)
     {
         $this->decorated = new SplFixedArray($size);
     }
@@ -82,9 +82,9 @@ class FixedList implements StructureInterface
      * Check if a given index exists in the list
      *
      * @param int $index The index to check for existence
-     * @return boolean True if the index exists, false otherwise
+     * return bool True if the index exists, false otherwise
      */
-    public function exists($index): bool
+    public function exists(int $index): bool
     {
         return $this->offsetExists($index);
     }
@@ -96,7 +96,7 @@ class FixedList implements StructureInterface
      * @param mixed $default_val The default value to return if the index does not exist
      * @return mixed The resulting value
      */
-    public function get($index, $default_val = null)
+    public function get(int $index, $default_val = null)
     {
         if ($this->offsetExists($index)) {
             return $this->offsetGet($index);
@@ -108,7 +108,7 @@ class FixedList implements StructureInterface
     /**
      * Check if the list is empty
      *
-     * @return boolean True if the list is empty, false otherwise
+     * return bool True if the list is empty, false otherwise
      */
     public function isEmpty(): bool
     {
@@ -151,7 +151,7 @@ class FixedList implements StructureInterface
      * Check whether an offset exists
      *
      * @param mixed $offset The offset to check for
-     * @return boolean True if the offset exists, false otherwise
+     * return bool True if the offset exists, false otherwise
      */
     public function offsetExists($offset): bool
     {

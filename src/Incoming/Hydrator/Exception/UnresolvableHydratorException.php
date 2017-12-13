@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Incoming\Hydrator\Exception;
 
-use Exception;
+use Throwable;
 use UnexpectedValueException;
 
 /**
@@ -74,13 +74,13 @@ class UnresolvableHydratorException extends UnexpectedValueException
      *
      * @param mixed $model The model to hydrate
      * @param int $code The exception code
-     * @param Exception|null $previous A previous exception used for chaining
+     * @param Throwable|null $previous A previous exception used for chaining
      * @return static The newly created exception
      */
     public static function forModel(
         $model,
-        $code = self::CODE_FOR_MODEL,
-        Exception $previous = null
+        int $code = self::CODE_FOR_MODEL,
+        Throwable $previous = null
     ): self {
         $message = self::DEFAULT_MESSAGE . self::MESSAGE_EXTENSION_FOR_MODEL;
 

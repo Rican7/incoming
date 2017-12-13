@@ -87,8 +87,8 @@ class Map implements StructureInterface
     /**
      * Check if a given key exists in the map
      *
-     * @param string $key The key to check for existence
-     * @return boolean True if the key exists, false otherwise
+     * @param mixed $key The key to check for existence
+     * return bool True if the key exists, false otherwise
      */
     public function exists($key): bool
     {
@@ -98,7 +98,7 @@ class Map implements StructureInterface
     /**
      * Get a value in the map by key
      *
-     * @param string $key The key to get the value for
+     * @param mixed $key The key to get the value for
      * @param mixed $default_val The default value to return if the key does not exist
      * @return mixed The resulting value
      */
@@ -114,7 +114,7 @@ class Map implements StructureInterface
     /**
      * Check if the map is empty
      *
-     * @return boolean True if the map is empty, false otherwise
+     * return bool True if the map is empty, false otherwise
      */
     public function isEmpty(): bool
     {
@@ -169,7 +169,7 @@ class Map implements StructureInterface
      * Check whether an offset exists
      *
      * @param mixed $offset The offset to check for
-     * @return boolean True if the offset exists, false otherwise
+     * return bool True if the offset exists, false otherwise
      */
     public function offsetExists($offset): bool
     {
@@ -220,9 +220,9 @@ class Map implements StructureInterface
      * Allows access to the map's values via object property/field syntax
      *
      * @param string $key The key to check for
-     * @return boolean True if the key exists, false otherwise
+     * return bool True if the key exists, false otherwise
      */
-    public function __isset($key): bool
+    public function __isset(string $key): bool
     {
         return $this->exists($key);
     }
@@ -235,7 +235,7 @@ class Map implements StructureInterface
      * @param string $key The key to get the value for
      * @return mixed The resulting value
      */
-    public function __get($key)
+    public function __get(string $key)
     {
         return $this->get($key);
     }
@@ -249,7 +249,7 @@ class Map implements StructureInterface
      * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
-    public function __set($key, $value)
+    public function __set(string $key, $value)
     {
         throw ReadOnlyException::forAttribute($key, $value);
     }
@@ -262,7 +262,7 @@ class Map implements StructureInterface
      * @throws ReadOnlyException External modification is not allowed
      * @return void
      */
-    public function __unset($key)
+    public function __unset(string $key)
     {
         throw ReadOnlyException::forAttribute($key);
     }

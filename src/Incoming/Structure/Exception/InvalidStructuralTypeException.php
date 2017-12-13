@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Incoming\Structure\Exception;
 
-use Exception;
 use InvalidArgumentException;
+use Throwable;
 
 /**
  * An exception to be thrown when an invalid type is given to a factory or
@@ -60,10 +60,10 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      *
      * @param mixed $value The value to inspect type information of
      * @param int $code The exception code
-     * @param Exception|null $previous A previous exception used for chaining
+     * @param Throwable|null $previous A previous exception used for chaining
      * @return static The newly created exception
      */
-    public static function withTypeInfo($value, $code = 0, Exception $previous = null): self
+    public static function withTypeInfo($value, int $code = 0, Throwable $previous = null): self
     {
         $message = self::DEFAULT_MESSAGE;
 
