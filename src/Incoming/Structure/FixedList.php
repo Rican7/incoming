@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure;
 
 use Incoming\Structure\Exception\ReadOnlyException;
@@ -17,8 +19,6 @@ use SplFixedArray;
 use Traversable;
 
 /**
- * FixedList
- *
  * A fixed-size, read-only data-structure
  */
 class FixedList implements StructureInterface
@@ -31,7 +31,7 @@ class FixedList implements StructureInterface
     /**
      * The underlying decorated data structure
      *
-     * @type SplFixedArray
+     * @var SplFixedArray
      */
     private $decorated;
 
@@ -54,9 +54,9 @@ class FixedList implements StructureInterface
      * Create from data in an array
      *
      * @param array $data The data to create from
-     * @return FixedList The resulting data-structure
+     * @return static The resulting data-structure
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): self
     {
         $fixed_list = new static();
 
@@ -69,9 +69,9 @@ class FixedList implements StructureInterface
      * Create from data in a Traversable instance
      *
      * @param Traversable $data The data to create from
-     * @return FixedList The resulting data-structure
+     * @return static The resulting data-structure
      */
-    public static function fromTraversable(Traversable $data)
+    public static function fromTraversable(Traversable $data): self
     {
         return static::fromArray(
             iterator_to_array($data)
@@ -84,7 +84,7 @@ class FixedList implements StructureInterface
      * @param int $index The index to check for existence
      * @return boolean True if the index exists, false otherwise
      */
-    public function exists($index)
+    public function exists($index): bool
     {
         return $this->offsetExists($index);
     }
@@ -110,7 +110,7 @@ class FixedList implements StructureInterface
      *
      * @return boolean True if the list is empty, false otherwise
      */
-    public function isEmpty()
+    public function isEmpty(): bool
     {
         return ($this->count() === 0);
     }
@@ -120,7 +120,7 @@ class FixedList implements StructureInterface
      *
      * @return array The array representation of the list
      */
-    public function toArray()
+    public function toArray(): array
     {
         return $this->decorated->toArray();
     }
@@ -130,7 +130,7 @@ class FixedList implements StructureInterface
      *
      * @return int The number of entries in the list
      */
-    public function count()
+    public function count(): int
     {
         return count($this->decorated);
     }
@@ -140,7 +140,7 @@ class FixedList implements StructureInterface
      *
      * @return Iterator An iterator scoped to the list's data
      */
-    public function getIterator()
+    public function getIterator(): Iterator
     {
         return new ReadOnlyIterator(
             $this->decorated
@@ -153,7 +153,7 @@ class FixedList implements StructureInterface
      * @param mixed $offset The offset to check for
      * @return boolean True if the offset exists, false otherwise
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->decorated->offsetExists($offset);
     }

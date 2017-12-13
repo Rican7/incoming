@@ -8,13 +8,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Hydrator;
 
 use Incoming\Hydrator\Exception\InvalidDelegateException;
 
 /**
- * AbstractDelegateHydrator
- *
  * An abstract hydrator that allows for the hydration to be delegated to another
  * callable. By default, a named method is attempted to be found, but any
  * callable could be returned through overrides.
@@ -40,7 +40,7 @@ abstract class AbstractDelegateHydrator implements HydratorInterface
     /**
      * The name of the default delegate method
      *
-     * @type string
+     * @var string
      */
     const DEFAULT_DELEGATE_METHOD_NAME = 'hydrateModel';
 
@@ -72,7 +72,7 @@ abstract class AbstractDelegateHydrator implements HydratorInterface
      *
      * @return callable The delegate hydrator callable
      */
-    protected function getDelegate()
+    protected function getDelegate(): callable
     {
         $delegate = [$this, static::DEFAULT_DELEGATE_METHOD_NAME];
 
@@ -96,5 +96,5 @@ abstract class AbstractDelegateHydrator implements HydratorInterface
      * @param ModelType $model The model to hydrate
      * @return ModelType The hydrated model
      */
-    // abstract protected function hydrateModel(IncomingDataType $incoming, ModelType $model);
+    // abstract protected function hydrateModel(IncomingDataType $incoming, ModelType $model): ModelType;
 }

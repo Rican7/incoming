@@ -8,11 +8,11 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure;
 
 /**
- * StructureFactoryInterface
- *
  * Defines an interface for building structural data types from a loose input
  */
 interface StructureFactoryInterface

@@ -8,11 +8,11 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Hydrator;
 
 /**
- * HydratorInterface
- *
  * Defines an interface for "hydrating" a well-defined, consistent data model
  * from a loose input structure
  */

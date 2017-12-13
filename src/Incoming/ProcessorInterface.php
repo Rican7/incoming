@@ -8,13 +8,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming;
 
 use Incoming\Hydrator\HydratorInterface;
 
 /**
- * ProcessorInterface
- *
  * Defines an interface for processing loose input data into a hydrated model,
  * using a given hydrator
  */

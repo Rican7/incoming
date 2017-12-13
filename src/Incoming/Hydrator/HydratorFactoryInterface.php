@@ -8,11 +8,11 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Hydrator;
 
 /**
- * HydratorFactoryInterface
- *
  * Defines an interface for factory implementations that build a `Hydrator` from
  * a given data model
  *

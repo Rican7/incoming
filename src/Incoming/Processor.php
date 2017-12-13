@@ -8,6 +8,8 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming;
 
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
@@ -17,8 +19,6 @@ use Incoming\Transformer\StructureBuilderTransformer;
 use Incoming\Transformer\TransformerInterface;
 
 /**
- * Processor
- *
  * A default implementation of the `ProcessorInterface` for processing input
  * data with an optional input transformation phase and automatic hydrator
  * resolution
@@ -33,14 +33,14 @@ class Processor implements ProcessorInterface
     /**
      * An input transformer to pre-process the input data before hydration
      *
-     * @type TransformerInterface
+     * @var TransformerInterface
      */
     private $input_transformer;
 
     /**
      * A factory for building hydrators for a given model
      *
-     * @type HydratorFactoryInterface
+     * @var HydratorFactoryInterface
      */
     private $hydrator_factory;
 
@@ -64,7 +64,7 @@ class Processor implements ProcessorInterface
      *
      * @return TransformerInterface The input transformer
      */
-    public function getInputTransformer()
+    public function getInputTransformer(): TransformerInterface
     {
         return $this->input_transformer;
     }
@@ -73,9 +73,9 @@ class Processor implements ProcessorInterface
      * Set the input transformer
      *
      * @param TransformerInterface $input_transformer The input transformer
-     * @return Processor This instance
+     * @return $this This instance
      */
-    public function setInputTransformer(TransformerInterface $input_transformer)
+    public function setInputTransformer(TransformerInterface $input_transformer): self
     {
         $this->input_transformer = $input_transformer;
 
@@ -85,7 +85,7 @@ class Processor implements ProcessorInterface
     /**
      * Get the hydrator factory
      *
-     * @return HydratorFactoryInterface The hydrator factory
+     * @return HydratorFactoryInterface|null The hydrator factory
      */
     public function getHydratorFactory()
     {
@@ -96,9 +96,9 @@ class Processor implements ProcessorInterface
      * Set the hydrator factory
      *
      * @param HydratorFactoryInterface|null $hydrator_factory The hydrator factory
-     * @return Processor This instance
+     * @return $this This instance
      */
-    public function setHydratorFactory(HydratorFactoryInterface $hydrator_factory = null)
+    public function setHydratorFactory(HydratorFactoryInterface $hydrator_factory = null): self
     {
         $this->hydrator_factory = $hydrator_factory;
 
@@ -113,7 +113,7 @@ class Processor implements ProcessorInterface
      *
      * @param mixed $input_data The input data
      * @param mixed $model The model to hydrate
-     * * @param HydratorInterface|null $hydrator The hydrator to use
+     * @param HydratorInterface|null $hydrator The hydrator to use
      * @return mixed The hydrated model
      */
     public function process($input_data, $model, HydratorInterface $hydrator = null)
@@ -146,7 +146,7 @@ class Processor implements ProcessorInterface
      *  the given model
      * @return HydratorInterface The resulting hydrator
      */
-    protected function getHydratorForModel($model)
+    protected function getHydratorForModel($model): HydratorInterface
     {
         if (null === $this->hydrator_factory) {
             throw UnresolvableHydratorException::forModel($model);

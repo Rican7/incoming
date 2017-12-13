@@ -8,13 +8,13 @@
  * @license   MIT
  */
 
+declare(strict_types=1);
+
 namespace Incoming\Structure\Iterator;
 
 use Iterator;
 
 /**
- * ReadOnlyIterator
- *
  * A very basic iterator implementation that decorates another iterator but only
  * allows the most basic of iterator operations without having access to the
  * underlying iterator
@@ -29,7 +29,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * The underlying decorated iterator
      *
-     * @type Iterator
+     * @var Iterator
      */
     private $decorated;
 
@@ -93,7 +93,7 @@ final class ReadOnlyIterator implements Iterator
      *
      * @return boolean True if the current position is valid, false otherwise
      */
-    public function valid()
+    public function valid(): bool
     {
         return $this->decorated->valid();
     }
