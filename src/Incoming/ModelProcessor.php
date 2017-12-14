@@ -18,7 +18,7 @@ use Incoming\Hydrator\HydratorInterface;
  * Defines an interface for processing loose input data into a hydrated model,
  * using a given hydrator
  */
-interface ProcessorInterface
+interface ModelProcessor
 {
 
     /**
@@ -29,5 +29,5 @@ interface ProcessorInterface
      * @param HydratorInterface $hydrator The hydrator to use in the process
      * @return mixed The hydrated model
      */
-    public function process($input_data, $model, HydratorInterface $hydrator);
+    public function processForModel($input_data, $model, HydratorInterface $hydrator);
 }
