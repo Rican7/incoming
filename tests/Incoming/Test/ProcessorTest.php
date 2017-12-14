@@ -13,8 +13,8 @@ declare(strict_types=1);
 namespace Incoming\Test;
 
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
-use Incoming\Hydrator\HydratorFactoryInterface;
-use Incoming\Hydrator\HydratorInterface;
+use Incoming\Hydrator\HydratorFactory;
+use Incoming\Hydrator\Hydrator;
 use Incoming\Processor;
 use Incoming\Transformer\PassthruTransformer;
 use PHPUnit\Framework\TestCase;
@@ -29,7 +29,7 @@ class ProcessorTest extends TestCase
 
     private function getMockHydratorFactory($hydrator_to_return = null)
     {
-        $mock = $this->createMock(HydratorFactoryInterface::class);
+        $mock = $this->createMock(HydratorFactory::class);
 
         if (null !== $hydrator_to_return) {
             $mock->expects($this->any())
@@ -42,7 +42,7 @@ class ProcessorTest extends TestCase
 
     private function getMockHydratorForStdClass(array $data, stdClass $instance)
     {
-        $mock = $this->createMock(HydratorInterface::class);
+        $mock = $this->createMock(Hydrator::class);
 
         foreach ($data as $key => $value) {
             $instance->{$key} = $value;
@@ -88,7 +88,7 @@ class ProcessorTest extends TestCase
         $this->assertSame($test_hydrator_factory, $processor->getHydratorFactory());
     }
 
-    public function testProcess()
+    public function testProcessForModel()
     {
         $test_input_data = [
             'prop_1' => 'thing',
@@ -100,13 +100,13 @@ class ProcessorTest extends TestCase
 
         $processor = new Processor();
 
-        $hydrated = $processor->process($test_input_data, $test_model, $test_hydrator);
+        $hydrated = $processor->processForModel($test_input_data, $test_model, $test_hydrator);
 
         $this->assertSame($test_model, $hydrated);
         $this->assertSame($test_input_data['misc'], $hydrated->misc);
     }
 
-    public function testProcessWithAutoResolvedHydrator()
+    public function testProcessForModelWithAutoResolvedHydrator()
     {
         $test_input_data = [
             'prop_1' => 'thing',
@@ -121,13 +121,13 @@ class ProcessorTest extends TestCase
         $processor = new Processor();
         $processor->setHydratorFactory($test_hydrator_factory);
 
-        $hydrated = $processor->process($test_input_data, $test_model);
+        $hydrated = $processor->processForModel($test_input_data, $test_model);
 
         $this->assertSame($test_model, $hydrated);
         $this->assertSame($test_input_data['misc'], $hydrated->misc);
     }
 
-    public function testProcessWithUnresolvableHydrator()
+    public function testProcessForModelWithUnresolvableHydrator()
     {
         $test_input_data = [
             'prop_1' => 'thing',
@@ -140,6 +140,6 @@ class ProcessorTest extends TestCase
 
         $this->expectException(UnresolvableHydratorException::class);
 
-        $processor->process($test_input_data, $test_model);
+        $processor->processForModel($test_input_data, $test_model);
     }
 }

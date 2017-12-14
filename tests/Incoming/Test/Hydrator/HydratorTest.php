@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Incoming\Test\Hydrator;
 
-use Incoming\Hydrator\HydratorInterface;
+use Incoming\Hydrator\Hydrator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -25,7 +25,7 @@ class HydratorTest extends TestCase
 
     private function getMockHydratorForStdClass(array $data, stdClass $instance)
     {
-        $mock = $this->createMock(HydratorInterface::class);
+        $mock = $this->createMock(Hydrator::class);
 
         foreach ($data as $key => $value) {
             $instance->{$key} = $value;
