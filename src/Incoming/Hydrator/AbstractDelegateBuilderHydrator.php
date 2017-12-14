@@ -56,10 +56,9 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      */
     public function build($incoming)
     {
-        return call_user_func(
-            $this->getDelegateBuilder(),
-            $incoming
-        );
+        $callable = $this->getDelegateBuilder();
+
+        return $callable($incoming);
     }
 
     /**
@@ -71,11 +70,9 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      */
     public function hydrate($incoming, $model)
     {
-        return call_user_func(
-            $this->getDelegateHydrator(),
-            $incoming,
-            $model
-        );
+        $callable = $this->getDelegateHydrator();
+
+        return $callable($incoming, $model);
     }
 
     /**

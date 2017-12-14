@@ -58,11 +58,9 @@ abstract class AbstractDelegateHydrator implements Hydrator
      */
     public function hydrate($incoming, $model)
     {
-        return call_user_func(
-            $this->getDelegate(),
-            $incoming,
-            $model
-        );
+        $callable = $this->getDelegate();
+
+        return $callable($incoming, $model);
     }
 
     /**

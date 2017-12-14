@@ -57,10 +57,9 @@ abstract class AbstractDelegateBuilder implements Builder
      */
     public function build($incoming)
     {
-        return call_user_func(
-            $this->getDelegate(),
-            $incoming
-        );
+        $callable = $this->getDelegate();
+
+        return $callable($incoming);
     }
 
     /**
