@@ -16,7 +16,6 @@ use DateTime;
 use Incoming\Hydrator\AbstractDelegateHydrator;
 use Incoming\Hydrator\Exception\InvalidDelegateException;
 use Incoming\Structure\Map;
-use Incoming\Test\Hydrator\MockDelegateHydrator;
 use PHPUnit\Framework\TestCase;
 use TypeError;
 
@@ -76,7 +75,9 @@ class AbstractDelegateHydratorTest extends TestCase
 
     public function testHydrateWithNonCallableThrowsException()
     {
-        $mock_hydrator = new MockDelegateHydrator();
+        $mock_hydrator = new class extends AbstractDelegateHydrator
+        {
+        };
 
         $this->expectException(InvalidDelegateException::class);
 
