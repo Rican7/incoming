@@ -14,6 +14,7 @@ namespace Incoming;
 
 use Incoming\Hydrator\Builder;
 use Incoming\Hydrator\BuilderFactory;
+use Incoming\Hydrator\Exception\UnresolvableBuilderException;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\Hydrator;
 use Incoming\Hydrator\HydratorFactory;
@@ -206,8 +207,8 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * {@inheritdoc}
      *
-     * If a hydrator isn't provided, an attempt will be made to automatically
-     * resolve and build an appropriate hydrator from the provided factory
+     * If a builder isn't provided, an attempt will be made to automatically
+     * resolve and build an appropriate builder from the provided factory
      *
      * @param mixed $input_data The input data
      * @param string $type The type to build
@@ -217,12 +218,12 @@ class Processor implements ModelProcessor, TypeProcessor
      *  model
      * @return mixed The built model
      */
-    public function processForType($input_data, string $type, Builder $builder, Hydrator $hydrator = null)
+    public function processForType($input_data, string $type, Builder $builder = null, Hydrator $hydrator = null)
     {
         $input_data = $this->transformInput($input_data);
 
         if (null === $builder) {
-            $builder = $this->getBuilderForModel($model);
+            $builder = $this->getBuilderForType($type);
         }
 
         $model = $builder->build($input_data);
@@ -296,6 +297,6 @@ class Processor implements ModelProcessor, TypeProcessor
             throw UnresolvableBuilderException::forType($type);
         }
 
-        return $this->builder_factory->buildForModel($type);
+        return $this->builder_factory->buildForType($type);
     }
 }
