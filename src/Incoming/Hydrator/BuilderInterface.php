@@ -12,6 +12,8 @@ declare(strict_types=1);
 
 namespace Incoming\Hydrator;
 
+use Incoming\Hydrator\Exception\BuildingProcessException;
+
 /**
  * Defines an interface for "building" a well-defined, consistent data model
  * from a loose input structure
@@ -26,6 +28,7 @@ interface BuilderInterface
      *
      * @param mixed $incoming The input data
      * @return mixed The built model
+     * @throws BuildingProcessException If an error occurrs during building
      */
     public function build($incoming);
 }
