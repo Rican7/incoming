@@ -23,7 +23,7 @@ use Traversable;
 /**
  * A key => value, read-only map data-structure
  */
-class Map implements StructureInterface
+class Map implements Structure
 {
 
     /**
@@ -99,7 +99,8 @@ class Map implements StructureInterface
      * Get a value in the map by key
      *
      * @param mixed $key The key to get the value for
-     * @param mixed $default_val The default value to return if the key does not exist
+     * @param mixed $default_val The default value to return if the key does
+     *  not exist
      * @return mixed The resulting value
      */
     public function get($key, $default_val = null)

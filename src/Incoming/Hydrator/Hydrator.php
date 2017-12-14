@@ -18,7 +18,7 @@ use Incoming\Hydrator\Exception\HydrationProcessException;
  * Defines an interface for "hydrating" a well-defined, consistent data model
  * from a loose input structure
  */
-interface HydratorInterface
+interface Hydrator
 {
 
     /**

@@ -12,13 +12,13 @@ declare(strict_types=1);
 
 namespace Incoming;
 
-use Incoming\Hydrator\BuilderFactoryInterface;
-use Incoming\Hydrator\BuilderInterface;
+use Incoming\Hydrator\Builder;
+use Incoming\Hydrator\BuilderFactory;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
-use Incoming\Hydrator\HydratorFactoryInterface;
-use Incoming\Hydrator\HydratorInterface;
+use Incoming\Hydrator\Hydrator;
+use Incoming\Hydrator\HydratorFactory;
 use Incoming\Transformer\StructureBuilderTransformer;
-use Incoming\Transformer\TransformerInterface;
+use Incoming\Transformer\Transformer;
 
 /**
  * A default implementation of both the `ModelProcessor` and `TypeProcessor`
@@ -35,27 +35,27 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * An input transformer to pre-process the input data before hydration
      *
-     * @var TransformerInterface
+     * @var Transformer
      */
     private $input_transformer;
 
     /**
      * A factory for building hydrators for a given model
      *
-     * @var HydratorFactoryInterface
+     * @var HydratorFactory
      */
     private $hydrator_factory;
 
     /**
      * A factory for building builders for a given model
      *
-     * @var BuilderFactoryInterface
+     * @var BuilderFactory
      */
     private $builder_factory;
 
     /**
-     * A configuration flag that denotes whether hydration should always be
-     * run after building a new model when processing specified types
+     * A configuration flag that denotes whether hydration should always be run
+     * after building a new model when processing specified types
      *
      * @var bool
      */
@@ -69,17 +69,17 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Constructor
      *
-     * @param TransformerInterface|null $input_transformer The input transformer
-     * @param HydratorFactoryInterface|null $hydrator_factory A hydrator factory
-     * @param BuilderFactoryInterface|null $builder_factory A builder factory
+     * @param Transformer|null $input_transformer The input transformer
+     * @param HydratorFactory|null $hydrator_factory A hydrator factory
+     * @param BuilderFactory|null $builder_factory A builder factory
      * @param bool $always_hydrate_after_building A configuration flag that
      *  denotes whether hydration should always be run after building a new
      *  model when processing specified types
      */
     public function __construct(
-        TransformerInterface $input_transformer = null,
-        HydratorFactoryInterface $hydrator_factory = null,
-        BuilderFactoryInterface $builder_factory = null,
+        Transformer $input_transformer = null,
+        HydratorFactory $hydrator_factory = null,
+        BuilderFactory $builder_factory = null,
         bool $always_hydrate_after_building = false
     ) {
         $this->input_transformer = $input_transformer ?: new StructureBuilderTransformer();
@@ -91,9 +91,9 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Get the input transformer
      *
-     * @return TransformerInterface The input transformer
+     * @return Transformer The input transformer
      */
-    public function getInputTransformer(): TransformerInterface
+    public function getInputTransformer(): Transformer
     {
         return $this->input_transformer;
     }
@@ -101,10 +101,10 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Set the input transformer
      *
-     * @param TransformerInterface $input_transformer The input transformer
+     * @param Transformer $input_transformer The input transformer
      * @return $this This instance
      */
-    public function setInputTransformer(TransformerInterface $input_transformer): self
+    public function setInputTransformer(Transformer $input_transformer): self
     {
         $this->input_transformer = $input_transformer;
 
@@ -114,7 +114,7 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Get the hydrator factory
      *
-     * @return HydratorFactoryInterface|null The hydrator factory
+     * @return HydratorFactory|null The hydrator factory
      */
     public function getHydratorFactory()
     {
@@ -124,10 +124,10 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Set the hydrator factory
      *
-     * @param HydratorFactoryInterface|null $hydrator_factory The hydrator factory
+     * @param HydratorFactory|null $hydrator_factory The hydrator factory
      * @return $this This instance
      */
-    public function setHydratorFactory(HydratorFactoryInterface $hydrator_factory = null): self
+    public function setHydratorFactory(HydratorFactory $hydrator_factory = null): self
     {
         $this->hydrator_factory = $hydrator_factory;
 
@@ -137,7 +137,7 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Get the builder factory
      *
-     * @return BuilderFactoryInterface|null The builder factory
+     * @return BuilderFactory|null The builder factory
      */
     public function getBuilderFactory()
     {
@@ -147,10 +147,10 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * Set the builder factory
      *
-     * @param BuilderFactoryInterface|null $builder_factory The builder factory
+     * @param BuilderFactory|null $builder_factory The builder factory
      * @return $this This instance
      */
-    public function setBuilderFactory(BuilderFactoryInterface $builder_factory = null): self
+    public function setBuilderFactory(BuilderFactory $builder_factory = null): self
     {
         $this->builder_factory = $builder_factory;
 
@@ -193,10 +193,10 @@ class Processor implements ModelProcessor, TypeProcessor
      *
      * @param mixed $input_data The input data
      * @param mixed $model The model to hydrate
-     * @param HydratorInterface|null $hydrator The hydrator to use
+     * @param Hydrator|null $hydrator The hydrator to use
      * @return mixed The hydrated model
      */
-    public function processForModel($input_data, $model, HydratorInterface $hydrator = null)
+    public function processForModel($input_data, $model, Hydrator $hydrator = null)
     {
         $input_data = $this->transformInput($input_data);
 
@@ -211,18 +211,14 @@ class Processor implements ModelProcessor, TypeProcessor
      *
      * @param mixed $input_data The input data
      * @param string $type The type to build
-     * @param BuilderInterface $builder The builder to use in the process
-     * @param HydratorInterface $hydrator An optional hydrator to use in the
-     *  process, after the type is built, to aid in the full hydration of the
-     *  resulting model
+     * @param Builder $builder The builder to use in the process
+     * @param Hydrator $hydrator An optional hydrator to use in the process,
+     *  after the type is built, to aid in the full hydration of the resulting
+     *  model
      * @return mixed The built model
      */
-    public function processForType(
-        $input_data,
-        string $type,
-        BuilderInterface $builder,
-        HydratorInterface $hydrator = null
-    ) {
+    public function processForType($input_data, string $type, Builder $builder, Hydrator $hydrator = null)
+    {
         $input_data = $this->transformInput($input_data);
 
         if (null === $builder) {
@@ -257,10 +253,10 @@ class Processor implements ModelProcessor, TypeProcessor
      *
      * @param mixed $input_data The input data
      * @param mixed $model The model to hydrate
-     * @param HydratorInterface|null $hydrator The hydrator to use
+     * @param Hydrator|null $hydrator The hydrator to use
      * @return mixed The hydrated model
      */
-    protected function hydrateModel($input_data, $model, HydratorInterface $hydrator = null)
+    protected function hydrateModel($input_data, $model, Hydrator $hydrator = null)
     {
         if (null === $hydrator) {
             $hydrator = $this->getHydratorForModel($model);
@@ -275,9 +271,9 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param mixed $model The model to get a hydrator for
      * @throws UnresolvableHydratorException If a hydrator can't be resolved for
      *  the given model
-     * @return HydratorInterface The resulting hydrator
+     * @return Hydrator The resulting hydrator
      */
-    protected function getHydratorForModel($model): HydratorInterface
+    protected function getHydratorForModel($model): Hydrator
     {
         if (null === $this->hydrator_factory) {
             throw UnresolvableHydratorException::forModel($model);
@@ -292,9 +288,9 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param string $type The type to get a builder for
      * @throws UnresolvableBuilderException If a builder can't be resolved for
      *  the given model
-     * @return BuilderInterface The resulting builder
+     * @return Builder The resulting builder
      */
-    protected function getBuilderForType(string $type): BuilderInterface
+    protected function getBuilderForType(string $type): Builder
     {
         if (null === $this->builder_factory) {
             throw UnresolvableBuilderException::forType($type);

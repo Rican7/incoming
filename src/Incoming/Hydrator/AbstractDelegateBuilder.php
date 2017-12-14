@@ -21,16 +21,16 @@ use Incoming\Hydrator\Exception\InvalidDelegateException;
  *
  * This enables a lot of interesting uses, most notably this allows builders to
  * be created that have strongly type-hinted building arguments while still
- * perfectly satisfying the `BuilderInterface`. Essentially this allows the
- * bypassing of the type variance rules enforced by PHP in a way that provides a
+ * perfectly satisfying the `Builder`. Essentially this allows the bypassing of
+ * the type variance rules enforced by PHP in a way that provides a
  * generics-like definition. Ultimately, if/when PHP gets generics this will no
  * longer be necessary, as one could simply implement a builder using typed
- * arguments like: `BuilderInterface<IncomingDataType, ModelType>`
+ * arguments like: `Builder<IncomingDataType, ModelType>`
  *
  * @link http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
  * @link http://en.wikipedia.org/wiki/Generic_programming
  */
-abstract class AbstractDelegateBuilder implements BuilderInterface
+abstract class AbstractDelegateBuilder implements Builder
 {
 
     /**

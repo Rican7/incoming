@@ -21,7 +21,7 @@ use Traversable;
 /**
  * A fixed-size, read-only data-structure
  */
-class FixedList implements StructureInterface
+class FixedList implements Structure
 {
 
     /**
@@ -93,7 +93,8 @@ class FixedList implements StructureInterface
      * Get a value in the list by index
      *
      * @param int $index The index to get the value for
-     * @param mixed $default_val The default value to return if the index does not exist
+     * @param mixed $default_val The default value to return if the index does
+     *  not exist
      * @return mixed The resulting value
      */
     public function get(int $index, $default_val = null)

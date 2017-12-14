@@ -22,7 +22,7 @@ use Incoming\Hydrator\Exception\InvalidDelegateException;
  * @see AbstractDelegateBuilder
  * @see AbstractDelegateHydrator
  */
-abstract class AbstractDelegateBuilderHydrator implements BuilderInterface, HydratorInterface
+abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
 {
 
     /**

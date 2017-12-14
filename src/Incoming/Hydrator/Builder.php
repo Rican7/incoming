@@ -20,7 +20,7 @@ use Incoming\Hydrator\Exception\BuildingProcessException;
  *
  * Builders are basically hydrators, but for models that aren't yet instantiated
  */
-interface BuilderInterface
+interface Builder
 {
 
     /**

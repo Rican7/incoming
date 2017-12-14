@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace Incoming;
 
-use Incoming\Hydrator\HydratorInterface;
+use Incoming\Hydrator\Hydrator;
 
 /**
  * Defines an interface for processing loose input data into a hydrated model,
@@ -26,8 +26,8 @@ interface ModelProcessor
      *
      * @param mixed $input_data The input data
      * @param mixed $model The model to hydrate
-     * @param HydratorInterface $hydrator The hydrator to use in the process
+     * @param Hydrator $hydrator The hydrator to use in the process
      * @return mixed The hydrated model
      */
-    public function processForModel($input_data, $model, HydratorInterface $hydrator);
+    public function processForModel($input_data, $model, Hydrator $hydrator);
 }

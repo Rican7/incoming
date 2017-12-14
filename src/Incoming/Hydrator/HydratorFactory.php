@@ -19,14 +19,14 @@ namespace Incoming\Hydrator;
  * Most implementations will probably use the given model's type or structure to
  * provide and build a hydrator responsible for hydrating that model
  */
-interface HydratorFactoryInterface
+interface HydratorFactory
 {
 
     /**
      * Build a Hydrator for a given data model
      *
      * @param mixed $model The model to hydrate
-     * @return HydratorInterface A hydrator capable of hydrating the given model
+     * @return Hydrator A hydrator capable of hydrating the given model
      */
-    public function buildForModel($model): HydratorInterface;
+    public function buildForModel($model): Hydrator;
 }

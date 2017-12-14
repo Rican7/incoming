@@ -46,8 +46,8 @@ class ReadOnlyException extends BadMethodCallException
     const MESSAGE_EXTENSION_FOR_ATTRIBUTE_FORMAT = ' for attribute `%s`';
 
     /**
-     * The message extension format for providing an attribute's value info
-     * in addition to the attribute's context
+     * The message extension format for providing an attribute's value info in
+     * addition to the attribute's context
      *
      * @var string
      */
