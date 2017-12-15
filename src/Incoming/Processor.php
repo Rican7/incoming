@@ -210,6 +210,14 @@ class Processor implements ModelProcessor, TypeProcessor
      * If a builder isn't provided, an attempt will be made to automatically
      * resolve and build an appropriate builder from the provided factory
      *
+     * If a hydrator is provided, it will be used to hydrate the provided type
+     * after building via the builder
+     *
+     * If a hydrator isn't provided, but the "always_hydrate_after_building"
+     * property is set to true, an attempt to hydrate the type will be made
+     * after building via the builder, and the hydrator will be automatically
+     * resolved from the provided factory
+     *
      * @param mixed $input_data The input data
      * @param string $type The type to build
      * @param Builder $builder The builder to use in the process
