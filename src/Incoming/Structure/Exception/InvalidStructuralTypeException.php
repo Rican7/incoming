@@ -16,8 +16,8 @@ use InvalidArgumentException;
 use Throwable;
 
 /**
- * An exception to be thrown when an invalid type is given to a factory or
- * receiver that expects a type that is convertible or usable as structured data.
+ * An exception to be thrown when an invalid type is given to a receiver that
+ * expects a type that is convertible or usable as structured data.
  */
 class InvalidStructuralTypeException extends InvalidArgumentException
 {

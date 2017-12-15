@@ -15,7 +15,7 @@ namespace Incoming\Transformer;
 /**
  * A transformer that simply returns the input data as is.
  *
- * Great for use as part of the "Null Object" pattern as its essentially a no-op.
+ * Great for use as part of the "Null Object" pattern as its basically a no-op.
  */
 class PassthruTransformer implements Transformer
 {

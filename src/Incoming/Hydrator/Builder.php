@@ -18,7 +18,7 @@ use Incoming\Hydrator\Exception\BuildingProcessException;
  * Defines an interface for "building" a well-defined, consistent data model
  * from a loose input structure.
  *
- * Builders are basically hydrators, but for models that aren't yet instantiated.
+ * Builders are basically hydrators but for models that aren't yet instantiated.
  */
 interface Builder
 {
