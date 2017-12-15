@@ -12,8 +12,8 @@ declare(strict_types=1);
 
 namespace Incoming\Test\Transformer;
 
-use Incoming\Structure\StructureFactory;
-use Incoming\Structure\StructureInterface;
+use Incoming\Structure\RecursiveInputStructureFactory;
+use Incoming\Structure\Structure;
 use Incoming\Transformer\StructureBuilderTransformer;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ class StructureBuilderTransformerTest extends TestCase
 
     public function testGetSetStructureFactory()
     {
-        $test_structure_factory = new StructureFactory();
+        $test_structure_factory = new RecursiveInputStructureFactory();
 
         $transformer = new StructureBuilderTransformer();
 
@@ -42,6 +42,6 @@ class StructureBuilderTransformerTest extends TestCase
 
         $this->assertNotSame($input, $output);
 
-        $this->assertInstanceOf(StructureInterface::class, $output);
+        $this->assertInstanceOf(Structure::class, $output);
     }
 }

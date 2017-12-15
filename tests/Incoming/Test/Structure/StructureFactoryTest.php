@@ -17,11 +17,11 @@ use DateTime;
 use Incoming\Structure\Exception\InvalidStructuralTypeException;
 use Incoming\Structure\FixedList;
 use Incoming\Structure\Map;
-use Incoming\Structure\StructureFactory;
-use Incoming\Structure\StructureInterface;
+use Incoming\Structure\RecursiveInputStructureFactory;
+use Incoming\Structure\Structure;
 use PHPUnit\Framework\TestCase;
 
-class StructureFactoryTest extends TestCase
+class RecursiveInputStructureFactoryTest extends TestCase
 {
 
     /**
@@ -68,7 +68,7 @@ class StructureFactoryTest extends TestCase
     {
         $data = $this->getTestListArrayData();
 
-        $structure = (new StructureFactory)->build($data);
+        $structure = (new RecursiveInputStructureFactory)->build($data);
 
         // Assert that our types translated correctly
         $this->assertInstanceOf(FixedList::class, $structure);
@@ -80,7 +80,7 @@ class StructureFactoryTest extends TestCase
     {
         $data = $this->getTestMapArrayData();
 
-        $structure = (new StructureFactory)->build(new ArrayIterator($data));
+        $structure = (new RecursiveInputStructureFactory)->build(new ArrayIterator($data));
 
         // Assert that our types translated correctly
         $this->assertInstanceOf(Map::class, $structure);
@@ -91,9 +91,9 @@ class StructureFactoryTest extends TestCase
     {
         $data = [[[], [], []], [], []];
 
-        $structure = (new StructureFactory)->build($data);
+        $structure = (new RecursiveInputStructureFactory)->build($data);
 
-        $this->assertInstanceOf(StructureInterface::class, $structure);
+        $this->assertInstanceOf(Structure::class, $structure);
     }
 
     public function testBuildWithNestedIterators()
@@ -108,9 +108,9 @@ class StructureFactoryTest extends TestCase
             new ArrayIterator([]),
         ]);
 
-        $structure = (new StructureFactory)->build($data);
+        $structure = (new RecursiveInputStructureFactory)->build($data);
 
-        $this->assertInstanceOf(StructureInterface::class, $structure);
+        $this->assertInstanceOf(Structure::class, $structure);
     }
 
     public function testBuildWithInvalidStructuralType()
@@ -119,7 +119,7 @@ class StructureFactoryTest extends TestCase
 
         $this->expectException(InvalidStructuralTypeException::class);
 
-        $structure = (new StructureFactory)->build($data);
+        $structure = (new RecursiveInputStructureFactory)->build($data);
     }
 
     /**
@@ -132,7 +132,7 @@ class StructureFactoryTest extends TestCase
             0 => 'a crazy mixed-in key'
         ]);
 
-        $structure = (new StructureFactory)->build($data);
+        $structure = (new RecursiveInputStructureFactory)->build($data);
 
         $this->assertInstanceOf(Map::class, $structure);
     }

@@ -20,7 +20,7 @@ namespace Incoming\Transformer;
  * structure, but also useful for cleaning up or sanitizing input data in a
  * generic and reusable fashion
  */
-interface TransformerInterface
+interface Transformer
 {
 
     /**

@@ -20,6 +20,6 @@ use IteratorAggregate;
  * A compound interface defining the external interface of a structure type,
  * which is the union of multiple native data-structure interfaces
  */
-interface StructureInterface extends ArrayAccess, Countable, IteratorAggregate
+interface Structure extends ArrayAccess, Countable, IteratorAggregate
 {
 }

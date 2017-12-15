@@ -12,18 +12,18 @@ declare(strict_types=1);
 
 namespace Incoming\Transformer;
 
+use Incoming\Structure\RecursiveInputStructureFactory;
+use Incoming\Structure\Structure;
 use Incoming\Structure\StructureFactory;
-use Incoming\Structure\StructureFactoryInterface;
-use Incoming\Structure\StructureInterface;
 
 /**
- * A transformer that takes an input data and returns a StructureInterface
+ * A transformer that takes an input data and returns a Structure
  * representation of the same data
  *
  * Allows for turning loose input into a well-structured container for easier,
  * less error-prone, and more user-friendly data handling
  */
-class StructureBuilderTransformer implements TransformerInterface
+class StructureBuilderTransformer implements Transformer
 {
 
     /**
@@ -31,9 +31,9 @@ class StructureBuilderTransformer implements TransformerInterface
      */
 
     /**
-     * The factory used to build the StructureInterface instances
+     * The factory used to build the Structure instances
      *
-     * @var StructureFactoryInterface
+     * @var StructureFactory
      */
     private $structure_factory;
 
@@ -45,19 +45,19 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * Constructor
      *
-     * @param StructureFactoryInterface|null $structure_factory The structure factory
+     * @param StructureFactory|null $structure_factory The structure factory
      */
-    public function __construct(StructureFactoryInterface $structure_factory = null)
+    public function __construct(StructureFactory $structure_factory = null)
     {
-        $this->structure_factory = $structure_factory ?: new StructureFactory();
+        $this->structure_factory = $structure_factory ?: new RecursiveInputStructureFactory();
     }
 
     /**
      * Get the structure factory
      *
-     * @return StructureFactoryInterface The structure factory
+     * @return StructureFactory The structure factory
      */
-    public function getStructureFactory(): StructureFactoryInterface
+    public function getStructureFactory(): StructureFactory
     {
         return $this->structure_factory;
     }
@@ -65,10 +65,10 @@ class StructureBuilderTransformer implements TransformerInterface
     /**
      * Set the structure factory
      *
-     * @param StructureFactoryInterface $structure_factory The structure factory
+     * @param StructureFactory $structure_factory The structure factory
      * @return $this This instance
      */
-    public function setStructureFactory(StructureFactoryInterface $structure_factory): self
+    public function setStructureFactory(StructureFactory $structure_factory): self
     {
         $this->structure_factory = $structure_factory;
 
@@ -79,9 +79,9 @@ class StructureBuilderTransformer implements TransformerInterface
      * {@inheritdoc}
      *
      * @param mixed $input The data to transform
-     * @return StructureInterface The transformed data
+     * @return Structure The transformed data
      */
-    public function transform($input): StructureInterface
+    public function transform($input): Structure
     {
         return $this->structure_factory->build($input);
     }

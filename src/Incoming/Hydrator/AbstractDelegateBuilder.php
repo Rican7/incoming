@@ -15,22 +15,22 @@ namespace Incoming\Hydrator;
 use Incoming\Hydrator\Exception\InvalidDelegateException;
 
 /**
- * An abstract hydrator that allows for the hydration to be delegated to
- * another callable. By default, a named method is attempted to be found, but
- * any callable could be returned through overrides.
+ * An abstract builder that allows for the building to be delegated to another
+ * callable. By default, a named method is attempted to be found, but any
+ * callable could be returned through overrides.
  *
- * This enables a lot of interesting uses, most notably this allows hydrators
- * to be created that have strongly type-hinted hydration arguments while still
- * perfectly satisfying the `Hydrator`. Essentially this allows the bypassing
- * of the type variance rules enforced by PHP in a way that provides a
+ * This enables a lot of interesting uses, most notably this allows builders to
+ * be created that have strongly type-hinted building arguments while still
+ * perfectly satisfying the `Builder`. Essentially this allows the bypassing of
+ * the type variance rules enforced by PHP in a way that provides a
  * generics-like definition. Ultimately, if/when PHP gets generics this will no
- * longer be necessary, as one could simply implement a hydrator using typed
- * arguments like: `Hydrator<IncomingDataType, ModelType>`
+ * longer be necessary, as one could simply implement a builder using typed
+ * arguments like: `Builder<IncomingDataType, ModelType>`
  *
  * @link http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
  * @link http://en.wikipedia.org/wiki/Generic_programming
  */
-abstract class AbstractDelegateHydrator implements Hydrator
+abstract class AbstractDelegateBuilder implements Builder
 {
 
     /**
@@ -42,7 +42,7 @@ abstract class AbstractDelegateHydrator implements Hydrator
      *
      * @var string
      */
-    const DEFAULT_DELEGATE_METHOD_NAME = 'hydrateModel';
+    const DEFAULT_DELEGATE_METHOD_NAME = 'buildModel';
 
 
     /**
@@ -53,22 +53,21 @@ abstract class AbstractDelegateHydrator implements Hydrator
      * {@inheritdoc}
      *
      * @param mixed $incoming The input data
-     * @param mixed $model The model to hydrate
-     * @return mixed The hydrated model
+     * @return mixed The built model
      */
-    public function hydrate($incoming, $model)
+    public function build($incoming)
     {
         $callable = $this->getDelegate();
 
-        return $callable($incoming, $model);
+        return $callable($incoming);
     }
 
     /**
-     * Get the delegate hydration callable
+     * Get the delegate building callable
      *
      * Override this method if a custom delegate is desired
      *
-     * @return callable The delegate hydrator callable
+     * @return callable The delegate builder callable
      */
     protected function getDelegate(): callable
     {
@@ -82,7 +81,7 @@ abstract class AbstractDelegateHydrator implements Hydrator
     }
 
     /**
-     * The delegate hydrate method
+     * The delegate build method
      *
      * This doc-block and commented out abstract method is provided here to show
      * what the delegate method signature WOULD be if PHP allowed the proper
@@ -91,8 +90,7 @@ abstract class AbstractDelegateHydrator implements Hydrator
      * See the class description for more info
      *
      * @param IncomingDataType $incoming The input data
-     * @param ModelType $model The model to hydrate
-     * @return ModelType The hydrated model
+     * @return ModelType The built model
      */
-    // abstract protected function hydrateModel(IncomingDataType $incoming, ModelType $model): ModelType;
+    // abstract protected function buildModel(IncomingDataType $incoming): ModelType;
 }

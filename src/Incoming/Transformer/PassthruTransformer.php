@@ -17,7 +17,7 @@ namespace Incoming\Transformer;
  *
  * Great for use as part of the "Null Object" pattern as its essentially a no-op
  */
-class PassthruTransformer implements TransformerInterface
+class PassthruTransformer implements Transformer
 {
 
     /**
