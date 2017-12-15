@@ -23,7 +23,7 @@ install:
 
 script:
   - composer validate
-  - make lint 1>/dev/null
+  - make lint
   - make check-style
   - make test-with-coverage-clover
 
