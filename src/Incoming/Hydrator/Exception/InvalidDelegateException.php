@@ -17,7 +17,7 @@ use Throwable;
 
 /**
  * An exception to be thrown when an invalid delegate method, function, or
- * callback is provided to a caller
+ * callback is provided to a caller.
  */
 class InvalidDelegateException extends BadFunctionCallException
 {
@@ -27,26 +27,28 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Invalid delegate';
 
     /**
-     * The exception code for when a delegate isn't callable
+     * The exception code for when a delegate isn't callable.
      *
      * @var int
      */
     const CODE_FOR_NON_CALLABLE = 1;
 
     /**
-     * The message extension for when a delegate isn't callable
+     * The message extension for when a delegate isn't callable.
      *
      * @var string
      */
     const MESSAGE_EXTENSION_FOR_NON_CALLABLE = ' is unable to be called';
 
     /**
-     * The message extension format for when a delegate's name is provided
+     * The message extension format for when a delegate's name is provided.
      *
      * @var string
      */
@@ -58,6 +60,8 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -68,12 +72,12 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
-     * Create an exception instance for a delegate that isn't callable
+     * Create an exception instance for a delegate that isn't callable.
      *
-     * @param string|null $name The name of the delegate
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param string|null $name The name of the delegate.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forNonCallable(
         string $name = null,

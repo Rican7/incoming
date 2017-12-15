@@ -13,16 +13,16 @@ declare(strict_types=1);
 namespace Incoming\Structure;
 
 /**
- * Defines an interface for building structural data types from a loose input
+ * Defines an interface for building structural data types from a loose input.
  */
 interface StructureFactory
 {
 
     /**
-     * Build a structure from a loose-type
+     * Build a structure from a loose-type.
      *
-     * @param mixed $data The input data
-     * @return Structure The resulting data-structure
+     * @param mixed $data The input data.
+     * @return Structure The resulting data-structure.
      */
     public function build($data): Structure;
 }

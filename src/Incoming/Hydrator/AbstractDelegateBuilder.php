@@ -25,7 +25,7 @@ use Incoming\Hydrator\Exception\InvalidDelegateException;
  * the type variance rules enforced by PHP in a way that provides a
  * generics-like definition. Ultimately, if/when PHP gets generics this will no
  * longer be necessary, as one could simply implement a builder using typed
- * arguments like: `Builder<IncomingDataType, ModelType>`
+ * arguments like: `Builder<IncomingDataType, ModelType>`.
  *
  * @link http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
  * @link http://en.wikipedia.org/wiki/Generic_programming
@@ -38,7 +38,7 @@ abstract class AbstractDelegateBuilder implements Builder
      */
 
     /**
-     * The name of the default delegate method
+     * The name of the default delegate method.
      *
      * @var string
      */
@@ -52,8 +52,8 @@ abstract class AbstractDelegateBuilder implements Builder
     /**
      * {@inheritdoc}
      *
-     * @param mixed $incoming The input data
-     * @return mixed The built model
+     * @param mixed $incoming The input data.
+     * @return mixed The built model.
      */
     public function build($incoming)
     {
@@ -63,11 +63,12 @@ abstract class AbstractDelegateBuilder implements Builder
     }
 
     /**
-     * Get the delegate building callable
+     * Get the delegate building callable.
      *
-     * Override this method if a custom delegate is desired
+     * Override this method if a custom delegate is desired.
      *
-     * @return callable The delegate builder callable
+     * @return callable The delegate builder callable.
+     * @throws InvalidDelegateException If the delegate isn't callable.
      */
     protected function getDelegate(): callable
     {
@@ -81,16 +82,16 @@ abstract class AbstractDelegateBuilder implements Builder
     }
 
     /**
-     * The delegate build method
+     * The delegate build method.
      *
      * This doc-block and commented out abstract method is provided here to show
      * what the delegate method signature WOULD be if PHP allowed the proper
-     * typing support to enable a generic definition in this manner
+     * typing support to enable a generic definition in this manner.
      *
-     * See the class description for more info
+     * See the class description for more info.
      *
-     * @param IncomingDataType $incoming The input data
-     * @return ModelType The built model
+     * @param IncomingDataType $incoming The input data.
+     * @return ModelType The built model.
      */
     // abstract protected function buildModel(IncomingDataType $incoming): ModelType;
 }

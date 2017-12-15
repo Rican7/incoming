@@ -17,7 +17,7 @@ use UnexpectedValueException;
 
 /**
  * An exception to be thrown when a builder can't be resolved, whether by
- * automatic lookup or not, and usually for a given type
+ * automatic lookup or not, and usually for a given type.
  */
 class UnresolvableBuilderException extends UnexpectedValueException
 {
@@ -27,12 +27,14 @@ class UnresolvableBuilderException extends UnexpectedValueException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Unable to resolve a builder';
 
     /**
-     * The exception code for when a type is used as the resolver argument
+     * The exception code for when a type is used as the resolver argument.
      *
      * @var int
      */
@@ -40,7 +42,7 @@ class UnresolvableBuilderException extends UnexpectedValueException
 
     /**
      * The message extension (appended to the default message) for when a type
-     * is used as the builder resolver argument
+     * is used as the builder resolver argument.
      *
      * @var string
      */
@@ -52,6 +54,8 @@ class UnresolvableBuilderException extends UnexpectedValueException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -63,12 +67,12 @@ class UnresolvableBuilderException extends UnexpectedValueException
 
     /**
      * Create an exception instance for a problem resolving a builder for a
-     * given type
+     * given type.
      *
-     * @param string $type The type to build
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param string $type The type to build.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forType(
         string $type,

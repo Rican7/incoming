@@ -17,7 +17,7 @@ use UnexpectedValueException;
 
 /**
  * An exception to be thrown when a hydrator can't be resolved, whether by
- * automatic lookup or not, and usually for a given model
+ * automatic lookup or not, and usually for a given model.
  */
 class UnresolvableHydratorException extends UnexpectedValueException
 {
@@ -27,12 +27,14 @@ class UnresolvableHydratorException extends UnexpectedValueException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Unable to resolve a hydrator';
 
     /**
-     * The exception code for when a model is used as the resolver argument
+     * The exception code for when a model is used as the resolver argument.
      *
      * @var int
      */
@@ -40,14 +42,14 @@ class UnresolvableHydratorException extends UnexpectedValueException
 
     /**
      * The message extension (appended to the default message) for when a model
-     * is used as the hydrator resolver argument
+     * is used as the hydrator resolver argument.
      *
      * @var string
      */
     const MESSAGE_EXTENSION_FOR_MODEL = ' for the given model';
 
     /**
-     * The message extension format for providing type information
+     * The message extension format for providing type information.
      *
      * @var string
      */
@@ -59,6 +61,8 @@ class UnresolvableHydratorException extends UnexpectedValueException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -70,12 +74,12 @@ class UnresolvableHydratorException extends UnexpectedValueException
 
     /**
      * Create an exception instance for a problem resolving a hydrator for a
-     * given model
+     * given model.
      *
-     * @param mixed $model The model to hydrate
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param mixed $model The model to hydrate.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forModel(
         $model,

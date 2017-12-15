@@ -14,20 +14,20 @@ namespace Incoming\Transformer;
 
 /**
  * Defines an interface used for transforming input data into another state or
- * type
+ * type.
  *
  * Mostly useful for transforming a raw input array into a proper data
  * structure, but also useful for cleaning up or sanitizing input data in a
- * generic and reusable fashion
+ * generic and reusable fashion.
  */
 interface Transformer
 {
 
     /**
-     * Transform input data to another output state/type
+     * Transform input data to another output state/type.
      *
-     * @param mixed $input The data to transform
-     * @return mixed The transformed data
+     * @param mixed $input The data to transform.
+     * @return mixed The transformed data.
      */
     public function transform($input);
 }

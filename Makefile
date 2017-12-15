@@ -14,7 +14,7 @@ test-with-coverage-clover:
 
 lint:
 	# Lint all PHP files in parallel (across 8 threads)
-	find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -n 1 -0 -P 8 php -l
+	find . -name "*.php" -not -path "./vendor/*" -print0 | xargs -n 1 -0 -P 8 php -l 1>/dev/null
 
 check-style:
-	./vendor/bin/phpcs --standard=PSR2 --encoding=utf-8 -p src/ tests/
+	./vendor/bin/phpcs --standard=phpcs.xml.dist --encoding=utf-8 -p

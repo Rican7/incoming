@@ -17,7 +17,7 @@ use Iterator;
 /**
  * A very basic iterator implementation that decorates another iterator but only
  * allows the most basic of iterator operations without having access to the
- * underlying iterator
+ * underlying iterator.
  */
 final class ReadOnlyIterator implements Iterator
 {
@@ -27,7 +27,7 @@ final class ReadOnlyIterator implements Iterator
      */
 
     /**
-     * The underlying decorated iterator
+     * The underlying decorated iterator.
      *
      * @var Iterator
      */
@@ -41,7 +41,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Constructor
      *
-     * @param Iterator $decorated The iterator to decorate as read-only
+     * @param Iterator $decorated The iterator to decorate as read-only.
      */
     public function __construct(Iterator $decorated)
     {
@@ -49,9 +49,9 @@ final class ReadOnlyIterator implements Iterator
     }
 
     /**
-     * Return the current element
+     * Return the current element.
      *
-     * @return mixed The current element
+     * @return mixed The current element.
      */
     public function current()
     {
@@ -59,9 +59,9 @@ final class ReadOnlyIterator implements Iterator
     }
 
     /**
-     * Return the key of the current element
+     * Return the key of the current element.
      *
-     * @return scalar The key of the current element
+     * @return scalar The key of the current element.
      */
     public function key()
     {
@@ -69,7 +69,7 @@ final class ReadOnlyIterator implements Iterator
     }
 
     /**
-     * Move forward to next element
+     * Move forward to next element.
      *
      * @return void
      */
@@ -79,7 +79,7 @@ final class ReadOnlyIterator implements Iterator
     }
 
     /**
-     * Rewind the Iterator to the first element
+     * Rewind the Iterator to the first element.
      *
      * @return void
      */
@@ -89,9 +89,9 @@ final class ReadOnlyIterator implements Iterator
     }
 
     /**
-     * Checks if current position is valid
+     * Checks if current position is valid.
      *
-     * return bool True if the current position is valid, false otherwise
+     * @return bool True if the current position is valid, false otherwise.
      */
     public function valid(): bool
     {

@@ -15,7 +15,7 @@ namespace Incoming\Hydrator\Exception;
 use RuntimeException;
 
 /**
- * An exception to be thrown when a hydration process fails
+ * An exception to be thrown when a hydration process fails.
  */
 class HydrationProcessException extends RuntimeException
 {
@@ -25,6 +25,8 @@ class HydrationProcessException extends RuntimeException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Error occurred during hydration';
@@ -35,6 +37,8 @@ class HydrationProcessException extends RuntimeException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;

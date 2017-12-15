@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<ruleset name="Incoming">
+    <description>The coding standard for the Incoming project</description>
+
+    <file>src/</file>
+    <file>tests/</file>
+
+    <arg name="tab-width" value="4" />
+
+    <!-- Rules -->
+    <rule ref="PSR2" />
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="120" />
+        </properties>
+    </rule>
+    <rule ref="Generic.Commenting.DocComment">
+        <exclude-pattern>tests/</exclude-pattern>
+
+        <exclude name="Generic.Commenting.DocComment.TagValueIndent" />
+        <exclude name="Generic.Commenting.DocComment.NonParamGroup" />
+        <exclude name="Generic.Commenting.DocComment.ParamNotFirst" />
+    </rule>
+    <rule ref="Squiz.Commenting">
+        <exclude-pattern>tests/</exclude-pattern>
+
+        <exclude name="Squiz.Commenting.FileComment" />
+        <exclude name="Squiz.Commenting.ClassComment.TagNotAllowed" />
+        <exclude name="Squiz.Commenting.VariableComment.IncorrectVarType" />
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamType" />
+        <exclude name="Squiz.Commenting.FunctionComment.SpacingAfterParamName" />
+        <exclude name="Squiz.Commenting.FunctionComment.IncorrectParamVarName" />
+        <exclude name="Squiz.Commenting.FunctionComment.InvalidReturn" />
+        <exclude name="Squiz.Commenting.BlockComment.WrongStart" />
+        <exclude name="Squiz.Commenting.BlockComment.WrongEnd" />
+        <exclude name="Squiz.Commenting.InlineComment.DocBlock" />
+        <exclude name="Squiz.Commenting.InlineComment.NotCapital" />
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar" />
+        <exclude name="Squiz.Commenting.InlineComment.SpacingAfter" />
+        <exclude name="Squiz.Commenting.ClosingDeclarationComment" />
+    </rule>
+</ruleset>
