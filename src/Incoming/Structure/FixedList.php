@@ -43,7 +43,7 @@ class FixedList implements Structure
     /**
      * Constructor
      *
-     * @param int $size The size (length) of the list
+     * @param int $size The size (length) of the list.
      */
     public function __construct(int $size = 0)
     {
@@ -53,8 +53,8 @@ class FixedList implements Structure
     /**
      * Create from data in an array
      *
-     * @param array $data The data to create from
-     * @return static The resulting data-structure
+     * @param array $data The data to create from.
+     * @return static The resulting data-structure.
      */
     public static function fromArray(array $data): self
     {
@@ -68,8 +68,8 @@ class FixedList implements Structure
     /**
      * Create from data in a Traversable instance
      *
-     * @param Traversable $data The data to create from
-     * @return static The resulting data-structure
+     * @param Traversable $data The data to create from.
+     * @return static The resulting data-structure.
      */
     public static function fromTraversable(Traversable $data): self
     {
@@ -81,8 +81,8 @@ class FixedList implements Structure
     /**
      * Check if a given index exists in the list
      *
-     * @param int $index The index to check for existence
-     * return bool True if the index exists, false otherwise
+     * @param int $index The index to check for existence.
+     * @return bool True if the index exists, false otherwise.
      */
     public function exists(int $index): bool
     {
@@ -92,10 +92,10 @@ class FixedList implements Structure
     /**
      * Get a value in the list by index
      *
-     * @param int $index The index to get the value for
+     * @param int $index The index to get the value for.
      * @param mixed $default_val The default value to return if the index does
-     *  not exist
-     * @return mixed The resulting value
+     *  not exist.
+     * @return mixed The resulting value.
      */
     public function get(int $index, $default_val = null)
     {
@@ -109,7 +109,7 @@ class FixedList implements Structure
     /**
      * Check if the list is empty
      *
-     * return bool True if the list is empty, false otherwise
+     * @return bool True if the list is empty, false otherwise.
      */
     public function isEmpty(): bool
     {
@@ -119,7 +119,7 @@ class FixedList implements Structure
     /**
      * Get a representation of the list as an array
      *
-     * @return array The array representation of the list
+     * @return array The array representation of the list.
      */
     public function toArray(): array
     {
@@ -129,7 +129,7 @@ class FixedList implements Structure
     /**
      * Get the number of entries in the list
      *
-     * @return int The number of entries in the list
+     * @return int The number of entries in the list.
      */
     public function count(): int
     {
@@ -139,7 +139,7 @@ class FixedList implements Structure
     /**
      * Get an iterator instance over the underlying data
      *
-     * @return Iterator An iterator scoped to the list's data
+     * @return Iterator An iterator scoped to the list's data.
      */
     public function getIterator(): Iterator
     {
@@ -151,8 +151,8 @@ class FixedList implements Structure
     /**
      * Check whether an offset exists
      *
-     * @param mixed $offset The offset to check for
-     * return bool True if the offset exists, false otherwise
+     * @param mixed $offset The offset to check for.
+     * @return bool True if the offset exists, false otherwise.
      */
     public function offsetExists($offset): bool
     {
@@ -162,8 +162,8 @@ class FixedList implements Structure
     /**
      * Get the value at the given offset
      *
-     * @param mixed $offset The offset to get the value for
-     * @return mixed The resulting value
+     * @param mixed $offset The offset to get the value for.
+     * @return mixed The resulting value.
      */
     public function offsetGet($offset)
     {
@@ -174,9 +174,10 @@ class FixedList implements Structure
      * Set a value at the given offset
      *
      * @internal
-     * @param mixed $offset The offset to set the value for
-     * @param mixed $value The value to set
-     * @throws ReadOnlyException External modification is not allowed
+     *
+     * @param mixed $offset The offset to set the value for.
+     * @param mixed $value The value to set.
+     * @throws ReadOnlyException External modification is not allowed.
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -188,8 +189,9 @@ class FixedList implements Structure
      * Remove the item at the given offset
      *
      * @internal
-     * @param mixed $offset The offset to unset
-     * @throws ReadOnlyException External modification is not allowed
+     *
+     * @param mixed $offset The offset to unset.
+     * @throws ReadOnlyException External modification is not allowed.
      * @return void
      */
     public function offsetUnset($offset)

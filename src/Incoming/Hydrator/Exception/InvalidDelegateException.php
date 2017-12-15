@@ -27,6 +27,8 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Invalid delegate';
@@ -58,6 +60,8 @@ class InvalidDelegateException extends BadFunctionCallException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -70,10 +74,10 @@ class InvalidDelegateException extends BadFunctionCallException
     /**
      * Create an exception instance for a delegate that isn't callable
      *
-     * @param string|null $name The name of the delegate
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param string|null $name The name of the delegate.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forNonCallable(
         string $name = null,

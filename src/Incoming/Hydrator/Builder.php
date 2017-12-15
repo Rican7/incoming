@@ -26,9 +26,9 @@ interface Builder
     /**
      * Build a model from the incoming data
      *
-     * @param mixed $incoming The input data
-     * @return mixed The built model
-     * @throws BuildingProcessException If an error occurrs during building
+     * @param mixed $incoming The input data.
+     * @return mixed The built model.
+     * @throws BuildingProcessException If an error occurrs during building.
      */
     public function build($incoming);
 }

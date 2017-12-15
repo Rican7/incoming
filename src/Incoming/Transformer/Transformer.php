@@ -26,8 +26,8 @@ interface Transformer
     /**
      * Transform input data to another output state/type
      *
-     * @param mixed $input The data to transform
-     * @return mixed The transformed data
+     * @param mixed $input The data to transform.
+     * @return mixed The transformed data.
      */
     public function transform($input);
 }

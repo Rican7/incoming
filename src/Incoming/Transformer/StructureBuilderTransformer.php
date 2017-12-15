@@ -45,7 +45,7 @@ class StructureBuilderTransformer implements Transformer
     /**
      * Constructor
      *
-     * @param StructureFactory|null $structure_factory The structure factory
+     * @param StructureFactory|null $structure_factory The structure factory.
      */
     public function __construct(StructureFactory $structure_factory = null)
     {
@@ -55,7 +55,7 @@ class StructureBuilderTransformer implements Transformer
     /**
      * Get the structure factory
      *
-     * @return StructureFactory The structure factory
+     * @return StructureFactory The structure factory.
      */
     public function getStructureFactory(): StructureFactory
     {
@@ -65,8 +65,8 @@ class StructureBuilderTransformer implements Transformer
     /**
      * Set the structure factory
      *
-     * @param StructureFactory $structure_factory The structure factory
-     * @return $this This instance
+     * @param StructureFactory $structure_factory The structure factory.
+     * @return $this This instance.
      */
     public function setStructureFactory(StructureFactory $structure_factory): self
     {
@@ -78,8 +78,8 @@ class StructureBuilderTransformer implements Transformer
     /**
      * {@inheritdoc}
      *
-     * @param mixed $input The data to transform
-     * @return Structure The transformed data
+     * @param mixed $input The data to transform.
+     * @return Structure The transformed data.
      */
     public function transform($input): Structure
     {

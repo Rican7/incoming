@@ -25,8 +25,8 @@ interface HydratorFactory
     /**
      * Build a Hydrator for a given data model
      *
-     * @param mixed $model The model to hydrate
-     * @return Hydrator A hydrator capable of hydrating the given model
+     * @param mixed $model The model to hydrate.
+     * @return Hydrator A hydrator capable of hydrating the given model.
      */
     public function buildForModel($model): Hydrator;
 }

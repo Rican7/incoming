@@ -27,6 +27,8 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Invalid structural type';
@@ -44,6 +46,8 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -58,10 +62,10 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      *
      * The type is automatically inspected based on the passed value
      *
-     * @param mixed $value The value to inspect type information of
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param mixed $value The value to inspect type information of.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function withTypeInfo($value, int $code = 0, Throwable $previous = null): self
     {

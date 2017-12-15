@@ -21,8 +21,8 @@ interface StructureFactory
     /**
      * Build a structure from a loose-type
      *
-     * @param mixed $data The input data
-     * @return Structure The resulting data-structure
+     * @param mixed $data The input data.
+     * @return Structure The resulting data-structure.
      */
     public function build($data): Structure;
 }

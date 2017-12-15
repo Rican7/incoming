@@ -53,8 +53,9 @@ class Map implements Structure
     /**
      * Create from data in a Traversable instance
      *
-     * @param Traversable $data The data to create from
-     * @return static The resulting data-structure
+     * @param Traversable $data The data to create from.
+     * @return static The resulting data-structure.
+     * @throws InvalidArgumentException If the data contains non-scalar keys.
      */
     public static function fromTraversable(Traversable $data): self
     {
@@ -74,8 +75,8 @@ class Map implements Structure
     /**
      * Create from data in an array
      *
-     * @param array $data The data to create from
-     * @return static The resulting data-structure
+     * @param array $data The data to create from.
+     * @return static The resulting data-structure.
      */
     public static function fromArray(array $data): self
     {
@@ -87,8 +88,8 @@ class Map implements Structure
     /**
      * Check if a given key exists in the map
      *
-     * @param mixed $key The key to check for existence
-     * return bool True if the key exists, false otherwise
+     * @param mixed $key The key to check for existence.
+     * @return bool True if the key exists, false otherwise.
      */
     public function exists($key): bool
     {
@@ -98,10 +99,10 @@ class Map implements Structure
     /**
      * Get a value in the map by key
      *
-     * @param mixed $key The key to get the value for
+     * @param mixed $key The key to get the value for.
      * @param mixed $default_val The default value to return if the key does
-     *  not exist
-     * @return mixed The resulting value
+     *  not exist.
+     * @return mixed The resulting value.
      */
     public function get($key, $default_val = null)
     {
@@ -115,7 +116,7 @@ class Map implements Structure
     /**
      * Check if the map is empty
      *
-     * return bool True if the map is empty, false otherwise
+     * @return bool True if the map is empty, false otherwise.
      */
     public function isEmpty(): bool
     {
@@ -125,7 +126,7 @@ class Map implements Structure
     /**
      * Get an array list of all of the map's keys
      *
-     * @return array The list of the map's keys
+     * @return array The list of the map's keys.
      */
     public function keys(): array
     {
@@ -137,7 +138,7 @@ class Map implements Structure
     /**
      * Get a representation of the map as an array
      *
-     * @return array The array representation of the map
+     * @return array The array representation of the map.
      */
     public function toArray(): array
     {
@@ -147,7 +148,7 @@ class Map implements Structure
     /**
      * Get the number of entries in the map
      *
-     * @return int The number of entries in the map
+     * @return int The number of entries in the map.
      */
     public function count(): int
     {
@@ -157,7 +158,7 @@ class Map implements Structure
     /**
      * Get an iterator instance over the underlying data
      *
-     * @return Iterator An iterator scoped to the map's data
+     * @return Iterator An iterator scoped to the map's data.
      */
     public function getIterator(): Iterator
     {
@@ -169,8 +170,8 @@ class Map implements Structure
     /**
      * Check whether an offset exists
      *
-     * @param mixed $offset The offset to check for
-     * return bool True if the offset exists, false otherwise
+     * @param mixed $offset The offset to check for.
+     * @return bool True if the offset exists, false otherwise.
      */
     public function offsetExists($offset): bool
     {
@@ -180,8 +181,8 @@ class Map implements Structure
     /**
      * Get the value at the given offset
      *
-     * @param mixed $offset The offset to get the value for
-     * @return mixed The resulting value
+     * @param mixed $offset The offset to get the value for.
+     * @return mixed The resulting value.
      */
     public function offsetGet($offset)
     {
@@ -192,9 +193,10 @@ class Map implements Structure
      * Set a value at the given offset
      *
      * @internal
-     * @param mixed $offset The offset to set the value for
-     * @param mixed $value The value to set
-     * @throws ReadOnlyException External modification is not allowed
+     *
+     * @param mixed $offset The offset to set the value for.
+     * @param mixed $value The value to set.
+     * @throws ReadOnlyException External modification is not allowed.
      * @return void
      */
     public function offsetSet($offset, $value)
@@ -206,8 +208,9 @@ class Map implements Structure
      * Remove the item at the given offset
      *
      * @internal
-     * @param mixed $offset The offset to unset
-     * @throws ReadOnlyException External modification is not allowed
+     *
+     * @param mixed $offset The offset to unset.
+     * @throws ReadOnlyException External modification is not allowed.
      * @return void
      */
     public function offsetUnset($offset)
@@ -220,8 +223,8 @@ class Map implements Structure
      *
      * Allows access to the map's values via object property/field syntax
      *
-     * @param string $key The key to check for
-     * return bool True if the key exists, false otherwise
+     * @param string $key The key to check for.
+     * @return bool True if the key exists, false otherwise.
      */
     public function __isset(string $key): bool
     {
@@ -233,8 +236,8 @@ class Map implements Structure
      *
      * Allows access to the map's values via object property/field syntax
      *
-     * @param string $key The key to get the value for
-     * @return mixed The resulting value
+     * @param string $key The key to get the value for.
+     * @return mixed The resulting value.
      */
     public function __get(string $key)
     {
@@ -245,9 +248,10 @@ class Map implements Structure
      * Magic "__set" method
      *
      * @internal
-     * @param string $key The key to set the value for
-     * @param mixed $value The value to set
-     * @throws ReadOnlyException External modification is not allowed
+     *
+     * @param string $key The key to set the value for.
+     * @param mixed $value The value to set.
+     * @throws ReadOnlyException External modification is not allowed.
      * @return void
      */
     public function __set(string $key, $value)
@@ -259,8 +263,9 @@ class Map implements Structure
      * Magic "__unset" method
      *
      * @internal
-     * @param string $key The key to unset
-     * @throws ReadOnlyException External modification is not allowed
+     *
+     * @param string $key The key to unset.
+     * @throws ReadOnlyException External modification is not allowed.
      * @return void
      */
     public function __unset(string $key)

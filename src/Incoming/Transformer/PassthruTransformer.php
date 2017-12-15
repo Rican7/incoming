@@ -23,8 +23,8 @@ class PassthruTransformer implements Transformer
     /**
      * {@inheritdoc}
      *
-     * @param mixed $input The data to transform
-     * @return mixed The original input data, without transformation
+     * @param mixed $input The data to transform.
+     * @return mixed The original input data, without transformation.
      */
     public function transform($input)
     {

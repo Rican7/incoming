@@ -51,8 +51,8 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
     /**
      * {@inheritdoc}
      *
-     * @param mixed $incoming The input data
-     * @return mixed The built model
+     * @param mixed $incoming The input data.
+     * @return mixed The built model.
      */
     public function build($incoming)
     {
@@ -64,9 +64,9 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
     /**
      * {@inheritdoc}
      *
-     * @param mixed $incoming The input data
-     * @param mixed $model The model to hydrate
-     * @return mixed The hydrated model
+     * @param mixed $incoming The input data.
+     * @param mixed $model The model to hydrate.
+     * @return mixed The hydrated model.
      */
     public function hydrate($incoming, $model)
     {
@@ -80,7 +80,8 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      *
      * Override this method if a custom delegate is desired
      *
-     * @return callable The delegate builder callable
+     * @return callable The delegate builder callable.
+     * @throws InvalidDelegateException If the delegate isn't callable.
      */
     protected function getDelegateBuilder(): callable
     {
@@ -98,7 +99,8 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      *
      * Override this method if a custom delegate is desired
      *
-     * @return callable The delegate hydrator callable
+     * @return callable The delegate hydrator callable.
+     * @throws InvalidDelegateException If the delegate isn't callable.
      */
     protected function getDelegateHydrator(): callable
     {
@@ -120,8 +122,8 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      *
      * See the class description for more info
      *
-     * @param IncomingDataType $incoming The input data
-     * @return ModelType The built model
+     * @param IncomingDataType $incoming The input data.
+     * @return ModelType The built model.
      */
     // abstract protected function buildModel(IncomingDataType $incoming): ModelType;
 
@@ -134,9 +136,9 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      *
      * See the class description for more info
      *
-     * @param IncomingDataType $incoming The input data
-     * @param ModelType $model The model to hydrate
-     * @return ModelType The hydrated model
+     * @param IncomingDataType $incoming The input data.
+     * @param ModelType $model The model to hydrate.
+     * @return ModelType The hydrated model.
      */
     // abstract protected function hydrateModel(IncomingDataType $incoming, ModelType $model): ModelType;
 }

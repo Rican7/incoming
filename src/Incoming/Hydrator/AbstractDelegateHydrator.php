@@ -52,9 +52,9 @@ abstract class AbstractDelegateHydrator implements Hydrator
     /**
      * {@inheritdoc}
      *
-     * @param mixed $incoming The input data
-     * @param mixed $model The model to hydrate
-     * @return mixed The hydrated model
+     * @param mixed $incoming The input data.
+     * @param mixed $model The model to hydrate.
+     * @return mixed The hydrated model.
      */
     public function hydrate($incoming, $model)
     {
@@ -68,7 +68,8 @@ abstract class AbstractDelegateHydrator implements Hydrator
      *
      * Override this method if a custom delegate is desired
      *
-     * @return callable The delegate hydrator callable
+     * @return callable The delegate hydrator callable.
+     * @throws InvalidDelegateException If the delegate isn't callable.
      */
     protected function getDelegate(): callable
     {
@@ -90,9 +91,9 @@ abstract class AbstractDelegateHydrator implements Hydrator
      *
      * See the class description for more info
      *
-     * @param IncomingDataType $incoming The input data
-     * @param ModelType $model The model to hydrate
-     * @return ModelType The hydrated model
+     * @param IncomingDataType $incoming The input data.
+     * @param ModelType $model The model to hydrate.
+     * @return ModelType The hydrated model.
      */
     // abstract protected function hydrateModel(IncomingDataType $incoming, ModelType $model): ModelType;
 }

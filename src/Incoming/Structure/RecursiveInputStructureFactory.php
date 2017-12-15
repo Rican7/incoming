@@ -26,8 +26,8 @@ class RecursiveInputStructureFactory implements StructureFactory
     /**
      * Build a structure from a loose-type
      *
-     * @param mixed $data The input data
-     * @return Structure The resulting data-structure
+     * @param mixed $data The input data.
+     * @return Structure The resulting data-structure.
      */
     public function build($data): Structure
     {
@@ -41,9 +41,9 @@ class RecursiveInputStructureFactory implements StructureFactory
      * PHP's array type works JUST like a Traversable instance but doesn't
      * actually implement any interfaces
      *
-     * @param Traversable|array $data The input data
-     * @throws InvalidStructuralTypeException If the data type isn't supported
-     * @return Structure The built structure
+     * @param Traversable|array $data The input data.
+     * @throws InvalidStructuralTypeException If the data type isn't supported.
+     * @return Structure The built structure.
      */
     protected static function buildFromTraversableLike($data): Structure
     {
@@ -59,8 +59,8 @@ class RecursiveInputStructureFactory implements StructureFactory
     /**
      * Build a structure from data in an array
      *
-     * @param array $data The input data
-     * @return Structure The built structure
+     * @param array $data The input data.
+     * @return Structure The built structure.
      */
     protected static function buildFromArray(array $data): Structure
     {
@@ -72,8 +72,8 @@ class RecursiveInputStructureFactory implements StructureFactory
     /**
      * Build a structure from data in a Traversable instance
      *
-     * @param Traversable $data The input data
-     * @return Structure The built structure
+     * @param Traversable $data The input data.
+     * @return Structure The built structure.
      */
     protected static function buildFromTraversable(Traversable $data): Structure
     {
@@ -99,8 +99,8 @@ class RecursiveInputStructureFactory implements StructureFactory
      * If the data type isn't supported, we simply return the original data
      * untouched. This allows to more easily traverse deeply nested structures
      *
-     * @param mixed $data The input data
-     * @return Structure|mixed The built structure or original data
+     * @param mixed $data The input data.
+     * @return Structure|mixed The built structure or original data.
      */
     private static function attemptBuildTraversableLike($data)
     {

@@ -27,6 +27,8 @@ class UnresolvableBuilderException extends UnexpectedValueException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Unable to resolve a builder';
@@ -52,6 +54,8 @@ class UnresolvableBuilderException extends UnexpectedValueException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -65,10 +69,10 @@ class UnresolvableBuilderException extends UnexpectedValueException
      * Create an exception instance for a problem resolving a builder for a
      * given type
      *
-     * @param string $type The type to build
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param string $type The type to build.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forType(
         string $type,

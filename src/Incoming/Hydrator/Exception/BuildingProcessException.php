@@ -25,6 +25,8 @@ class BuildingProcessException extends RuntimeException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Error occurred during building';
@@ -35,6 +37,8 @@ class BuildingProcessException extends RuntimeException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;

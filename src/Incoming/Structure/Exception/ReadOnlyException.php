@@ -27,6 +27,8 @@ class ReadOnlyException extends BadMethodCallException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Illegal modification attempt';
@@ -59,6 +61,8 @@ class ReadOnlyException extends BadMethodCallException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -71,11 +75,11 @@ class ReadOnlyException extends BadMethodCallException
     /**
      * Create an exception instance with an attribute's context
      *
-     * @param mixed $name The name of the attribute attempted to be modified
-     * @param mixed|null $value The value attempted to be set
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param mixed $name The name of the attribute attempted to be modified.
+     * @param mixed|null $value The value attempted to be set.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forAttribute(
         $name,

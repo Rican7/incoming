@@ -41,7 +41,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Constructor
      *
-     * @param Iterator $decorated The iterator to decorate as read-only
+     * @param Iterator $decorated The iterator to decorate as read-only.
      */
     public function __construct(Iterator $decorated)
     {
@@ -51,7 +51,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Return the current element
      *
-     * @return mixed The current element
+     * @return mixed The current element.
      */
     public function current()
     {
@@ -61,7 +61,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Return the key of the current element
      *
-     * @return scalar The key of the current element
+     * @return scalar The key of the current element.
      */
     public function key()
     {
@@ -91,7 +91,7 @@ final class ReadOnlyIterator implements Iterator
     /**
      * Checks if current position is valid
      *
-     * return bool True if the current position is valid, false otherwise
+     * @return bool True if the current position is valid, false otherwise.
      */
     public function valid(): bool
     {

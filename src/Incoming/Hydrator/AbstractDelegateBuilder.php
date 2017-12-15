@@ -52,8 +52,8 @@ abstract class AbstractDelegateBuilder implements Builder
     /**
      * {@inheritdoc}
      *
-     * @param mixed $incoming The input data
-     * @return mixed The built model
+     * @param mixed $incoming The input data.
+     * @return mixed The built model.
      */
     public function build($incoming)
     {
@@ -67,7 +67,8 @@ abstract class AbstractDelegateBuilder implements Builder
      *
      * Override this method if a custom delegate is desired
      *
-     * @return callable The delegate builder callable
+     * @return callable The delegate builder callable.
+     * @throws InvalidDelegateException If the delegate isn't callable.
      */
     protected function getDelegate(): callable
     {
@@ -89,8 +90,8 @@ abstract class AbstractDelegateBuilder implements Builder
      *
      * See the class description for more info
      *
-     * @param IncomingDataType $incoming The input data
-     * @return ModelType The built model
+     * @param IncomingDataType $incoming The input data.
+     * @return ModelType The built model.
      */
     // abstract protected function buildModel(IncomingDataType $incoming): ModelType;
 }

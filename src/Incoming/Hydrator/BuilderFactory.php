@@ -22,8 +22,8 @@ interface BuilderFactory
     /**
      * Build a Builder for a given data model
      *
-     * @param string $type The type to build
-     * @return Builder A builder capable of building the given type
+     * @param string $type The type to build.
+     * @return Builder A builder capable of building the given type.
      */
     public function buildForType(string $type): Builder;
 }

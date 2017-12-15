@@ -27,6 +27,8 @@ class UnresolvableHydratorException extends UnexpectedValueException
      */
 
     /**
+     * The default exception message.
+     *
      * @var string
      */
     const DEFAULT_MESSAGE = 'Unable to resolve a hydrator';
@@ -59,6 +61,8 @@ class UnresolvableHydratorException extends UnexpectedValueException
      */
 
     /**
+     * The exception message.
+     *
      * @var string
      */
     protected $message = self::DEFAULT_MESSAGE;
@@ -72,10 +76,10 @@ class UnresolvableHydratorException extends UnexpectedValueException
      * Create an exception instance for a problem resolving a hydrator for a
      * given model
      *
-     * @param mixed $model The model to hydrate
-     * @param int $code The exception code
-     * @param Throwable|null $previous A previous exception used for chaining
-     * @return static The newly created exception
+     * @param mixed $model The model to hydrate.
+     * @param int $code The exception code.
+     * @param Throwable|null $previous A previous exception used for chaining.
+     * @return static The newly created exception.
      */
     public static function forModel(
         $model,
