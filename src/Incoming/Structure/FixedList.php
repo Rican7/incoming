@@ -19,7 +19,7 @@ use SplFixedArray;
 use Traversable;
 
 /**
- * A fixed-size, read-only data-structure
+ * A fixed-size, read-only data-structure.
  */
 class FixedList implements Structure
 {
@@ -29,7 +29,7 @@ class FixedList implements Structure
      */
 
     /**
-     * The underlying decorated data structure
+     * The underlying decorated data structure.
      *
      * @var SplFixedArray
      */
@@ -51,7 +51,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Create from data in an array
+     * Create from data in an array.
      *
      * @param array $data The data to create from.
      * @return static The resulting data-structure.
@@ -66,7 +66,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Create from data in a Traversable instance
+     * Create from data in a Traversable instance.
      *
      * @param Traversable $data The data to create from.
      * @return static The resulting data-structure.
@@ -79,7 +79,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Check if a given index exists in the list
+     * Check if a given index exists in the list.
      *
      * @param int $index The index to check for existence.
      * @return bool True if the index exists, false otherwise.
@@ -90,7 +90,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Get a value in the list by index
+     * Get a value in the list by index.
      *
      * @param int $index The index to get the value for.
      * @param mixed $default_val The default value to return if the index does
@@ -107,7 +107,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Check if the list is empty
+     * Check if the list is empty.
      *
      * @return bool True if the list is empty, false otherwise.
      */
@@ -117,7 +117,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Get a representation of the list as an array
+     * Get a representation of the list as an array.
      *
      * @return array The array representation of the list.
      */
@@ -127,7 +127,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Get the number of entries in the list
+     * Get the number of entries in the list.
      *
      * @return int The number of entries in the list.
      */
@@ -137,7 +137,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Get an iterator instance over the underlying data
+     * Get an iterator instance over the underlying data.
      *
      * @return Iterator An iterator scoped to the list's data.
      */
@@ -149,7 +149,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Check whether an offset exists
+     * Check whether an offset exists.
      *
      * @param mixed $offset The offset to check for.
      * @return bool True if the offset exists, false otherwise.
@@ -160,7 +160,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Get the value at the given offset
+     * Get the value at the given offset.
      *
      * @param mixed $offset The offset to get the value for.
      * @return mixed The resulting value.
@@ -171,7 +171,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Set a value at the given offset
+     * Set a value at the given offset.
      *
      * @internal
      *
@@ -186,7 +186,7 @@ class FixedList implements Structure
     }
 
     /**
-     * Remove the item at the given offset
+     * Remove the item at the given offset.
      *
      * @internal
      *

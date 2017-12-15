@@ -17,7 +17,7 @@ use Throwable;
 
 /**
  * An exception to be thrown when an attempt is made to modify a read-only
- * value, property, or state
+ * value, property, or state.
  */
 class ReadOnlyException extends BadMethodCallException
 {
@@ -34,14 +34,14 @@ class ReadOnlyException extends BadMethodCallException
     const DEFAULT_MESSAGE = 'Illegal modification attempt';
 
     /**
-     * The exception code for an exception with an attribute context
+     * The exception code for an exception with an attribute context.
      *
      * @var int
      */
     const CODE_FOR_ATTRIBUTE = 1;
 
     /**
-     * The message extension format for providing an attribute context's info
+     * The message extension format for providing an attribute context's info.
      *
      * @var string
      */
@@ -49,7 +49,7 @@ class ReadOnlyException extends BadMethodCallException
 
     /**
      * The message extension format for providing an attribute's value info in
-     * addition to the attribute's context
+     * addition to the attribute's context.
      *
      * @var string
      */
@@ -73,7 +73,7 @@ class ReadOnlyException extends BadMethodCallException
      */
 
     /**
-     * Create an exception instance with an attribute's context
+     * Create an exception instance with an attribute's context.
      *
      * @param mixed $name The name of the attribute attempted to be modified.
      * @param mixed|null $value The value attempted to be set.

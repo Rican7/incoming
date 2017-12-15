@@ -15,7 +15,7 @@ namespace Incoming\Hydrator\Exception;
 use RuntimeException;
 
 /**
- * An exception to be thrown when a hydration process fails
+ * An exception to be thrown when a hydration process fails.
  */
 class HydrationProcessException extends RuntimeException
 {

@@ -17,13 +17,13 @@ use Incoming\Hydrator\Hydrator;
 
 /**
  * Defines an interface for processing loose input data into a built model,
- * using a given builder
+ * using a given builder.
  */
 interface TypeProcessor
 {
 
     /**
-     * Process our incoming input into a built model
+     * Process our incoming input into a built model.
      *
      * @param mixed $input_data The input data.
      * @param string $type The type to build.

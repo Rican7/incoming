@@ -15,7 +15,7 @@ namespace Incoming\Hydrator\Exception;
 use RuntimeException;
 
 /**
- * An exception to be thrown when a building process fails
+ * An exception to be thrown when a building process fails.
  */
 class BuildingProcessException extends RuntimeException
 {

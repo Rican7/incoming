@@ -18,10 +18,10 @@ use Incoming\Structure\StructureFactory;
 
 /**
  * A transformer that takes an input data and returns a Structure
- * representation of the same data
+ * representation of the same data.
  *
  * Allows for turning loose input into a well-structured container for easier,
- * less error-prone, and more user-friendly data handling
+ * less error-prone, and more user-friendly data handling.
  */
 class StructureBuilderTransformer implements Transformer
 {
@@ -31,7 +31,7 @@ class StructureBuilderTransformer implements Transformer
      */
 
     /**
-     * The factory used to build the Structure instances
+     * The factory used to build the Structure instances.
      *
      * @var StructureFactory
      */
@@ -53,7 +53,7 @@ class StructureBuilderTransformer implements Transformer
     }
 
     /**
-     * Get the structure factory
+     * Get the structure factory.
      *
      * @return StructureFactory The structure factory.
      */
@@ -63,7 +63,7 @@ class StructureBuilderTransformer implements Transformer
     }
 
     /**
-     * Set the structure factory
+     * Set the structure factory.
      *
      * @param StructureFactory $structure_factory The structure factory.
      * @return $this This instance.

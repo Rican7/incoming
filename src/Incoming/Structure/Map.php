@@ -21,7 +21,7 @@ use Iterator;
 use Traversable;
 
 /**
- * A key => value, read-only map data-structure
+ * A key => value, read-only map data-structure.
  */
 class Map implements Structure
 {
@@ -31,7 +31,7 @@ class Map implements Structure
      */
 
     /**
-     * The underlying decorated data structure
+     * The underlying decorated data structure.
      *
      * @var ArrayObject
      */
@@ -51,7 +51,7 @@ class Map implements Structure
     }
 
     /**
-     * Create from data in a Traversable instance
+     * Create from data in a Traversable instance.
      *
      * @param Traversable $data The data to create from.
      * @return static The resulting data-structure.
@@ -73,7 +73,7 @@ class Map implements Structure
     }
 
     /**
-     * Create from data in an array
+     * Create from data in an array.
      *
      * @param array $data The data to create from.
      * @return static The resulting data-structure.
@@ -86,7 +86,7 @@ class Map implements Structure
     }
 
     /**
-     * Check if a given key exists in the map
+     * Check if a given key exists in the map.
      *
      * @param mixed $key The key to check for existence.
      * @return bool True if the key exists, false otherwise.
@@ -97,7 +97,7 @@ class Map implements Structure
     }
 
     /**
-     * Get a value in the map by key
+     * Get a value in the map by key.
      *
      * @param mixed $key The key to get the value for.
      * @param mixed $default_val The default value to return if the key does
@@ -114,7 +114,7 @@ class Map implements Structure
     }
 
     /**
-     * Check if the map is empty
+     * Check if the map is empty.
      *
      * @return bool True if the map is empty, false otherwise.
      */
@@ -124,7 +124,7 @@ class Map implements Structure
     }
 
     /**
-     * Get an array list of all of the map's keys
+     * Get an array list of all of the map's keys.
      *
      * @return array The list of the map's keys.
      */
@@ -136,7 +136,7 @@ class Map implements Structure
     }
 
     /**
-     * Get a representation of the map as an array
+     * Get a representation of the map as an array.
      *
      * @return array The array representation of the map.
      */
@@ -146,7 +146,7 @@ class Map implements Structure
     }
 
     /**
-     * Get the number of entries in the map
+     * Get the number of entries in the map.
      *
      * @return int The number of entries in the map.
      */
@@ -156,7 +156,7 @@ class Map implements Structure
     }
 
     /**
-     * Get an iterator instance over the underlying data
+     * Get an iterator instance over the underlying data.
      *
      * @return Iterator An iterator scoped to the map's data.
      */
@@ -168,7 +168,7 @@ class Map implements Structure
     }
 
     /**
-     * Check whether an offset exists
+     * Check whether an offset exists.
      *
      * @param mixed $offset The offset to check for.
      * @return bool True if the offset exists, false otherwise.
@@ -179,7 +179,7 @@ class Map implements Structure
     }
 
     /**
-     * Get the value at the given offset
+     * Get the value at the given offset.
      *
      * @param mixed $offset The offset to get the value for.
      * @return mixed The resulting value.
@@ -190,7 +190,7 @@ class Map implements Structure
     }
 
     /**
-     * Set a value at the given offset
+     * Set a value at the given offset.
      *
      * @internal
      *
@@ -205,7 +205,7 @@ class Map implements Structure
     }
 
     /**
-     * Remove the item at the given offset
+     * Remove the item at the given offset.
      *
      * @internal
      *
@@ -219,9 +219,9 @@ class Map implements Structure
     }
 
     /**
-     * Magic "__isset" method
+     * Magic "__isset" method.
      *
-     * Allows access to the map's values via object property/field syntax
+     * Allows access to the map's values via object property/field syntax.
      *
      * @param string $key The key to check for.
      * @return bool True if the key exists, false otherwise.
@@ -232,9 +232,9 @@ class Map implements Structure
     }
 
     /**
-     * Magic "__get" method
+     * Magic "__get" method.
      *
-     * Allows access to the map's values via object property/field syntax
+     * Allows access to the map's values via object property/field syntax.
      *
      * @param string $key The key to get the value for.
      * @return mixed The resulting value.
@@ -245,7 +245,7 @@ class Map implements Structure
     }
 
     /**
-     * Magic "__set" method
+     * Magic "__set" method.
      *
      * @internal
      *
@@ -260,7 +260,7 @@ class Map implements Structure
     }
 
     /**
-     * Magic "__unset" method
+     * Magic "__unset" method.
      *
      * @internal
      *

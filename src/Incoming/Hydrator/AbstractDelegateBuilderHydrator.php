@@ -30,14 +30,14 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
      */
 
     /**
-     * The name of the default delegate build method
+     * The name of the default delegate build method.
      *
      * @var string
      */
     const DEFAULT_DELEGATE_BUILD_METHOD_NAME = 'buildModel';
 
     /**
-     * The name of the default delegate hydrate method
+     * The name of the default delegate hydrate method.
      *
      * @var string
      */
@@ -76,9 +76,9 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
     }
 
     /**
-     * Get the delegate building callable
+     * Get the delegate building callable.
      *
-     * Override this method if a custom delegate is desired
+     * Override this method if a custom delegate is desired.
      *
      * @return callable The delegate builder callable.
      * @throws InvalidDelegateException If the delegate isn't callable.
@@ -95,9 +95,9 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
     }
 
     /**
-     * Get the delegate hydration callable
+     * Get the delegate hydration callable.
      *
-     * Override this method if a custom delegate is desired
+     * Override this method if a custom delegate is desired.
      *
      * @return callable The delegate hydrator callable.
      * @throws InvalidDelegateException If the delegate isn't callable.
@@ -114,13 +114,13 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
     }
 
     /**
-     * The delegate build method
+     * The delegate build method.
      *
      * This doc-block and commented out abstract method is provided here to show
      * what the delegate method signature WOULD be if PHP allowed the proper
-     * typing support to enable a generic definition in this manner
+     * typing support to enable a generic definition in this manner.
      *
-     * See the class description for more info
+     * See the class description for more info.
      *
      * @param IncomingDataType $incoming The input data.
      * @return ModelType The built model.
@@ -128,13 +128,13 @@ abstract class AbstractDelegateBuilderHydrator implements Builder, Hydrator
     // abstract protected function buildModel(IncomingDataType $incoming): ModelType;
 
     /**
-     * The delegate hydrate method
+     * The delegate hydrate method.
      *
      * This doc-block and commented out abstract method is provided here to show
      * what the delegate method signature WOULD be if PHP allowed the proper
-     * typing support to enable a generic definition in this manner
+     * typing support to enable a generic definition in this manner.
      *
-     * See the class description for more info
+     * See the class description for more info.
      *
      * @param IncomingDataType $incoming The input data.
      * @param ModelType $model The model to hydrate.

@@ -16,15 +16,15 @@ use Incoming\Hydrator\Exception\BuildingProcessException;
 
 /**
  * Defines an interface for "building" a well-defined, consistent data model
- * from a loose input structure
+ * from a loose input structure.
  *
- * Builders are basically hydrators, but for models that aren't yet instantiated
+ * Builders are basically hydrators, but for models that aren't yet instantiated.
  */
 interface Builder
 {
 
     /**
-     * Build a model from the incoming data
+     * Build a model from the incoming data.
      *
      * @param mixed $incoming The input data.
      * @return mixed The built model.

@@ -17,7 +17,7 @@ use Throwable;
 
 /**
  * An exception to be thrown when an invalid type is given to a factory or
- * receiver that expects a type that is convertible or usable as structured data
+ * receiver that expects a type that is convertible or usable as structured data.
  */
 class InvalidStructuralTypeException extends InvalidArgumentException
 {
@@ -34,7 +34,7 @@ class InvalidStructuralTypeException extends InvalidArgumentException
     const DEFAULT_MESSAGE = 'Invalid structural type';
 
     /**
-     * The message extension format for providing type information
+     * The message extension format for providing type information.
      *
      * @var string
      */
@@ -58,9 +58,9 @@ class InvalidStructuralTypeException extends InvalidArgumentException
      */
 
     /**
-     * Create an exception instance with type information
+     * Create an exception instance with type information.
      *
-     * The type is automatically inspected based on the passed value
+     * The type is automatically inspected based on the passed value.
      *
      * @param mixed $value The value to inspect type information of.
      * @param int $code The exception code.

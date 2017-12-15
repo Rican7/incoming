@@ -25,7 +25,7 @@ use Incoming\Hydrator\Exception\InvalidDelegateException;
  * of the type variance rules enforced by PHP in a way that provides a
  * generics-like definition. Ultimately, if/when PHP gets generics this will no
  * longer be necessary, as one could simply implement a hydrator using typed
- * arguments like: `Hydrator<IncomingDataType, ModelType>`
+ * arguments like: `Hydrator<IncomingDataType, ModelType>`.
  *
  * @link http://en.wikipedia.org/wiki/Covariance_and_contravariance_(computer_science)
  * @link http://en.wikipedia.org/wiki/Generic_programming
@@ -38,7 +38,7 @@ abstract class AbstractDelegateHydrator implements Hydrator
      */
 
     /**
-     * The name of the default delegate method
+     * The name of the default delegate method.
      *
      * @var string
      */
@@ -64,9 +64,9 @@ abstract class AbstractDelegateHydrator implements Hydrator
     }
 
     /**
-     * Get the delegate hydration callable
+     * Get the delegate hydration callable.
      *
-     * Override this method if a custom delegate is desired
+     * Override this method if a custom delegate is desired.
      *
      * @return callable The delegate hydrator callable.
      * @throws InvalidDelegateException If the delegate isn't callable.
@@ -83,13 +83,13 @@ abstract class AbstractDelegateHydrator implements Hydrator
     }
 
     /**
-     * The delegate hydrate method
+     * The delegate hydrate method.
      *
      * This doc-block and commented out abstract method is provided here to show
      * what the delegate method signature WOULD be if PHP allowed the proper
-     * typing support to enable a generic definition in this manner
+     * typing support to enable a generic definition in this manner.
      *
-     * See the class description for more info
+     * See the class description for more info.
      *
      * @param IncomingDataType $incoming The input data.
      * @param ModelType $model The model to hydrate.
