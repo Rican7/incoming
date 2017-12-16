@@ -46,14 +46,14 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * A factory for building hydrators for a given model.
      *
-     * @var HydratorFactory
+     * @var HydratorFactory|null
      */
     private $hydrator_factory;
 
     /**
      * A factory for building builders for a given model.
      *
-     * @var BuilderFactory
+     * @var BuilderFactory|null
      */
     private $builder_factory;
 
