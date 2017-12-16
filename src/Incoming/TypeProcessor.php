@@ -14,6 +14,7 @@ namespace Incoming;
 
 use Incoming\Hydrator\Builder;
 use Incoming\Hydrator\Hydrator;
+use Incoming\Structure\Map;
 
 /**
  * Defines an interface for processing loose input data into a built model,
@@ -31,7 +32,15 @@ interface TypeProcessor
      * @param Hydrator|null $hydrator An optional hydrator to use in the
      *  process, after the type is built, to aid in the full hydration of the
      *  resulting model.
+     * @param Map|null $context An optional generic key-value map, for providing
+     *  contextual values during the process.
      * @return mixed The built model.
      */
-    public function processForType($input_data, string $type, Builder $builder, Hydrator $hydrator = null);
+    public function processForType(
+        $input_data,
+        string $type,
+        Builder $builder,
+        Hydrator $hydrator = null,
+        Map $context = null
+    );
 }
