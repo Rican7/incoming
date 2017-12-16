@@ -10,7 +10,7 @@
 
 declare(strict_types=1);
 
-namespace Incoming\Test\Hydrator\Exception;
+namespace Incoming\Test\Structure\Exception;
 
 use Exception;
 use Incoming\Structure\Exception\ReadOnlyException;
