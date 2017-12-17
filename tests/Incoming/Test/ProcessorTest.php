@@ -14,11 +14,14 @@ namespace Incoming\Test;
 
 use Incoming\Hydrator\Builder;
 use Incoming\Hydrator\BuilderFactory;
+use Incoming\Hydrator\ContextualBuilder;
+use Incoming\Hydrator\ContextualHydrator;
 use Incoming\Hydrator\Exception\UnresolvableBuilderException;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\Hydrator;
 use Incoming\Hydrator\HydratorFactory;
 use Incoming\Processor;
+use Incoming\Structure\Map;
 use Incoming\Transformer\PassthruTransformer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -43,17 +46,23 @@ class ProcessorTest extends TestCase
         return $mock;
     }
 
-    private function getMockHydratorForStdClass(array $data, stdClass $instance): Hydrator
+    private function getMockHydratorForStdClass(callable $callback = null): Hydrator
     {
         $mock = $this->createMock(Hydrator::class);
 
-        foreach ($data as $key => $value) {
-            $instance->{$key} = $value;
+        if (null === $callback) {
+            $callback = function ($data, stdClass $instance) {
+                foreach ($data as $key => $value) {
+                    $instance->{$key} = $value;
+                }
+
+                return $instance;
+            };
         }
 
         $mock->expects($this->once())
             ->method('hydrate')
-            ->will($this->returnValue($instance));
+            ->will($this->returnCallback($callback));
 
         return $mock;
     }
@@ -71,19 +80,25 @@ class ProcessorTest extends TestCase
         return $mock;
     }
 
-    private function getMockBuilderForStdClass(array $data): Builder
+    private function getMockBuilderForStdClass(callable $callback = null): Builder
     {
         $mock = $this->createMock(Builder::class);
 
-        $instance = new stdClass();
+        if (null === $callback) {
+            $callback = function ($data) {
+                $instance = new stdClass();
 
-        foreach ($data as $key => $value) {
-            $instance->{$key} = $value;
+                foreach ($data as $key => $value) {
+                    $instance->{$key} = $value;
+                }
+
+                return $instance;
+            };
         }
 
         $mock->expects($this->once())
             ->method('build')
-            ->will($this->returnValue($instance));
+            ->will($this->returnCallback($callback));
 
         return $mock;
     }
@@ -157,7 +172,7 @@ class ProcessorTest extends TestCase
             'misc' => 'yea, sure',
         ];
         $test_model = new stdClass();
-        $test_hydrator = $this->getMockHydratorForStdClass($test_input_data, $test_model);
+        $test_hydrator = $this->getMockHydratorForStdClass();
 
         $processor = new Processor();
 
@@ -165,6 +180,44 @@ class ProcessorTest extends TestCase
 
         $this->assertSame($test_model, $hydrated);
         $this->assertSame($test_input_data['misc'], $hydrated->misc);
+    }
+
+    public function testProcessForModelWithContext()
+    {
+        $test_input_data = [
+            'prop_1' => 'thing',
+            'prop_2' => 'stuff',
+            'misc' => 'yea, sure',
+        ];
+        $test_model = new stdClass();
+        $test_context = Map::fromArray(['context' => 'foo']);
+        $test_hydrator = $this->createMock(ContextualHydrator::class);
+
+        $test_hydrator->expects($this->once())
+            ->method('hydrate')
+            ->will($this->returnCallback(
+                function ($data, stdClass $instance, Map $context = null) {
+                    foreach ($data as $key => $value) {
+                        $instance->{$key} = $value;
+                    }
+
+                    if (null !== $context) {
+                        foreach ($context as $key => $value) {
+                            $instance->{$key} = $value;
+                        }
+                    }
+
+                    return $instance;
+                }
+            ));
+
+        $processor = new Processor();
+
+        $hydrated = $processor->processForModel($test_input_data, $test_model, $test_hydrator, $test_context);
+
+        $this->assertSame($test_model, $hydrated);
+        $this->assertSame($test_input_data['misc'], $hydrated->misc);
+        $this->assertSame($test_context['context'], $hydrated->context);
     }
 
     public function testProcessForModelWithAutoResolvedHydrator()
@@ -176,7 +229,7 @@ class ProcessorTest extends TestCase
         ];
         $test_model = new stdClass();
         $test_hydrator_factory = $this->getMockHydratorFactory(
-            $this->getMockHydratorForStdClass($test_input_data, $test_model)
+            $this->getMockHydratorForStdClass()
         );
 
         $processor = new Processor();
@@ -212,7 +265,7 @@ class ProcessorTest extends TestCase
             'misc' => 'yea, sure',
         ];
         $test_type = stdClass::class;
-        $test_builder = $this->getMockBuilderForStdClass($test_input_data);
+        $test_builder = $this->getMockBuilderForStdClass();
 
         $processor = new Processor();
 
@@ -230,8 +283,8 @@ class ProcessorTest extends TestCase
             'misc' => 'yea, sure',
         ];
         $test_type = stdClass::class;
-        $test_builder = $this->getMockBuilderForStdClass($test_input_data);
-        $test_hydrator = $this->getMockHydratorForStdClass($test_input_data, new stdClass());
+        $test_builder = $this->getMockBuilderForStdClass();
+        $test_hydrator = $this->getMockHydratorForStdClass();
 
         $processor = new Processor();
 
@@ -239,6 +292,46 @@ class ProcessorTest extends TestCase
 
         $this->assertInstanceOf($test_type, $built);
         $this->assertSame($test_input_data['misc'], $built->misc);
+    }
+
+    public function testProcessForTypeWithContext()
+    {
+        $test_input_data = [
+            'prop_1' => 'thing',
+            'prop_2' => 'stuff',
+            'misc' => 'yea, sure',
+        ];
+        $test_type = stdClass::class;
+        $test_context = Map::fromArray(['context' => 'foo']);
+        $test_builder = $this->createMock(ContextualBuilder::class);
+
+        $test_builder->expects($this->once())
+            ->method('build')
+            ->will($this->returnCallback(
+                function ($data, Map $context = null) {
+                    $instance = new stdClass();
+
+                    foreach ($data as $key => $value) {
+                        $instance->{$key} = $value;
+                    }
+
+                    if (null !== $context) {
+                        foreach ($context as $key => $value) {
+                            $instance->{$key} = $value;
+                        }
+                    }
+
+                    return $instance;
+                }
+            ));
+
+        $processor = new Processor();
+
+        $built = $processor->processForType($test_input_data, $test_type, $test_builder, null, $test_context);
+
+        $this->assertInstanceOf($test_type, $built);
+        $this->assertSame($test_input_data['misc'], $built->misc);
+        $this->assertSame($test_context['context'], $built->context);
     }
 
     public function testProcessForTypeWithAutoResolvedBuilder()
@@ -250,7 +343,7 @@ class ProcessorTest extends TestCase
         ];
         $test_type = stdClass::class;
         $test_builder_factory = $this->getMockBuilderFactory(
-            $this->getMockBuilderForStdClass($test_input_data)
+            $this->getMockBuilderForStdClass()
         );
 
         $processor = new Processor();
@@ -270,9 +363,9 @@ class ProcessorTest extends TestCase
             'misc' => 'yea, sure',
         ];
         $test_type = stdClass::class;
-        $test_builder = $this->getMockBuilderForStdClass($test_input_data);
+        $test_builder = $this->getMockBuilderForStdClass();
         $test_hydrator_factory = $this->getMockHydratorFactory(
-            $this->getMockHydratorForStdClass($test_input_data, new stdClass())
+            $this->getMockHydratorForStdClass()
         );
 
         $processor = new Processor();
@@ -309,7 +402,7 @@ class ProcessorTest extends TestCase
             'misc' => 'yea, sure',
         ];
         $test_type = stdClass::class;
-        $test_builder = $this->getMockBuilderForStdClass($test_input_data);
+        $test_builder = $this->getMockBuilderForStdClass();
 
         $processor = new Processor();
         $processor->setAlwaysHydrateAfterBuilding(true);

@@ -14,10 +14,13 @@ namespace Incoming;
 
 use Incoming\Hydrator\Builder;
 use Incoming\Hydrator\BuilderFactory;
+use Incoming\Hydrator\ContextualBuilder;
+use Incoming\Hydrator\ContextualHydrator;
 use Incoming\Hydrator\Exception\UnresolvableBuilderException;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\Hydrator;
 use Incoming\Hydrator\HydratorFactory;
+use Incoming\Structure\Map;
 use Incoming\Transformer\StructureBuilderTransformer;
 use Incoming\Transformer\Transformer;
 
@@ -43,14 +46,14 @@ class Processor implements ModelProcessor, TypeProcessor
     /**
      * A factory for building hydrators for a given model.
      *
-     * @var HydratorFactory
+     * @var HydratorFactory|null
      */
     private $hydrator_factory;
 
     /**
      * A factory for building builders for a given model.
      *
-     * @var BuilderFactory
+     * @var BuilderFactory|null
      */
     private $builder_factory;
 
@@ -194,14 +197,16 @@ class Processor implements ModelProcessor, TypeProcessor
      *
      * @param mixed $input_data The input data.
      * @param mixed $model The model to hydrate.
-     * @param Hydrator|null $hydrator The hydrator to use.
+     * @param Hydrator|null $hydrator The hydrator to use in the process.
+     * @param Map|null $context An optional generic key-value map, for providing
+     *  contextual values during the process.
      * @return mixed The hydrated model.
      */
-    public function processForModel($input_data, $model, Hydrator $hydrator = null)
+    public function processForModel($input_data, $model, Hydrator $hydrator = null, Map $context = null)
     {
         $input_data = $this->transformInput($input_data);
 
-        return $this->hydrateModel($input_data, $model, $hydrator);
+        return $this->hydrateModel($input_data, $model, $hydrator, $context);
     }
 
     /**
@@ -224,20 +229,23 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param Hydrator|null $hydrator An optional hydrator to use in the
      *  process, after the type is built, to aid in the full hydration of the
      *  resulting model.
+     * @param Map|null $context An optional generic key-value map, for providing
+     *  contextual values during the process.
      * @return mixed The built model.
      */
-    public function processForType($input_data, string $type, Builder $builder = null, Hydrator $hydrator = null)
-    {
+    public function processForType(
+        $input_data,
+        string $type,
+        Builder $builder = null,
+        Hydrator $hydrator = null,
+        Map $context = null
+    ) {
         $input_data = $this->transformInput($input_data);
 
-        if (null === $builder) {
-            $builder = $this->getBuilderForType($type);
-        }
-
-        $model = $builder->build($input_data);
+        $model = $this->buildModel($input_data, $type, $builder, $context);
 
         if (null !== $hydrator || $this->always_hydrate_after_building) {
-            $model = $this->hydrateModel($input_data, $model, $hydrator);
+            $model = $this->hydrateModel($input_data, $model, $hydrator, $context);
         }
 
         return $model;
@@ -263,15 +271,47 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param mixed $input_data The input data.
      * @param mixed $model The model to hydrate.
      * @param Hydrator|null $hydrator The hydrator to use.
+     * @param Map|null $context An optional generic key-value map, for providing
+     *  contextual values during the process.
      * @return mixed The hydrated model.
      */
-    protected function hydrateModel($input_data, $model, Hydrator $hydrator = null)
+    protected function hydrateModel($input_data, $model, Hydrator $hydrator = null, Map $context = null)
     {
         if (null === $hydrator) {
             $hydrator = $this->getHydratorForModel($model);
         }
 
+        if ($hydrator instanceof ContextualHydrator) {
+            return $hydrator->hydrate($input_data, $model, $context);
+        }
+
         return $hydrator->hydrate($input_data, $model);
+    }
+
+    /**
+     * Build a model from incoming data.
+     *
+     * If a builder isn't provided, an attempt will be made to automatically
+     * resolve and build an appropriate builder from the provided factory.
+     *
+     * @param mixed $input_data The input data.
+     * @param string $type The type to build.
+     * @param Builder|null $builder The builder to use.
+     * @param Map|null $context An optional generic key-value map, for providing
+     *  contextual values during the process.
+     * @return mixed The built model.
+     */
+    protected function buildModel($input_data, string $type, Builder $builder = null, Map $context = null)
+    {
+        if (null === $builder) {
+            $builder = $this->getBuilderForType($type);
+        }
+
+        if ($builder instanceof ContextualBuilder) {
+            return $builder->build($input_data, $context);
+        }
+
+        return $builder->build($input_data);
     }
 
     /**

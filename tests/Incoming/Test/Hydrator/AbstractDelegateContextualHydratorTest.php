@@ -13,22 +13,22 @@ declare(strict_types=1);
 namespace Incoming\Test\Hydrator;
 
 use DateTime;
+use DateTimeZone;
+use Incoming\Hydrator\AbstractDelegateContextualHydrator;
 use Incoming\Hydrator\AbstractDelegateHydrator;
-use Incoming\Hydrator\Exception\InvalidDelegateException;
 use Incoming\Structure\Map;
 use PHPUnit\Framework\TestCase;
-use TypeError;
 
-class AbstractDelegateHydratorTest extends TestCase
+class AbstractDelegateContextualHydratorTest extends TestCase
 {
 
     /**
      * Helpers
      */
 
-    private function getMockDelegateHydrator(callable $delegate): AbstractDelegateHydrator
+    private function getMockDelegateHydrator(callable $delegate): AbstractDelegateContextualHydrator
     {
-        $mock = $this->getMockBuilder(AbstractDelegateHydrator::class)
+        $mock = $this->getMockBuilder(AbstractDelegateContextualHydrator::class)
             ->setMethods([AbstractDelegateHydrator::DEFAULT_DELEGATE_METHOD_NAME])
             ->getMock();
 
@@ -52,8 +52,14 @@ class AbstractDelegateHydratorTest extends TestCase
             'day' => 2,
         ]);
         $test_model = new DateTime();
+        $test_context = Map::fromArray(['timezone' => new DateTimeZone('America/Denver')]);
 
-        $test_delegate_callable = function (Map $incoming, DateTime $model): DateTime {
+        $test_delegate_callable = function (Map $incoming, DateTime $model, Map $context = null): DateTime {
+            if (null !== $context) {
+                // Set timezone before date data, so that we don't recalculate
+                $model->setTimezone($context->get('timezone'));
+            }
+
             $model->setDate(
                 $incoming->get('year'),
                 $incoming->get('month'),
@@ -65,34 +71,12 @@ class AbstractDelegateHydratorTest extends TestCase
 
         $test_hydrator = $this->getMockDelegateHydrator($test_delegate_callable);
 
-        $hydrated = $test_hydrator->hydrate($test_input_data, $test_model);
+        $hydrated = $test_hydrator->hydrate($test_input_data, $test_model, $test_context);
 
         $this->assertEquals($test_model, $hydrated);
         $this->assertSame($test_input_data['year'], (int) $hydrated->format('Y'));
         $this->assertSame($test_input_data['month'], (int) $hydrated->format('m'));
         $this->assertSame($test_input_data['day'], (int) $hydrated->format('j'));
-    }
-
-    public function testHydrateWithNonCallableThrowsException()
-    {
-        $mock_hydrator = new class extends AbstractDelegateHydrator
-        {
-        };
-
-        $this->expectException(InvalidDelegateException::class);
-
-        $mock_hydrator->hydrate([], new DateTime());
-    }
-
-    public function testHydrateWithImproperTypesCausesTypeError()
-    {
-        $this->expectException(TypeError::class);
-
-        $test_delegate_callable = function (Map $incoming, DateTime $model): DateTime {
-        };
-
-        $test_hydrator = $this->getMockDelegateHydrator($test_delegate_callable);
-
-        $test_hydrator->hydrate([], new DateTime());
+        $this->assertSame($test_context['timezone']->getName(), $hydrated->getTimezone()->getName());
     }
 }
