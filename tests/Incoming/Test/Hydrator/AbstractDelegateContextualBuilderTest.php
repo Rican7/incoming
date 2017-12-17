@@ -26,13 +26,16 @@ class AbstractDelegateContextualBuilderTest extends TestCase
      * Helpers
      */
 
-    private function getMockDelegateBuilder(callable $delegate): AbstractDelegateContextualBuilder
-    {
+    private function getMockDelegateBuilder(
+        callable $delegate,
+        bool $provide_fallback_context = false
+    ): AbstractDelegateContextualBuilder {
         $mock = $this->getMockBuilder(AbstractDelegateContextualBuilder::class)
+            ->setConstructorArgs([$provide_fallback_context])
             ->setMethods([AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME])
             ->getMock();
 
-        $mock->expects($this->any())
+        $mock->expects($this->atLeastOnce())
             ->method(AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME)
             ->will($this->returnCallback($delegate));
 
@@ -79,5 +82,22 @@ class AbstractDelegateContextualBuilderTest extends TestCase
         $this->assertSame($test_input_data['month'], (int) $built->format('m'));
         $this->assertSame($test_input_data['day'], (int) $built->format('j'));
         $this->assertSame($test_context['timezone']->getName(), $built->getTimezone()->getName());
+    }
+
+    public function testBuildProvidesNonNullContext()
+    {
+        $this->getMockDelegateBuilder(
+            function (array $incoming, Map $context = null) {
+                $this->assertNotNull($context);
+            },
+            true
+        )->build([], null);
+
+        $this->getMockDelegateBuilder(
+            function (array $incoming, Map $context = null) {
+                $this->assertNull($context);
+            },
+            false
+        )->build([], null);
     }
 }

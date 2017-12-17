@@ -26,9 +26,12 @@ class AbstractDelegateContextualBuilderHydratorTest extends TestCase
      * Helpers
      */
 
-    private function getMockDelegateBuilderHydrator(callable $delegate): AbstractDelegateContextualBuilderHydrator
-    {
+    private function getMockDelegateBuilderHydrator(
+        callable $delegate,
+        bool $provide_fallback_context = false
+    ): AbstractDelegateContextualBuilderHydrator {
         $mock = $this->getMockBuilder(AbstractDelegateContextualBuilderHydrator::class)
+            ->setConstructorArgs([$provide_fallback_context])
             ->setMethods([
                 AbstractDelegateBuilderHydrator::DEFAULT_DELEGATE_BUILD_METHOD_NAME,
                 AbstractDelegateBuilderHydrator::DEFAULT_DELEGATE_HYDRATE_METHOD_NAME
@@ -88,6 +91,23 @@ class AbstractDelegateContextualBuilderHydratorTest extends TestCase
         $this->assertSame($test_context['timezone']->getName(), $built->getTimezone()->getName());
     }
 
+    public function testBuildProvidesNonNullContext()
+    {
+        $this->getMockDelegateBuilderHydrator(
+            function (array $incoming, Map $context = null) {
+                $this->assertNotNull($context);
+            },
+            true
+        )->build([], null);
+
+        $this->getMockDelegateBuilderHydrator(
+            function (array $incoming, Map $context = null) {
+                $this->assertNull($context);
+            },
+            false
+        )->build([], null);
+    }
+
     public function testHydrate()
     {
         $test_input_data = Map::fromArray([
@@ -122,5 +142,24 @@ class AbstractDelegateContextualBuilderHydratorTest extends TestCase
         $this->assertSame($test_input_data['month'], (int) $hydrated->format('m'));
         $this->assertSame($test_input_data['day'], (int) $hydrated->format('j'));
         $this->assertSame($test_context['timezone']->getName(), $hydrated->getTimezone()->getName());
+    }
+
+    public function testHydrateProvidesNonNullContext()
+    {
+        $test_model = new DateTime();
+
+        $this->getMockDelegateBuilderHydrator(
+            function (array $incoming, DateTime $model, Map $context = null) {
+                $this->assertNotNull($context);
+            },
+            true
+        )->hydrate([], $test_model, null);
+
+        $this->getMockDelegateBuilderHydrator(
+            function (array $incoming, DateTime $model, Map $context = null) {
+                $this->assertNull($context);
+            },
+            false
+        )->hydrate([], $test_model, null);
     }
 }
