@@ -16,6 +16,7 @@ use Incoming\Hydrator\Builder;
 use Incoming\Hydrator\BuilderFactory;
 use Incoming\Hydrator\ContextualBuilder;
 use Incoming\Hydrator\ContextualHydrator;
+use Incoming\Hydrator\Exception\IncompatibleProcessException;
 use Incoming\Hydrator\Exception\UnresolvableBuilderException;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\Hydrator;
@@ -65,6 +66,14 @@ class Processor implements ModelProcessor, TypeProcessor
      */
     private $always_hydrate_after_building = false;
 
+    /**
+     * A configuration flag that denotes whether processing (hydration/building)
+     * should require contextual compatibility when a context is provided.
+     *
+     * @var bool
+     */
+    private $require_contextual_processing_compatibility = false;
+
 
     /**
      * Methods
@@ -79,17 +88,22 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param bool $always_hydrate_after_building A configuration flag that
      *  denotes whether hydration should always be run after building a new
      *  model when processing specified types.
+     * @param bool $require_contextual_processing_compatibility A configuration
+     *  flag that denotes whether processing (hydration/building) should require
+     *  contextual compatibility when a context is provided.
      */
     public function __construct(
         Transformer $input_transformer = null,
         HydratorFactory $hydrator_factory = null,
         BuilderFactory $builder_factory = null,
-        bool $always_hydrate_after_building = false
+        bool $always_hydrate_after_building = false,
+        bool $require_contextual_processing_compatibility = false
     ) {
         $this->input_transformer = $input_transformer ?: new StructureBuilderTransformer();
         $this->hydrator_factory = $hydrator_factory;
         $this->builder_factory = $builder_factory;
         $this->always_hydrate_after_building = $always_hydrate_after_building;
+        $this->require_contextual_processing_compatibility = $require_contextual_processing_compatibility;
     }
 
     /**
@@ -190,6 +204,35 @@ class Processor implements ModelProcessor, TypeProcessor
     }
 
     /**
+     * Get the value of the configuration flag that denotes whether processing
+     * (hydration/building) should require contextual compatibility when a
+     * context is provided.
+     *
+     * @return bool The value of the flag.
+     */
+    public function getRequireContextualProcessingCompatibility(): bool
+    {
+        return $this->require_contextual_processing_compatibility;
+    }
+
+    /**
+     * Set the value of the configuration flag that denotes whether processing
+     * (hydration/building) should require contextual compatibility when a
+     * context is provided.
+     *
+     * @param bool $require_contextual_processing_compatibility Whether or not
+     *  to require contextual processing compatibility when a context is
+     *  provided.
+     * @return $this This instance.
+     */
+    public function setRequireContextualProcessingCompatibility(bool $require_contextual_processing_compatibility): self
+    {
+        $this->require_contextual_processing_compatibility = $require_contextual_processing_compatibility;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      *
      * If a hydrator isn't provided, an attempt will be made to automatically
@@ -273,6 +316,8 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param Hydrator|null $hydrator The hydrator to use.
      * @param Map|null $context An optional generic key-value map, for providing
      *  contextual values during the process.
+     * @throws IncompatibleProcessException If the hydrator isn't compatible
+     *  with the given process strategy.
      * @return mixed The hydrated model.
      */
     protected function hydrateModel($input_data, $model, Hydrator $hydrator = null, Map $context = null)
@@ -283,6 +328,9 @@ class Processor implements ModelProcessor, TypeProcessor
 
         if ($hydrator instanceof ContextualHydrator) {
             return $hydrator->hydrate($input_data, $model, $context);
+        } elseif ($this->require_contextual_processing_compatibility
+            && !($hydrator instanceof ContextualHydrator) && null !== $context) {
+            throw IncompatibleProcessException::forRequiredContextCompatibility($hydrator);
         }
 
         return $hydrator->hydrate($input_data, $model);
@@ -299,6 +347,8 @@ class Processor implements ModelProcessor, TypeProcessor
      * @param Builder|null $builder The builder to use.
      * @param Map|null $context An optional generic key-value map, for providing
      *  contextual values during the process.
+     * @throws IncompatibleProcessException If the builder isn't compatible with
+     *  the given process strategy.
      * @return mixed The built model.
      */
     protected function buildModel($input_data, string $type, Builder $builder = null, Map $context = null)
@@ -309,6 +359,9 @@ class Processor implements ModelProcessor, TypeProcessor
 
         if ($builder instanceof ContextualBuilder) {
             return $builder->build($input_data, $context);
+        } elseif ($this->require_contextual_processing_compatibility
+            && !($builder instanceof ContextualBuilder) && null !== $context) {
+            throw IncompatibleProcessException::forRequiredContextCompatibility($builder);
         }
 
         return $builder->build($input_data);
