@@ -322,9 +322,7 @@ class Processor implements ModelProcessor, TypeProcessor
      */
     protected function hydrateModel($input_data, $model, Hydrator $hydrator = null, Map $context = null)
     {
-        if (null === $hydrator) {
-            $hydrator = $this->getHydratorForModel($model);
-        }
+        $hydrator = $hydrator ?: $this->getHydratorForModel($model);
 
         if ($hydrator instanceof ContextualHydrator) {
             return $hydrator->hydrate($input_data, $model, $context);
@@ -352,9 +350,7 @@ class Processor implements ModelProcessor, TypeProcessor
      */
     protected function buildModel($input_data, string $type, Builder $builder = null, Map $context = null)
     {
-        if (null === $builder) {
-            $builder = $this->getBuilderForType($type);
-        }
+        $builder = $builder ?: $this->getBuilderForType($type);
 
         if ($builder instanceof ContextualBuilder) {
             return $builder->build($input_data, $context);
