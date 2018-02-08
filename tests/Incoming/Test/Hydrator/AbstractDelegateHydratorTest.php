@@ -32,7 +32,7 @@ class AbstractDelegateHydratorTest extends TestCase
             ->setMethods([AbstractDelegateHydrator::DEFAULT_DELEGATE_METHOD_NAME])
             ->getMock();
 
-        $mock->expects($this->any())
+        $mock->expects($this->atLeastOnce())
             ->method(AbstractDelegateHydrator::DEFAULT_DELEGATE_METHOD_NAME)
             ->will($this->returnCallback($delegate));
 

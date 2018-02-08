@@ -32,7 +32,7 @@ class AbstractDelegateBuilderTest extends TestCase
             ->setMethods([AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME])
             ->getMock();
 
-        $mock->expects($this->any())
+        $mock->expects($this->atLeastOnce())
             ->method(AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME)
             ->will($this->returnCallback($delegate));
 

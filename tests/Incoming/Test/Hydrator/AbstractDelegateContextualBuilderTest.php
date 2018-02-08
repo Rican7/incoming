@@ -26,17 +26,26 @@ class AbstractDelegateContextualBuilderTest extends TestCase
      * Helpers
      */
 
-    private function getMockDelegateBuilder(callable $delegate): AbstractDelegateContextualBuilder
-    {
-        $mock = $this->getMockBuilder(AbstractDelegateContextualBuilder::class)
-            ->setMethods([AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME])
-            ->getMock();
+    private function getMockDelegateBuilder(
+        callable $delegate,
+        bool $provide_fallback_context = false
+    ): AbstractDelegateContextualBuilder {
+        return new class($delegate, $provide_fallback_context) extends AbstractDelegateContextualBuilder
+        {
+            private $delegate;
 
-        $mock->expects($this->any())
-            ->method(AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME)
-            ->will($this->returnCallback($delegate));
+            public function __construct(callable $delegate, bool $provide_fallback_context)
+            {
+                parent::__construct($provide_fallback_context);
 
-        return $mock;
+                $this->delegate = $delegate;
+            }
+
+            protected function buildModel($incoming, Map $context = null)
+            {
+                return ($this->delegate)($incoming, $context);
+            }
+        };
     }
 
 
@@ -79,5 +88,22 @@ class AbstractDelegateContextualBuilderTest extends TestCase
         $this->assertSame($test_input_data['month'], (int) $built->format('m'));
         $this->assertSame($test_input_data['day'], (int) $built->format('j'));
         $this->assertSame($test_context['timezone']->getName(), $built->getTimezone()->getName());
+    }
+
+    public function testBuildProvidesNonNullContext()
+    {
+        $this->getMockDelegateBuilder(
+            function (array $incoming, Map $context = null) {
+                $this->assertNotNull($context);
+            },
+            true
+        )->build([], null);
+
+        $this->getMockDelegateBuilder(
+            function (array $incoming, Map $context = null) {
+                $this->assertNull($context);
+            },
+            false
+        )->build([], null);
     }
 }

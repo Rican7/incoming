@@ -16,6 +16,7 @@ use Incoming\Hydrator\Builder;
 use Incoming\Hydrator\BuilderFactory;
 use Incoming\Hydrator\ContextualBuilder;
 use Incoming\Hydrator\ContextualHydrator;
+use Incoming\Hydrator\Exception\IncompatibleProcessException;
 use Incoming\Hydrator\Exception\UnresolvableBuilderException;
 use Incoming\Hydrator\Exception\UnresolvableHydratorException;
 use Incoming\Hydrator\Hydrator;
@@ -162,6 +163,20 @@ class ProcessorTest extends TestCase
 
         $this->assertNotSame($initial_value, $processor->getAlwaysHydrateAfterBuilding());
         $this->assertSame($test_value, $processor->getAlwaysHydrateAfterBuilding());
+    }
+
+    public function testGetSetRequireContextualProcessingCompatibility()
+    {
+        $test_value = true;
+
+        $processor = new Processor();
+
+        $initial_value = $processor->getRequireContextualProcessingCompatibility();
+
+        $processor->setRequireContextualProcessingCompatibility($test_value);
+
+        $this->assertNotSame($initial_value, $processor->getRequireContextualProcessingCompatibility());
+        $this->assertSame($test_value, $processor->getRequireContextualProcessingCompatibility());
     }
 
     public function testProcessForModel()
@@ -410,5 +425,33 @@ class ProcessorTest extends TestCase
         $this->expectException(UnresolvableHydratorException::class);
 
         $processor->processForType($test_input_data, $test_type, $test_builder);
+    }
+
+    public function testProcessForModelWithRequireContextualProcessingCompatibilityAndIncompatibleHydrator()
+    {
+        $test_model = new stdClass();
+        $test_hydrator = $this->createMock(Hydrator::class);
+        $test_context = new Map();
+
+        $processor = new Processor();
+        $processor->setRequireContextualProcessingCompatibility(true);
+
+        $this->expectException(IncompatibleProcessException::class);
+
+        $processor->processForModel([], $test_model, $test_hydrator, $test_context);
+    }
+
+    public function testProcessForTypeWithRequireContextualProcessingCompatibilityAndIncompatibleBuilder()
+    {
+        $test_type = stdClass::class;
+        $test_builder = $this->createMock(Builder::class);
+        $test_context = new Map();
+
+        $processor = new Processor();
+        $processor->setRequireContextualProcessingCompatibility(true);
+
+        $this->expectException(IncompatibleProcessException::class);
+
+        $processor->processForType([], $test_type, $test_builder, null, $test_context);
     }
 }
