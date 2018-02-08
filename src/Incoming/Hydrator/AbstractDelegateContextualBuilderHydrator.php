@@ -52,7 +52,7 @@ abstract class AbstractDelegateContextualBuilderHydrator extends AbstractDelegat
      *  make processes simpler by not having to rely on null checks of the
      *  actual parameter before usage.
      */
-    public function __construct(bool $provide_fallback_context = false)
+    protected function __construct(bool $provide_fallback_context = false)
     {
         $this->provide_fallback_context = $provide_fallback_context;
     }
