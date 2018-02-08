@@ -97,9 +97,9 @@ class IncompatibleProcessException extends UnexpectedValueException
     ): self {
         if (self::CODE_FOR_REQUIRED_CONTEXT_COMPATIBILITY === $code) {
             if ($process instanceof Hydrator) {
-                $code = $code + self::CODE_FOR_HYDRATOR;
+                $code += self::CODE_FOR_HYDRATOR;
             } elseif ($process instanceof Builder) {
-                $code = $code + self::CODE_FOR_BUILDER;
+                $code += self::CODE_FOR_BUILDER;
             }
         }
 
