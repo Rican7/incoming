@@ -322,7 +322,7 @@ class Processor implements ModelProcessor, TypeProcessor
     {
         $hydrator = $hydrator ?: $this->getHydratorForModel($model);
 
-        $this->enforceProcessCompatibility($hydrator, (null !== $context));
+        $this->enforceProcessCompatibility(($hydrator instanceof ContextualHydrator), (null !== $context), $hydrator);
 
         if ($hydrator instanceof ContextualHydrator) {
             return $hydrator->hydrate($input_data, $model, $context);
@@ -348,7 +348,7 @@ class Processor implements ModelProcessor, TypeProcessor
     {
         $builder = $builder ?: $this->getBuilderForType($type);
 
-        $this->enforceProcessCompatibility($builder, (null !== $context));
+        $this->enforceProcessCompatibility(($builder instanceof ContextualBuilder), (null !== $context), $builder);
 
         if ($builder instanceof ContextualBuilder) {
             return $builder->build($input_data, $context);
@@ -395,18 +395,19 @@ class Processor implements ModelProcessor, TypeProcessor
      * Enforce that a provided process (hydrator, builder, etc) is compatible
      * with the processing strategy being used.
      *
-     * @param object $process The process to enforce compatibility for.
+     * @param bool $is_context_compatible Whether or not the process is
+     *  compatible with contexts.
      * @param bool $context_provided Whether or not a context has been provided
      *  in the process.
+     * @param object|null $process The process to enforce compatibility for.
      * @throws IncompatibleProcessException If the builder isn't compatible with
      *  the given process strategy.
      * @return void
      */
-    protected function enforceProcessCompatibility($process, bool $context_provided)
+    protected function enforceProcessCompatibility(bool $is_context_compatible, bool $context_provided, $process = null)
     {
-        $is_a_contextual_process = ($process instanceof ContextualHydrator) || ($process instanceof ContextualBuilder);
-
-        if ($context_provided && !$is_a_contextual_process && $this->require_contextual_processing_compatibility) {
+        if ($context_provided && !$is_context_compatible
+            && $this->require_contextual_processing_compatibility) {
             throw IncompatibleProcessException::forRequiredContextCompatibility($process);
         }
     }
