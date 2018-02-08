@@ -328,8 +328,7 @@ class Processor implements ModelProcessor, TypeProcessor
 
         if ($hydrator instanceof ContextualHydrator) {
             return $hydrator->hydrate($input_data, $model, $context);
-        } elseif ($this->require_contextual_processing_compatibility
-            && !($hydrator instanceof ContextualHydrator) && null !== $context) {
+        } elseif ($this->require_contextual_processing_compatibility && null !== $context) {
             throw IncompatibleProcessException::forRequiredContextCompatibility($hydrator);
         }
 
@@ -359,8 +358,7 @@ class Processor implements ModelProcessor, TypeProcessor
 
         if ($builder instanceof ContextualBuilder) {
             return $builder->build($input_data, $context);
-        } elseif ($this->require_contextual_processing_compatibility
-            && !($builder instanceof ContextualBuilder) && null !== $context) {
+        } elseif ($this->require_contextual_processing_compatibility && null !== $context) {
             throw IncompatibleProcessException::forRequiredContextCompatibility($builder);
         }
 
