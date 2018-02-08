@@ -30,16 +30,22 @@ class AbstractDelegateContextualBuilderTest extends TestCase
         callable $delegate,
         bool $provide_fallback_context = false
     ): AbstractDelegateContextualBuilder {
-        $mock = $this->getMockBuilder(AbstractDelegateContextualBuilder::class)
-            ->setConstructorArgs([$provide_fallback_context])
-            ->setMethods([AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME])
-            ->getMock();
+        return new class($delegate, $provide_fallback_context) extends AbstractDelegateContextualBuilder
+        {
+            private $delegate;
 
-        $mock->expects($this->atLeastOnce())
-            ->method(AbstractDelegateBuilder::DEFAULT_DELEGATE_METHOD_NAME)
-            ->will($this->returnCallback($delegate));
+            public function __construct(callable $delegate, bool $provide_fallback_context)
+            {
+                parent::__construct($provide_fallback_context);
 
-        return $mock;
+                $this->delegate = $delegate;
+            }
+
+            protected function buildModel($incoming, Map $context = null)
+            {
+                return ($this->delegate)($incoming, $context);
+            }
+        };
     }
 
 

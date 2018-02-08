@@ -30,16 +30,22 @@ class AbstractDelegateContextualHydratorTest extends TestCase
         callable $delegate,
         bool $provide_fallback_context = false
     ): AbstractDelegateContextualHydrator {
-        $mock = $this->getMockBuilder(AbstractDelegateContextualHydrator::class)
-            ->setConstructorArgs([$provide_fallback_context])
-            ->setMethods([AbstractDelegateHydrator::DEFAULT_DELEGATE_METHOD_NAME])
-            ->getMock();
+        return new class($delegate, $provide_fallback_context) extends AbstractDelegateContextualHydrator
+        {
+            private $delegate;
 
-        $mock->expects($this->atLeastOnce())
-            ->method(AbstractDelegateHydrator::DEFAULT_DELEGATE_METHOD_NAME)
-            ->will($this->returnCallback($delegate));
+            public function __construct(callable $delegate, bool $provide_fallback_context)
+            {
+                parent::__construct($provide_fallback_context);
 
-        return $mock;
+                $this->delegate = $delegate;
+            }
+
+            protected function hydrateModel($incoming, $model, Map $context = null)
+            {
+                return ($this->delegate)($incoming, $model, $context);
+            }
+        };
     }
 
 
