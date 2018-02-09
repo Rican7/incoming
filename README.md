@@ -40,7 +40,7 @@ Still curious? Check out the [examples](#examples).
 The easiest example to relate to in the PHP world? "Form" or HTTP request data:
 
 ```php
-class UserHydrator implements Incoming\Hydrator\HydratorInterface
+class UserHydrator implements Incoming\Hydrator\Hydrator
 {
     public function hydrate($input, $model)
     {
@@ -56,7 +56,7 @@ class UserHydrator implements Incoming\Hydrator\HydratorInterface
 $incoming = new Incoming\Processor();
 
 // Process our raw form/request input into a User model
-$user = $incoming->process(
+$user = $incoming->processForModel(
     $_POST,            // Our HTTP form-data array
     new User(),        // Our model to hydrate
     new UserHydrator() // The hydrator above
@@ -69,24 +69,25 @@ $user = $incoming->process(
 Sure, that's a pretty contrived example. But what kind of power can we gain when we compose some pieces together?
 
 ```php
-class BlogPostHydrator implements Incoming\Hydrator\HydratorInterface
+class BlogPostHydrator implements Incoming\Hydrator\ContextualHydrator
 {
-    private $user;
+    const USER_CONTEXT_KEY = 'user';
 
-    public function __construct(User $user)
-    {
-        $this->user = $user;
-    }
-
-    public function hydrate($input, $model)
+    public function hydrate($input, $model, Map $context = null)
     {
         $model->setBody($input['body']);
         $model->setCategories($input['categories']);
         $model->setTags($input['tags']);
 
         // Only allow admin users to publish posts
-        if ($this->user->isAdmin()) {
-            $model->setPublished($input['published']);
+        if (null !== $context && $context->exists(self::USER_CONTEXT_KEY)) {
+            $user = $context->get(self::USER_CONTEXT_KEY);
+
+            $model->setAuthor($user->getName());
+
+            if ($user->isAdmin()) {
+                $model->setPublished($input['published']);
+            }
         }
 
         return $model;
@@ -96,15 +97,17 @@ class BlogPostHydrator implements Incoming\Hydrator\HydratorInterface
 // Create our incoming processor
 $incoming = new Incoming\Processor();
 
-$hydrator = new BlogPostHydrator(
-    $this->getCurrentUser()      // A user context for the hydrator
-);
+// Create a context for the hydrator with active data
+$context = Map::fromArray([
+    BlogPostHydrator::USER_CONTEXT_KEY => $this->getCurrentUser() // A user context
+]);
 
 // Process our raw form/request input to update our BlogPost model
-$post = $incoming->process(
+$post = $incoming->processForModel(
     $_POST,                      // Our HTTP form-data array
     BlogPost::find($_GET['id']), // Fetch our blog post to update and pass it in
-    $hydrator                    // The hydrator above
+    new BlogPostHydrator(),      // The hydrator above
+    $context                     // Context data to enable more powerful conditional processing
 );
 
 // Validate and save the blog post
@@ -114,19 +117,21 @@ $post = $incoming->process(
 Let's try and filter our input first.
 
 ```php
-class SpecialCharacterFilterTransformer implements Incoming\Transformer\TransformerInterface
+class SpecialCharacterFilterTransformer implements Incoming\Transformer\Transformer
 {
     public function transform($input)
     {
-        foreach($input as &$string) {
-            $string = filter_var($string, FILTER_SANITIZE_STRING);
+        $transformed = [];
+
+        foreach($input as $key => $string) {
+            $transformed[$key] = filter_var($string, FILTER_SANITIZE_STRING);
         }
 
-        return $input;
+        return $transformed;
     }
 }
 
-class UserHydrator implements Incoming\Hydrator\HydratorInterface
+class UserHydrator implements Incoming\Hydrator\Hydrator
 {
     // Same as previous examples...
 }
@@ -137,7 +142,7 @@ $incoming = new Incoming\Processor(
 );
 
 // Process our raw form/request input into a User model
-$user = $incoming->process(
+$user = $incoming->processForModel(
     $_POST,            // Our HTTP form-data array
     new User(),        // Our model to hydrate
     new UserHydrator() // The hydrator above
@@ -167,10 +172,47 @@ class UserHydrator extends Incoming\Hydrator\AbstractDelegateHydrator
 $incoming = new Incoming\Processor();
 
 // Process our raw form/request input into a User model
-$user = $incoming->process(
+$user = $incoming->processForModel(
     $_POST,            // Our HTTP form-data array
     new User(),        // Our model to hydrate
     new UserHydrator() // The hydrator above
+);
+
+// Validate and save the user
+// ...
+```
+
+Immutable objects or objects with required data in the constructor? No problem!
+
+```php
+class User
+{
+    private $first_name;
+    private $last_name;
+
+    public function __construct(string $first_name, string $last_name)
+    {
+        $this->first_name = $first_name;
+        $this->last_name = $last_name;
+    }
+}
+
+class UserBuilder extends Incoming\Hydrator\AbstractDelegateBuilder
+{
+    public function buildModel(Incoming\Structure\Map $input): User
+    {
+        return new User($input['first_name'], $input['last_name']);
+    }
+}
+
+// Create our incoming processor
+$incoming = new Incoming\Processor();
+
+// Process our raw form/request input into a new User model
+$user = $incoming->processForType(
+    $_POST,            // Our HTTP form-data array
+    User::class,       // Our type to build
+    new UserBuilder()  // The builder above
 );
 
 // Validate and save the user
