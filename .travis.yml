@@ -18,8 +18,7 @@ before_install:
    - export ALLOW_FAILURE=1; if [ "$TRAVIS_PHP_VERSION" != "hhvm" ] && [ "$TRAVIS_PHP_VERSION" != "nightly" ]; then export ALLOW_FAILURE=0; fi
 
 install:
-  - composer self-update
-  - composer install --prefer-dist
+  - composer install --prefer-dist -n
 
 script:
   - composer validate
